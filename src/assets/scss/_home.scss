@@ -1,0 +1,32 @@
+.home__container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  row-gap: 2rem;
+  align-items: center;
+  box-sizing: border-box;
+}
+.home__user-panel {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 2rem;
+}
+.home__user-input {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.home__section {
+  width: 100%;
+  min-height: 50vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}

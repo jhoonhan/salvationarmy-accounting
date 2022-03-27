@@ -1,0 +1,51 @@
+body {
+  font-size: 1.6rem;
+}
+button,
+.btn {
+  font-size: 1.6rem;
+}
+input {
+  height: 6rem;
+  padding: 0 2rem;
+}
+
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  box-sizing: border-box;
+}
+.name-search {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.name-search__results {
+  position: relative;
+  top: 0;
+  width: 100%;
+  min-height: 8rem;
+  max-height: 30rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: 1rem 0rem;
+
+  background-color: white;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+
+  overflow-y: scroll;
+}
+.name-search__name {
+  padding: 1rem 2rem;
+  border: 1px solid red;
+}
