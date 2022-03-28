@@ -117,16 +117,16 @@ const OrderForm = ({
   //   deleteUser(selectedUser.id, filteredUsers);
   // };
 
-  const onDateChange = (e) => {
-    const selectedDate = new Date(e.target.value);
-    if (selectedDate.getDay() !== 6) {
-      console.error(`sunday must be selected`);
-    }
-    if (selectedDate.getDay() == 6) {
-      console.log(`date changed`);
-      setCurrentDate(e.target.value);
-    }
-  };
+  // const onDateChange = (e) => {
+  //   const selectedDate = new Date(e.target.value);
+  //   if (selectedDate.getDay() !== 6) {
+  //     console.error(`sunday must be selected`);
+  //   }
+  //   if (selectedDate.getDay() == 6) {
+  //     console.log(`date changed`);
+  //     setCurrentDate(e.target.value);
+  //   }
+  // };
 
   // const renderUserSearch = () => {
   //   return (
@@ -165,12 +165,12 @@ const OrderForm = ({
       autoComplete="off"
       className="order__form"
     >
-      <Field
+      {/* <Field
         name="date"
         type="date"
         component={renderField}
         onChange={onDateChange}
-      />
+      /> */}
 
       {/* <div className="name-search">
         <input

@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
+
 import { connect } from "react-redux";
 import OrderChart from "./OrderChart";
 import OrderForm from "./OrderForm";
 import UserForm from "./UserForm";
 import UserSearch from "./UserSearch";
+import DateSelector from "./DateSelector";
 
 import { createOrder, fetchOrders, fetchUsers } from "../actions";
 
-export const User = ({ user, order, createOrder, fetchOrders, fetchUsers }) => {
+export const Order = ({
+  user,
+  order,
+  createOrder,
+  fetchOrders,
+  fetchUsers,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentDate, setCurrentDate] = useState(null);
   const [selectedUser, setSelectedUser] = useState({});
@@ -33,6 +41,13 @@ export const User = ({ user, order, createOrder, fetchOrders, fetchUsers }) => {
           />
         </div>
         <div className="order__container__col">
+          <DateSelector setCurrentDate={setCurrentDate} />
+          <UserSearch
+            selectedUser={selectedUser}
+            setSelectedUser={setSelectedUser}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
           <OrderForm
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
@@ -40,12 +55,7 @@ export const User = ({ user, order, createOrder, fetchOrders, fetchUsers }) => {
             setCurrentDate={setCurrentDate}
             selectedUser={selectedUser}
           />
-          <UserSearch
-            selectedUser={selectedUser}
-            setSelectedUser={setSelectedUser}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-          />
+
           <UserForm />
         </div>
       </div>
@@ -56,9 +66,6 @@ export const User = ({ user, order, createOrder, fetchOrders, fetchUsers }) => {
 
 const mapStateToProps = ({ user, form, order }) => {
   return {
-    initialValues: {
-      amount: 0,
-    },
     user,
     order,
   };
@@ -68,4 +75,4 @@ export default connect(mapStateToProps, {
   createOrder,
   fetchOrders,
   fetchUsers,
-})(User);
+})(Order);

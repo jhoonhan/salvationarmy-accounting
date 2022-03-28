@@ -69,11 +69,9 @@ const UserSearch = ({
   };
 
   const renderUserSearch = () => {
-    console.log(selectedUser);
     return (
       <div className="name-search__results">
         {searchResults.map((el, i) => {
-          console.log(el);
           return (
             <div key={i} className="name-search__result">
               <div

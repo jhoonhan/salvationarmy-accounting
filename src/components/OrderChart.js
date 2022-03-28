@@ -96,7 +96,7 @@ const OrderChart = ({ orders, deleteOrder, currentDate }) => {
 
         <div></div>
         <div style={{ borderRight: "none" }}></div>
-        <div>subtotal check:</div>
+        <div style={{ justifyContent: "end" }}>subtotal check:</div>
         <div>${getTotalAmount("check", "amountOffering")}</div>
         <div>${getTotalAmount("check", "amountCartridge")}</div>
         <div>${getTotalAmount("check", "amountThanksgiving")}</div>
@@ -107,7 +107,7 @@ const OrderChart = ({ orders, deleteOrder, currentDate }) => {
 
         <div></div>
         <div style={{ borderRight: "none" }}></div>
-        <div>subtotal cash:</div>
+        <div style={{ justifyContent: "end" }}>subtotal cash:</div>
         <div>${getTotalAmount("cash", "amountOffering")}</div>
         <div>${getTotalAmount("cash", "amountCartridge")}</div>
         <div>${getTotalAmount("cash", "amountThanksgiving")}</div>
@@ -118,7 +118,7 @@ const OrderChart = ({ orders, deleteOrder, currentDate }) => {
 
         <div></div>
         <div style={{ borderRight: "none" }}></div>
-        <div>total:</div>
+        <div style={{ justifyContent: "end" }}>total:</div>
         <div>${getTotalAmount(false, "amountOffering")}</div>
         <div>${getTotalAmount(false, "amountCartridge")}</div>
         <div>${getTotalAmount(false, "amountThanksgiving")}</div>
