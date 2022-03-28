@@ -14,16 +14,14 @@ const OrderForm = ({
   change,
   searchTerm,
   setSearchTerm,
+  currentDate,
+  setCurrentDate,
 }) => {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedUser, setSelectedUser] = useState({});
   const [searchResults, setSearchResults] = useState([]);
   const refNameSearch = useRef(null);
 
-  useEffect(() => {
-    console.log(sundaysInMonth(3, 2022));
-    const today = new Date();
-    console.log(today);
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     if (searchTerm.length === 0) {
@@ -33,37 +31,46 @@ const OrderForm = ({
     if (searchTerm.length > 0) {
       const searchResults = user.users
         .filter((el) => {
-          return (
-            el.nameK[0].toLowerCase().match(searchTerm.toLowerCase()) ||
-            el.name.toLowerCase().match(searchTerm.toLowerCase())
-          );
+          let results;
+          if (!el.nameK) {
+            results = el.name.toLowerCase().match(searchTerm.toLowerCase());
+          }
+          if (!el.name) {
+            results = el.nameK[0].match(searchTerm);
+          }
+
+          if (el.nameK && el.name) {
+            results =
+              el.nameK[0].match(searchTerm) ||
+              el.name.toLowerCase().match(searchTerm.toLowerCase());
+          }
+          return results;
         })
         .sort((a, b) => {
-          return a.nameK.localeCompare(b.nameK);
+          let results;
+          if (!a.nameK || !b.nameK) {
+            results = a.name.localeCompare(b.name);
+          } else {
+            results = a.nameK.localeCompare(b.nameK);
+          }
+          return results;
         });
       setSearchResults(searchResults);
     }
-  }, [searchTerm]);
-
-  const sundaysInMonth = (month, year) => {
-    const days = new Date(year, month, 0).getDate();
-    let sundays = [8 - new Date(month + "/01/" + year).getDay()];
-    for (var i = sundays[0] + 7; i < days; i += 7) {
-      sundays.push(i);
-    }
-    return sundays;
-  };
+  }, [searchTerm, user]);
 
   const orderSubmit = (formValues) => {
-    console.log(formValues);
     const values = {
       amountSpecial: !formValues.amountSpecial ? 0 : formValues.amountSpecial,
       amountTithe: !formValues.amountTithe ? 0 : formValues.amountTithe,
       amountWeekly: !formValues.amountWeekly ? 0 : formValues.amountWeekly,
     };
+
     const combinedData = {
       ...formValues,
       ...values,
+      name: selectedUser.name,
+      nameK: selectedUser.nameK,
     };
     createOrder(combinedData);
   };
@@ -72,8 +79,20 @@ const OrderForm = ({
     setSearchTerm(event.target.value);
   };
   const onSelectUser = (user) => {
+    setSelectedUser(user);
     change("name", user.name);
     change("nameK", user.nameK);
+  };
+
+  const onDateChange = (e) => {
+    const selectedDate = new Date(e.target.value);
+    if (selectedDate.getDay() !== 6) {
+      console.error(`sunday must be selected`);
+    }
+    if (selectedDate.getDay() == 6) {
+      console.log(`date changed`);
+      setCurrentDate(e.target.value);
+    }
   };
 
   const renderUserSearch = () => {
@@ -86,7 +105,8 @@ const OrderForm = ({
               key={i}
               className="name-search__name"
               style={
-                user.name === formName.name && user.nameK === formName.nameK
+                user.name === selectedUser.name &&
+                user.nameK === selectedUser.nameK
                   ? { backgroundColor: "red" }
                   : {}
               }
@@ -105,30 +125,30 @@ const OrderForm = ({
       autoComplete="off"
       className="order__form"
     >
-      <input type="date" />
-      <div className="order__week">
-        <div className="order__week-selector">a</div>
-        <div className="order__week-selector">a</div>
-        <div className="order__week-selector">a</div>
-        <div className="order__week-selector">a</div>
-        <div className="order__week-selector">a</div>
-        <div className="order__week-selector">a</div>
-        <div className="order__week-selector">a</div>
-      </div>
+      <Field
+        name="date"
+        type="date"
+        component={renderField}
+        onChange={onDateChange}
+      />
+
       <div className="name-search">
         <input
           ref={refNameSearch}
           type="text"
           value={searchTerm}
           onChange={onUserSearchChange}
+          onClick={() => setSearchTerm("")}
         />
         {renderUserSearch()}
       </div>
 
       <label className="order__selector__item__label">User Info</label>
       <div className="order__user-info">
-        <Field name="nameK" component={renderField} type="text" label="이름" />
-        <Field name="name" component={renderField} type="text" label="name" />
+        <div>{selectedUser.nameK}</div>
+        <div>{selectedUser.name}</div>
+        {/* <Field name="nameK" component={renderField} type="text" label="이름" />
+        <Field name="name" component={renderField} type="text" label="name" /> */}
       </div>
 
       <div className="order__selector">
@@ -176,15 +196,13 @@ const wrappedForm = reduxForm({
 
 const selector = formValueSelector("orderForm");
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    initialValues: {},
+    initialValues: {
+      date: ownProps.currentDate,
+    },
     user: state.user,
     order: state.order,
-    formName: {
-      name: selector(state, "name"),
-      nameK: selector(state, "nameK"),
-    },
   };
 };
 

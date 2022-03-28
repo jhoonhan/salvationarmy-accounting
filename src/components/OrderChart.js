@@ -3,29 +3,41 @@ import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { deleteOrder } from "../actions";
 
-const OrderChart = ({ order, deleteOrder }) => {
+const OrderChart = ({ order, currentDate, deleteOrder }) => {
   const onClickDelete = (selectedOrder) => {
-    console.log(selectedOrder);
+    console.log(order);
     const filteredOrders = order.orders.filter(
       (el) => el.id !== selectedOrder.id
     );
     deleteOrder(selectedOrder.id, filteredOrders);
   };
 
-  const renderOrderRow = order.orders.map((el, i) => {
-    return (
-      <React.Fragment key={i}>
-        <div>{el.nameK}</div>
-        <div>{el.amountWeekly}</div>
-        <div>{el.amountTithe}</div>
-        <div>{el.amountSpecial}</div>
-        <div></div>
-        <Button onClick={() => onClickDelete(el)} variant="danger">
-          X
-        </Button>
-      </React.Fragment>
-    );
-  });
+  const renderOrderRow = order.orders
+    .filter((el) => el.date === currentDate)
+    .sort((a, b) => {
+      let results;
+      if (!a.nameK) {
+        results = a.name.localeCompare(b.name);
+      } else {
+        results = a.nameK.localeCompare(b.nameK);
+      }
+      return results;
+    })
+    .map((el, i) => {
+      return (
+        <React.Fragment key={i}>
+          <div>{el.nameK ? el.nameK : el.name}</div>
+          <div>{el.amountWeekly}</div>
+          <div>{el.amountTithe}</div>
+          <div>{el.amountSpecial}</div>
+          <div></div>
+          <Button onClick={() => onClickDelete(el)} variant="danger">
+            X
+          </Button>
+        </React.Fragment>
+      );
+    });
+
   return (
     <>
       <label>Week 12</label>
