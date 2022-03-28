@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import OrderChart from "./OrderChart";
 import OrderForm from "./OrderForm";
 import UserForm from "./UserForm";
+import UserSearch from "./UserSearch";
 
 import { createOrder, fetchOrders, fetchUsers } from "../actions";
 
 export const User = ({ user, order, createOrder, fetchOrders, fetchUsers }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentDate, setCurrentDate] = useState(null);
+  const [selectedUser, setSelectedUser] = useState({});
 
   useEffect(() => {
     let prevSunday = new Date();
@@ -36,6 +38,13 @@ export const User = ({ user, order, createOrder, fetchOrders, fetchUsers }) => {
             setSearchTerm={setSearchTerm}
             currentDate={currentDate}
             setCurrentDate={setCurrentDate}
+            selectedUser={selectedUser}
+          />
+          <UserSearch
+            selectedUser={selectedUser}
+            setSelectedUser={setSelectedUser}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
           />
           <UserForm />
         </div>

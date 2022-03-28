@@ -41,7 +41,6 @@ export const fetchOrders = () => async (dispatch) => {
 
 export const deleteOrder = (orderId, orders) => async (dispatch) => {
   try {
-    console.log(orderId);
     const res = await server.delete(`/orders/${orderId}`);
     dispatch({ type: DELETE_ORDER, payload: orders });
   } catch (error) {
