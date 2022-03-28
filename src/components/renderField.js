@@ -1,6 +1,12 @@
 import React from "react";
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => {
+const renderField = ({
+  input,
+  label,
+  type,
+  style,
+  meta: { touched, error },
+}) => {
   const inputArea = (
     <input
       {...input}
@@ -8,6 +14,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => {
       type={type}
       autoComplete="off"
       className="input--100"
+      style={style}
     />
   );
   const textArea = <textarea {...input} placeholder={label} type={type} />;

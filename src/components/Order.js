@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Button } from "react-bootstrap";
 import OrderChart from "./OrderChart";
 import OrderForm from "./OrderForm";
 import UserForm from "./UserForm";
@@ -26,7 +25,9 @@ export const User = ({ user, order, createOrder, fetchOrders, fetchUsers }) => {
     return (
       <div className="order__container">
         <div className="order__container__col">
-          <OrderChart order={order} currentDate={currentDate} />
+          <OrderChart
+            orders={order.orders.filter((el) => el.date === currentDate)}
+          />
         </div>
         <div className="order__container__col">
           <OrderForm

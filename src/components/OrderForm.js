@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import renderField from "./renderField";
 import { createOrder } from "../actions";
-import { Button } from "react-bootstrap";
 
 const OrderForm = ({
   user,
@@ -17,6 +16,7 @@ const OrderForm = ({
   currentDate,
   setCurrentDate,
 }) => {
+  const [orderType, setOrderType] = useState("cash");
   const [selectedUser, setSelectedUser] = useState({});
   const [searchResults, setSearchResults] = useState([]);
   const refNameSearch = useRef(null);
@@ -32,11 +32,11 @@ const OrderForm = ({
       const searchResults = user.users
         .filter((el) => {
           let results;
+          if (!el.nameK && !el.name) {
+            results = null;
+          }
           if (!el.nameK) {
             results = el.name.toLowerCase().match(searchTerm.toLowerCase());
-          }
-          if (!el.name) {
-            results = el.nameK[0].match(searchTerm);
           }
 
           if (el.nameK && el.name) {
@@ -61,9 +61,25 @@ const OrderForm = ({
 
   const orderSubmit = (formValues) => {
     const values = {
-      amountSpecial: !formValues.amountSpecial ? 0 : formValues.amountSpecial,
-      amountTithe: !formValues.amountTithe ? 0 : formValues.amountTithe,
-      amountWeekly: !formValues.amountWeekly ? 0 : formValues.amountWeekly,
+      amountThanksgiving: !formValues.amountThanksgiving
+        ? 0
+        : +formValues.amountThanksgiving,
+
+      amountCartridge: !formValues.amountCartridge
+        ? 0
+        : +formValues.amountCartridge,
+
+      amountOffering: !formValues.amountOffering
+        ? 0
+        : +formValues.amountOffering,
+
+      amountSelfDenial: !formValues.amountSelfDenial
+        ? 0
+        : +formValues.amountSelfDenial,
+
+      amountBuildingFund: !formValues.amountBuildingFund
+        ? 0
+        : +formValues.amountBuildingFund,
     };
 
     const combinedData = {
@@ -71,6 +87,13 @@ const OrderForm = ({
       ...values,
       name: selectedUser.name,
       nameK: selectedUser.nameK,
+      type: orderType,
+      total:
+        values.amountThanksgiving +
+        values.amountCartridge +
+        values.amountOffering +
+        values.amountSelfDenial +
+        values.amountBuildingFund,
     };
     createOrder(combinedData);
   };
@@ -143,7 +166,7 @@ const OrderForm = ({
         {renderUserSearch()}
       </div>
 
-      <label className="order__selector__item__label">User Info</label>
+      <label className="order__amounts__item__label">User Info</label>
       <div className="order__user-info">
         <div>{selectedUser.nameK}</div>
         <div>{selectedUser.name}</div>
@@ -151,37 +174,74 @@ const OrderForm = ({
         <Field name="name" component={renderField} type="text" label="name" /> */}
       </div>
 
-      <div className="order__selector">
-        <div className="order__selector__item">
-          <label className="order__selector__item__label">weekly</label>
+      <div className="order__order-type">
+        <div
+          style={orderType === "cash" ? { backgroundColor: "red" } : {}}
+          onClick={() => {
+            setOrderType("cash");
+            change("checkNumber", "");
+          }}
+        >
+          cash
+        </div>
+        <div onClick={() => setOrderType("check")}>
           <Field
-            name="amountWeekly"
+            name="checkNumber"
             component={renderField}
-            type="number"
-            label="amount"
+            label="check #"
+            style={orderType === "check" ? { backgroundColor: "red" } : {}}
           />
         </div>
-        <div className="order__selector__item">
-          <label className="order__selector__item__label">shipiljo</label>
+      </div>
+      <div className="order__amounts">
+        <div className="order__amounts__item">
+          <label className="order__amounts__item__label">offering</label>
           <Field
-            name="amountTithe"
+            name="amountOffering"
             component={renderField}
             type="number"
-            label="amount"
+            label="0"
           />
         </div>
-        <div className="order__selector__item">
-          <label className="order__selector__item__label">special</label>
+        <div className="order__amounts__item">
+          <label className="order__amounts__item__label">cartridge</label>
           <Field
-            name="amountSpecial"
+            name="amountCartridge"
             component={renderField}
             type="number"
-            label="amount"
+            label="0"
+          />
+        </div>
+        <div className="order__amounts__item">
+          <label className="order__amounts__item__label">thanksgiving</label>
+          <Field
+            name="amountThanksgiving"
+            component={renderField}
+            type="number"
+            label="0"
+          />
+        </div>
+        <div className="order__amounts__item">
+          <label className="order__amounts__item__label">self denial</label>
+          <Field
+            name="amountSelfDenial"
+            component={renderField}
+            type="number"
+            label="0"
+          />
+        </div>
+        <div className="order__amounts__item">
+          <label className="order__amounts__item__label">building fund</label>
+          <Field
+            name="amountBuildingFund"
+            component={renderField}
+            type="number"
+            label="0"
           />
         </div>
       </div>
 
-      <Button type="submit">Submit</Button>
+      <button type="submit">Submit</button>
     </form>
   );
 };

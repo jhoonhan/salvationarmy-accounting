@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 import { Field, reduxForm, change } from "redux-form";
-import { Button } from "react-bootstrap";
 import renderField from "./renderField";
 import { createUser } from "../actions";
 
@@ -34,7 +33,7 @@ const UserForm = ({ createUser, handleSubmit }) => {
               label="name"
             />
           </div>
-          <Button type="submit">Submit</Button>
+          <button type="submit">Submit</button>
         </form>
       </>
     );
