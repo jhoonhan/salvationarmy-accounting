@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useRef } from "react";
+import ReactToPrint from "react-to-print";
 import { connect } from "react-redux";
 import OrderChart from "./OrderChart";
 import OrderForm from "./OrderForm";
 import UserForm from "./UserForm";
 import UserSearch from "./UserSearch";
 import DateSelector from "./DateSelector";
+import AdditionalForm from "./AdditionalForm";
 
 import { createOrder, fetchOrders, fetchUsers } from "../actions";
 
@@ -19,6 +20,7 @@ export const Order = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [currentDate, setCurrentDate] = useState(null);
   const [selectedUser, setSelectedUser] = useState({});
+  const refPrint = useRef(null);
 
   useEffect(() => {
     let prevSunday = new Date();
@@ -34,13 +36,15 @@ export const Order = ({
   const render = () => {
     return (
       <div className="order__container">
-        <div className="order__container__col">
+        <div ref={refPrint} className="order__container__col print-area">
+          <div onClick={window.print}>print</div>
           <OrderChart
             orders={order.orders.filter((el) => el.date === currentDate)}
             currentDate={currentDate}
           />
+          <AdditionalForm />
         </div>
-        <div className="order__container__col">
+        <div className="order__container__col print-hide-adea">
           <DateSelector setCurrentDate={setCurrentDate} />
           <UserSearch
             selectedUser={selectedUser}

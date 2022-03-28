@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: 3fr 2fr;
   column-gap: 4rem;
+  box-sizing: border-box;
 }
 .order__form {
   width: 100%;
@@ -39,6 +40,7 @@
   grid-template-rows: auto;
 
   border: 1px solid #ccc;
+  box-sizing: border-box;
 
   & div {
     width: 100%;
@@ -116,4 +118,74 @@
   &:hover {
     color: black;
   }
+}
+
+@media print {
+  .print-hide-adea {
+    display: none !important;
+  }
+  body {
+    font-size: 1rem !important;
+  }
+  .order__container {
+    grid-template-columns: 100% !important;
+    column-gap: 0rem;
+  }
+  .order__chart__delete {
+    color: transparent !important;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+}
+
+.addform__container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  box-sizing: border-box;
+}
+.addform__column {
+  display: flex;
+  flex-direction: column;
+}
+.addform__row {
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+}
+.addform__row-combined {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.addform__cartridge-report {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border-width: 1px 0 0 1px;
+  border-color: #ccc;
+  border-style: solid;
+
+  & div {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 0rem;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  & input {
+    width: 25%;
+    border: none;
+    padding: 0;
+    text-align: center;
+  }
+}
+
+.addform__input {
+  width: 100%;
+  border-width: 0 0 1px 0;
+  border-color: #ccc;
+  border-style: solid;
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
