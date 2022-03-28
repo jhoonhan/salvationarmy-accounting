@@ -1,12 +1,14 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import { deleteOrder } from "../actions";
 
 const OrderChart = ({ order, deleteOrder }) => {
   const onClickDelete = (selectedOrder) => {
     const filteredOrders = order.orders.filter(
       (el) => el.id !== selectedOrder.id
     );
-    deleteOrder(filteredOrders);
+    deleteOrder(selectedOrder.id, filteredOrders);
   };
 
   const renderOrderRow = order.orders.map((el, i) => {
@@ -50,4 +52,10 @@ const OrderChart = ({ order, deleteOrder }) => {
   );
 };
 
-export default OrderChart;
+const mapStateToProps = () => {
+  return {};
+};
+
+export default connect(mapStateToProps, {
+  deleteOrder,
+})(OrderChart);

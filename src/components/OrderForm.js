@@ -29,6 +29,7 @@ const OrderForm = ({
   }, [searchTerm]);
 
   const orderSubmit = (formValues) => {
+    console.log(formValues);
     const combinedData = {
       ...formValues,
       ...selectedUser,
@@ -100,7 +101,7 @@ const OrderForm = ({
           <Field
             name="amountWeekly"
             component={renderField}
-            type="text"
+            type="number"
             label="amount"
           />
         </div>
@@ -109,7 +110,7 @@ const OrderForm = ({
           <Field
             name="amountTithe"
             component={renderField}
-            type="text"
+            type="number"
             label="amount"
           />
         </div>
@@ -118,7 +119,7 @@ const OrderForm = ({
           <Field
             name="amountSpecial"
             component={renderField}
-            type="text"
+            type="number"
             label="amount"
           />
         </div>
@@ -131,9 +132,7 @@ const OrderForm = ({
 
 const mapStateToProps = ({ user, form, order }) => {
   return {
-    initialValues: {
-      amount: 0,
-    },
+    initialValues: {},
     user,
     order,
   };

@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import OrderChart from "./OrderChart";
 import OrderForm from "./OrderForm";
 
-import { createOrder, fetchOrders, deleteOrder, fetchUsers } from "../actions";
+import { createOrder, fetchOrders, fetchUsers } from "../actions";
 
 export const User = ({ user, order, createOrder, fetchOrders, fetchUsers }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,7 +18,7 @@ export const User = ({ user, order, createOrder, fetchOrders, fetchUsers }) => {
     return (
       <div className="order__container">
         <div className="order__container__col">
-          <OrderChart order={order} deleteOrder={deleteOrder} />
+          <OrderChart order={order} />
         </div>
         <div className="order__container__col">
           <OrderForm searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -42,6 +42,5 @@ const mapStateToProps = ({ user, form, order }) => {
 export default connect(mapStateToProps, {
   createOrder,
   fetchOrders,
-  deleteOrder,
   fetchUsers,
 })(User);
