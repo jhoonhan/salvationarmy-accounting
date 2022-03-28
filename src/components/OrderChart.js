@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { deleteOrder } from "../actions";
 
-const OrderChart = ({ orders, deleteOrder }) => {
+const OrderChart = ({ orders, deleteOrder, currentDate }) => {
   const onClickDelete = (selectedOrder) => {
     const filteredOrders = orders.filter((el) => el.id !== selectedOrder.id);
     deleteOrder(selectedOrder.id, filteredOrders);
@@ -32,7 +32,6 @@ const OrderChart = ({ orders, deleteOrder }) => {
       } else {
         results = a.nameK.localeCompare(b.nameK);
       }
-      console.log(results);
       return results;
     })
     .map((el, i) => {
@@ -42,21 +41,26 @@ const OrderChart = ({ orders, deleteOrder }) => {
           <div>{el.nameK ? el.nameK : el.name}</div>
           <div>{el.checkNumber}</div>
 
-          <div>${el.amountCartridge}</div>
           <div>${el.amountOffering}</div>
+          <div>${el.amountCartridge}</div>
           <div>${el.amountThanksgiving}</div>
           <div>${el.amountSelfDenial}</div>
           <div>${el.amountBuildingFund}</div>
           <div>${el.total}</div>
 
-          <button onClick={() => onClickDelete(el)}>X</button>
+          <div
+            className="order__chart__delete"
+            onClick={() => onClickDelete(el)}
+          >
+            X
+          </div>
         </React.Fragment>
       );
     });
 
   return (
     <>
-      <label>Week 12</label>
+      <label>{currentDate}</label>
 
       <div className="order__chart">
         <div>
@@ -69,10 +73,10 @@ const OrderChart = ({ orders, deleteOrder }) => {
           <label>check #</label>
         </div>
         <div>
-          <label>cartridge</label>
+          <label>offering</label>
         </div>
         <div>
-          <label>offering</label>
+          <label>cartridge</label>
         </div>
         <div>
           <label>thanksgiving</label>
@@ -91,10 +95,10 @@ const OrderChart = ({ orders, deleteOrder }) => {
         {renderOrderRow}
 
         <div></div>
-        <div></div>
+        <div style={{ borderRight: "none" }}></div>
         <div>subtotal check:</div>
-        <div>${getTotalAmount("check", "amountCartridge")}</div>
         <div>${getTotalAmount("check", "amountOffering")}</div>
+        <div>${getTotalAmount("check", "amountCartridge")}</div>
         <div>${getTotalAmount("check", "amountThanksgiving")}</div>
         <div>${getTotalAmount("check", "amountSelfDenial")}</div>
         <div>${getTotalAmount("check", "amountBuildingFund")}</div>
@@ -102,10 +106,10 @@ const OrderChart = ({ orders, deleteOrder }) => {
         <div></div>
 
         <div></div>
-        <div></div>
+        <div style={{ borderRight: "none" }}></div>
         <div>subtotal cash:</div>
-        <div>${getTotalAmount("cash", "amountCartridge")}</div>
         <div>${getTotalAmount("cash", "amountOffering")}</div>
+        <div>${getTotalAmount("cash", "amountCartridge")}</div>
         <div>${getTotalAmount("cash", "amountThanksgiving")}</div>
         <div>${getTotalAmount("cash", "amountSelfDenial")}</div>
         <div>${getTotalAmount("cash", "amountBuildingFund")}</div>
@@ -113,10 +117,10 @@ const OrderChart = ({ orders, deleteOrder }) => {
         <div></div>
 
         <div></div>
-        <div></div>
+        <div style={{ borderRight: "none" }}></div>
         <div>total:</div>
-        <div>${getTotalAmount(false, "amountCartridge")}</div>
         <div>${getTotalAmount(false, "amountOffering")}</div>
+        <div>${getTotalAmount(false, "amountCartridge")}</div>
         <div>${getTotalAmount(false, "amountThanksgiving")}</div>
         <div>${getTotalAmount(false, "amountSelfDenial")}</div>
         <div>${getTotalAmount(false, "amountBuildingFund")}</div>

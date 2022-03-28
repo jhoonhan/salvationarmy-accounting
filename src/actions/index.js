@@ -9,6 +9,7 @@ import {
   CREATE_USER,
   FETCH_USER,
   FETCH_USERS,
+  DELETE_USER,
 } from "./types";
 
 export const signOut = () => {
@@ -62,6 +63,16 @@ export const createUser = (formValues) => async (dispatch) => {
     await server.post("/users", formValues);
     dispatch({ type: CREATE_USER, payload: formValues });
     dispatch(reset("userForm"));
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const deleteUser = (userId, users) => async (dispatch) => {
+  try {
+    console.log(userId);
+    console.log(users);
+    await server.delete(`/users/${userId}`);
+    dispatch({ type: DELETE_USER, payload: users });
   } catch (error) {
     console.error(error);
   }

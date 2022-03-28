@@ -5,6 +5,7 @@ const renderField = ({
   label,
   type,
   style,
+  required,
   meta: { touched, error },
 }) => {
   const inputArea = (
@@ -15,6 +16,7 @@ const renderField = ({
       autoComplete="off"
       className="input--100"
       style={style}
+      required={required}
     />
   );
   const textArea = <textarea {...input} placeholder={label} type={type} />;

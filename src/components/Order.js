@@ -27,6 +27,7 @@ export const User = ({ user, order, createOrder, fetchOrders, fetchUsers }) => {
         <div className="order__container__col">
           <OrderChart
             orders={order.orders.filter((el) => el.date === currentDate)}
+            currentDate={currentDate}
           />
         </div>
         <div className="order__container__col">

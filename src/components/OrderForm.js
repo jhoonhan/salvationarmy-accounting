@@ -3,13 +3,16 @@ import { connect } from "react-redux";
 
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import renderField from "./renderField";
-import { createOrder } from "../actions";
+import UserForm from "./UserForm";
+
+import { createOrder, deleteUser } from "../actions";
 
 const OrderForm = ({
   user,
   formName,
   handleSubmit,
   createOrder,
+  deleteUser,
   change,
   searchTerm,
   setSearchTerm,
@@ -57,7 +60,7 @@ const OrderForm = ({
         });
       setSearchResults(searchResults);
     }
-  }, [searchTerm, user]);
+  }, [searchTerm, user.users]);
 
   const orderSubmit = (formValues) => {
     const values = {
@@ -107,6 +110,12 @@ const OrderForm = ({
     change("nameK", user.nameK);
   };
 
+  const onClickDeleteUser = (selectedUser) => {
+    console.log(`delete ${selectedUser.nameK}`);
+    const filteredUsers = user.users.filter((el) => el.id !== selectedUser.id);
+    deleteUser(selectedUser.id, filteredUsers);
+  };
+
   const onDateChange = (e) => {
     const selectedDate = new Date(e.target.value);
     if (selectedDate.getDay() !== 6) {
@@ -123,18 +132,25 @@ const OrderForm = ({
       <div className="name-search__results">
         {searchResults.map((user, i) => {
           return (
-            <div
-              onClick={() => onSelectUser(user)}
-              key={i}
-              className="name-search__name"
-              style={
-                user.name === selectedUser.name &&
-                user.nameK === selectedUser.nameK
-                  ? { backgroundColor: "red" }
-                  : {}
-              }
-            >
-              {user.nameK} / {user.name}
+            <div key={i} className="name-search__result">
+              <div
+                onClick={() => onSelectUser(user)}
+                className="name-search__name"
+                style={
+                  user.name === selectedUser.name &&
+                  user.nameK === selectedUser.nameK
+                    ? { backgroundColor: "red" }
+                    : {}
+                }
+              >
+                {user.nameK} / {user.name}
+              </div>
+              <div
+                onClick={() => onClickDeleteUser(user)}
+                className="name--search__delete"
+              >
+                X
+              </div>
             </div>
           );
         })}
@@ -181,6 +197,7 @@ const OrderForm = ({
             setOrderType("cash");
             change("checkNumber", "");
           }}
+          className="order__order-type--cash"
         >
           cash
         </div>
@@ -190,6 +207,7 @@ const OrderForm = ({
             component={renderField}
             label="check #"
             style={orderType === "check" ? { backgroundColor: "red" } : {}}
+            required={orderType === "check" ? true : false}
           />
         </div>
       </div>
@@ -268,5 +286,6 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {
   createOrder,
+  deleteUser,
   change,
 })(wrappedForm);

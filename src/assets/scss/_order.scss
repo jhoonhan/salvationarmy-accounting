@@ -47,7 +47,7 @@
     display: flex;
     align-items: center;
 
-    padding-left: 1rem;
+    padding: 0.5rem 1rem;
 
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
@@ -99,5 +99,18 @@
 
   & input {
     width: 100%;
+  }
+}
+.order__order-type--cash {
+  border: 1px solid #ccc;
+  padding: 1.5rem;
+}
+.order__chart__delete {
+  color: red;
+  margin-right: 1rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  &:hover {
+    color: black;
   }
 }
