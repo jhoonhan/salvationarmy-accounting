@@ -5,7 +5,7 @@ import "../assets/scss/App.scss";
 
 import Header from "./Header";
 import Home from "./Home";
-import User from "./User";
+import Order from "./Order";
 
 const App = () => {
   const location = useLocation();
@@ -16,7 +16,7 @@ const App = () => {
 
       <Switch location={location} key={location.pathname}>
         <Route path="/" exact component={Home} />
-        <Route path="/user" exact component={User} />
+        <Route path="/order" exact component={Order} />
       </Switch>
     </div>
   );

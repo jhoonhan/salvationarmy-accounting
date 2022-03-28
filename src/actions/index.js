@@ -5,6 +5,7 @@ import {
   CREATE_ORDER,
   FETCH_ORDER,
   FETCH_ORDERS,
+  DELETE_ORDER,
   CREATE_USER,
   FETCH_USER,
   FETCH_USERS,
@@ -32,6 +33,15 @@ export const fetchOrders = () => async (dispatch) => {
   try {
     const res = await server.get("/orders");
     dispatch({ type: FETCH_ORDERS, payload: res.data });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteOrder = (orders) => async (dispatch) => {
+  try {
+    console.log(`delete order fired`);
+    dispatch({ type: DELETE_ORDER, payload: orders });
   } catch (error) {
     console.error(error);
   }
