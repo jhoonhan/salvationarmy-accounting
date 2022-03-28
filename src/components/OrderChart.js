@@ -15,7 +15,7 @@ const OrderChart = ({ order, deleteOrder }) => {
   const renderOrderRow = order.orders.map((el, i) => {
     return (
       <React.Fragment key={i}>
-        <div>{el.name}</div>
+        <div>{el.nameK}</div>
         <div>{el.amountWeekly}</div>
         <div>{el.amountTithe}</div>
         <div>{el.amountSpecial}</div>

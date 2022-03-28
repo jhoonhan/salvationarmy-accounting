@@ -20,6 +20,12 @@ const OrderForm = ({
   const refNameSearch = useRef(null);
 
   useEffect(() => {
+    console.log(sundaysInMonth(3, 2022));
+    const today = new Date();
+    console.log(today);
+  }, []);
+
+  useEffect(() => {
     if (searchTerm.length === 0) {
       setSearchResults([]);
       return;
@@ -28,7 +34,7 @@ const OrderForm = ({
       const searchResults = user.users
         .filter((el) => {
           return (
-            el.nameK.toLowerCase().match(searchTerm.toLowerCase()) ||
+            el.nameK[0].toLowerCase().match(searchTerm.toLowerCase()) ||
             el.name.toLowerCase().match(searchTerm.toLowerCase())
           );
         })
@@ -38,6 +44,15 @@ const OrderForm = ({
       setSearchResults(searchResults);
     }
   }, [searchTerm]);
+
+  const sundaysInMonth = (month, year) => {
+    const days = new Date(year, month, 0).getDate();
+    let sundays = [8 - new Date(month + "/01/" + year).getDay()];
+    for (var i = sundays[0] + 7; i < days; i += 7) {
+      sundays.push(i);
+    }
+    return sundays;
+  };
 
   const orderSubmit = (formValues) => {
     console.log(formValues);
@@ -91,6 +106,15 @@ const OrderForm = ({
       className="order__form"
     >
       <input type="date" />
+      <div className="order__week">
+        <div className="order__week-selector">a</div>
+        <div className="order__week-selector">a</div>
+        <div className="order__week-selector">a</div>
+        <div className="order__week-selector">a</div>
+        <div className="order__week-selector">a</div>
+        <div className="order__week-selector">a</div>
+        <div className="order__week-selector">a</div>
+      </div>
       <div className="name-search">
         <input
           ref={refNameSearch}
