@@ -20,10 +20,21 @@ const OrderForm = ({
   const refNameSearch = useRef(null);
 
   useEffect(() => {
+    if (searchTerm.length === 0) {
+      setSearchResults([]);
+      return;
+    }
     if (searchTerm.length > 0) {
-      const searchResults = user.users.filter((el) => {
-        return el.name.toLowerCase().match(searchTerm.toLowerCase());
-      });
+      const searchResults = user.users
+        .filter((el) => {
+          return (
+            el.nameK.toLowerCase().match(searchTerm.toLowerCase()) ||
+            el.name.toLowerCase().match(searchTerm.toLowerCase())
+          );
+        })
+        .sort((a, b) => {
+          return a.nameK.localeCompare(b.nameK);
+        });
       setSearchResults(searchResults);
     }
   }, [searchTerm]);
@@ -65,7 +76,7 @@ const OrderForm = ({
                   : {}
               }
             >
-              {user.name}
+              {user.nameK} / {user.name}
             </div>
           );
         })}
@@ -92,8 +103,8 @@ const OrderForm = ({
 
       <label className="order__selector__item__label">User Info</label>
       <div className="order__user-info">
-        <Field name="name" component={renderField} type="text" label="name" />
         <Field name="nameK" component={renderField} type="text" label="이름" />
+        <Field name="name" component={renderField} type="text" label="name" />
       </div>
 
       <div className="order__selector">
