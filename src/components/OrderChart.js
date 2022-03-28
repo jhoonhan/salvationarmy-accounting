@@ -5,6 +5,7 @@ import { deleteOrder } from "../actions";
 
 const OrderChart = ({ order, deleteOrder }) => {
   const onClickDelete = (selectedOrder) => {
+    console.log(selectedOrder);
     const filteredOrders = order.orders.filter(
       (el) => el.id !== selectedOrder.id
     );

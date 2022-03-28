@@ -29,9 +29,14 @@ const OrderForm = ({
   }, [searchTerm]);
 
   const orderSubmit = (formValues) => {
-    console.log(formValues);
+    const values = {
+      amountSpecial: !formValues.amountSpecial ? 0 : formValues.amountSpecial,
+      amountTithe: !formValues.amountTithe ? 0 : formValues.amountTithe,
+      amountWeekly: !formValues.amountWeekly ? 0 : formValues.amountWeekly,
+    };
     const combinedData = {
       ...formValues,
+      ...values,
       ...selectedUser,
     };
     createOrder(combinedData);
