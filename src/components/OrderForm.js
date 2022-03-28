@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
-import { Field, reduxForm, change } from "redux-form";
+import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import renderField from "./renderField";
 import { createOrder } from "../actions";
 import { Button } from "react-bootstrap";
 
 const OrderForm = ({
   user,
+  formName,
   handleSubmit,
   createOrder,
   change,
@@ -15,7 +16,6 @@ const OrderForm = ({
   setSearchTerm,
 }) => {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedUser, setSelectedUser] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const refNameSearch = useRef(null);
 
@@ -29,6 +29,7 @@ const OrderForm = ({
   }, [searchTerm]);
 
   const orderSubmit = (formValues) => {
+    console.log(formValues);
     const values = {
       amountSpecial: !formValues.amountSpecial ? 0 : formValues.amountSpecial,
       amountTithe: !formValues.amountTithe ? 0 : formValues.amountTithe,
@@ -37,17 +38,16 @@ const OrderForm = ({
     const combinedData = {
       ...formValues,
       ...values,
-      ...selectedUser,
     };
     createOrder(combinedData);
-    setSelectedUser(null);
   };
   const onUserSearchChange = (event) => {
     event.preventDefault();
     setSearchTerm(event.target.value);
   };
   const onSelectUser = (user) => {
-    setSelectedUser(user);
+    change("name", user.name);
+    change("nameK", user.nameK);
   };
 
   const renderUserSearch = () => {
@@ -60,7 +60,7 @@ const OrderForm = ({
               key={i}
               className="name-search__name"
               style={
-                user.name === selectedUser?.name
+                user.name === formName.name && user.nameK === formName.nameK
                   ? { backgroundColor: "red" }
                   : {}
               }
@@ -92,12 +92,8 @@ const OrderForm = ({
 
       <label className="order__selector__item__label">User Info</label>
       <div className="order__user-info">
-        <div className="order__user-infobox">
-          {selectedUser ? selectedUser.nameK : " "}
-        </div>
-        <div className="order__user-infobox">
-          {selectedUser ? selectedUser.name : " "}
-        </div>
+        <Field name="name" component={renderField} type="text" label="name" />
+        <Field name="nameK" component={renderField} type="text" label="이름" />
       </div>
 
       <div className="order__selector">
@@ -135,14 +131,6 @@ const OrderForm = ({
   );
 };
 
-const mapStateToProps = ({ user, form, order }) => {
-  return {
-    initialValues: {},
-    user,
-    order,
-  };
-};
-
 const wrappedForm = reduxForm({
   form: "orderForm",
   destroyOnUnmount: false,
@@ -150,6 +138,20 @@ const wrappedForm = reduxForm({
   enableReinitialize: true,
   keepDirtyOnReinitialize: true,
 })(OrderForm);
+
+const selector = formValueSelector("orderForm");
+
+const mapStateToProps = (state) => {
+  return {
+    initialValues: {},
+    user: state.user,
+    order: state.order,
+    formName: {
+      name: selector(state, "name"),
+      nameK: selector(state, "nameK"),
+    },
+  };
+};
 
 export default connect(mapStateToProps, {
   createOrder,
