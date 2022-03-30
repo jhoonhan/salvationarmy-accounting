@@ -1,66 +1,11 @@
-import { SIGN_OUT, CREATE_ORDER } from "../actions/types";
+import { CREATE_REPORT, FETCH_REPORTS } from "../actions/types";
 
-const initialState = {
-  date: null,
-  counter: [],
-
-  offering: {
-    check: 0,
-    cash: 0,
-    total: 0,
-  },
-
-  cartridge: {
-    check: 0,
-    cash: 0,
-    total: 0,
-  },
-
-  thanksGiving: {
-    check: 0,
-    cash: 0,
-    total: 0,
-  },
-
-  selfDenial: {
-    check: 0,
-    cash: 0,
-    total: 0,
-  },
-  buildingFund: {
-    check: 0,
-    cash: 0,
-    total: 0,
-  },
-
-  meeting: {
-    sundaySchool: 0,
-    holinessMeeting: 0,
-    salvationMeeting: 0,
-    midweekMeeting: 0,
-    otherMeeting: 0,
-    total: 0,
-  },
-
-  groups: {
-    adventureCorps: 0,
-    jrLegion: 0,
-    sunbeams: 0,
-    girlGuard: 0,
-    ypl: 0,
-    otherGroup: 0,
-    total: 0,
-  },
-
-  subTotalCheck: 0,
-  subTotalCash: 0,
-  total: 0,
-};
-
-const reducer = (state = initialState, action) => {
+const reducer = (state = {}, action) => {
   switch (action.type) {
-    case CREATE_ORDER:
+    case CREATE_REPORT:
       return { ...state, [action.payload.date]: action.payload };
+    case FETCH_REPORTS:
+      return { ...state, ...action.payload };
     default:
       return state;
   }

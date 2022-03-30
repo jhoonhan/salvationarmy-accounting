@@ -9,7 +9,7 @@ import DateSelector from "./DateSelector";
 import Report from "./Report";
 import useGetTotal from "./useGetTotal";
 
-import { createOrder, fetchOrders, fetchUsers } from "../actions";
+import { createOrder, fetchOrders, fetchUsers, fetchReports } from "../actions";
 
 export const Order = ({
   user,
@@ -17,6 +17,7 @@ export const Order = ({
   createOrder,
   fetchOrders,
   fetchUsers,
+  fetchReports,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentDate, setCurrentDate] = useState(null);
@@ -33,6 +34,7 @@ export const Order = ({
   useEffect(() => {
     fetchOrders();
     fetchUsers();
+    fetchReports();
   }, []);
 
   const render = () => {
@@ -45,7 +47,11 @@ export const Order = ({
             totals={totals}
             currentDate={currentDate}
           />
-          <Report totals={totals} currentDate={currentDate} />
+          <Report
+            totals={totals}
+            currentDate={currentDate}
+            orders={order.orders.filter((el) => el.date === currentDate)}
+          />
         </div>
         <div className="order__container__col print-hide-adea">
           <DateSelector setCurrentDate={setCurrentDate} />
@@ -82,4 +88,5 @@ export default connect(mapStateToProps, {
   createOrder,
   fetchOrders,
   fetchUsers,
+  fetchReports,
 })(Order);

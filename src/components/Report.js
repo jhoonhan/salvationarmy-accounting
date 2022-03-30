@@ -8,6 +8,7 @@ import FixedField from "./FixedField";
 const Report = ({
   totals,
   currentDate,
+  orders,
   meetingValues,
   groupValues,
   handleSubmit,
@@ -17,6 +18,7 @@ const Report = ({
   const [groupTotal, setGroupTotal] = useState(0);
 
   const reportSubmit = (formValues) => {
+    const orderIds = orders.map((order) => order._id);
     const testValues = { ...formValues };
     Object.keys(testValues).forEach(
       (el) => (testValues[el] = parseInt(testValues[el]))
@@ -26,6 +28,7 @@ const Report = ({
       ...testValues,
       ...totals,
       date: currentDate,
+      orders: orderIds,
     };
     createReport(combinedData);
   };
