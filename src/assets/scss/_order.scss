@@ -188,4 +188,7 @@
   border-style: solid;
   padding: 0 2rem;
   box-sizing: border-box;
+  &:before {
+    content: "$ ";
+  }
 }

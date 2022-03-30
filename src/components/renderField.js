@@ -5,16 +5,18 @@ const renderField = ({
   label,
   type,
   style,
+  className,
   required,
   meta: { touched, error },
 }) => {
   const inputArea = (
     <input
       {...input}
+      value={`$ ${input.value}`}
       placeholder={label}
       type={type}
       autoComplete="off"
-      className="input--100"
+      className={`input--100 ${className}`}
       style={style}
       required={required}
     />

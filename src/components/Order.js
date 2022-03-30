@@ -6,7 +6,8 @@ import OrderForm from "./OrderForm";
 import UserForm from "./UserForm";
 import UserSearch from "./UserSearch";
 import DateSelector from "./DateSelector";
-import AdditionalForm from "./AdditionalForm";
+import Report from "./Report";
+import useGetTotal from "./useGetTotal";
 
 import { createOrder, fetchOrders, fetchUsers } from "../actions";
 
@@ -21,6 +22,7 @@ export const Order = ({
   const [currentDate, setCurrentDate] = useState(null);
   const [selectedUser, setSelectedUser] = useState({});
   const refPrint = useRef(null);
+  const totals = useGetTotal(order.orders);
 
   useEffect(() => {
     let prevSunday = new Date();
@@ -40,9 +42,10 @@ export const Order = ({
           <div onClick={window.print}>print</div>
           <OrderChart
             orders={order.orders.filter((el) => el.date === currentDate)}
+            totals={totals}
             currentDate={currentDate}
           />
-          <AdditionalForm />
+          <Report totals={totals} />
         </div>
         <div className="order__container__col print-hide-adea">
           <DateSelector setCurrentDate={setCurrentDate} />

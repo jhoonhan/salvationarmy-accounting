@@ -2,26 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { deleteOrder } from "../actions";
 
-const OrderChart = ({ orders, deleteOrder, currentDate }) => {
+const OrderChart = ({ orders, deleteOrder, currentDate, totals }) => {
   const onClickDelete = (selectedOrder) => {
     const filteredOrders = orders.filter((el) => el.id !== selectedOrder.id);
     deleteOrder(selectedOrder.id, filteredOrders);
-  };
-
-  const getTotalAmount = (type, amount) => {
-    let sum;
-    if (!type) {
-      sum = orders.reduce((a, b) => {
-        return a + b[amount];
-      }, 0);
-    }
-    if (type) {
-      const filtered = orders.filter((order) => order.type === type);
-      sum = filtered.reduce((a, b) => {
-        return a + b[amount];
-      }, 0);
-    }
-    return sum;
   };
 
   const renderOrderRow = orders
@@ -97,34 +81,34 @@ const OrderChart = ({ orders, deleteOrder, currentDate }) => {
         <div></div>
         <div style={{ borderRight: "none" }}></div>
         <div style={{ justifyContent: "end" }}>subtotal check:</div>
-        <div>${getTotalAmount("check", "amountOffering")}</div>
-        <div>${getTotalAmount("check", "amountCartridge")}</div>
-        <div>${getTotalAmount("check", "amountThanksgiving")}</div>
-        <div>${getTotalAmount("check", "amountSelfDenial")}</div>
-        <div>${getTotalAmount("check", "amountBuildingFund")}</div>
-        <div>${getTotalAmount("check", "total")}</div>
+        <div>${totals.offeringCheckSub}</div>
+        <div>${totals.cartridgeCheckSub}</div>
+        <div>${totals.thanksGivingCheckSub}</div>
+        <div>${totals.selfDenialCheckSub}</div>
+        <div>${totals.buildingCheckSub}</div>
+        <div>${totals.subTotalCheck}</div>
         <div></div>
 
         <div></div>
         <div style={{ borderRight: "none" }}></div>
         <div style={{ justifyContent: "end" }}>subtotal cash:</div>
-        <div>${getTotalAmount("cash", "amountOffering")}</div>
-        <div>${getTotalAmount("cash", "amountCartridge")}</div>
-        <div>${getTotalAmount("cash", "amountThanksgiving")}</div>
-        <div>${getTotalAmount("cash", "amountSelfDenial")}</div>
-        <div>${getTotalAmount("cash", "amountBuildingFund")}</div>
-        <div>${getTotalAmount("cash", "total")}</div>
+        <div>${totals.offeringCashSub}</div>
+        <div>${totals.cartridgeCashSub}</div>
+        <div>${totals.thanksGivingCashSub}</div>
+        <div>${totals.selfDenialCashSub}</div>
+        <div>${totals.buildingCashSub}</div>
+        <div>${totals.subTotalCash}</div>
         <div></div>
 
         <div></div>
         <div style={{ borderRight: "none" }}></div>
         <div style={{ justifyContent: "end" }}>total:</div>
-        <div>${getTotalAmount(false, "amountOffering")}</div>
-        <div>${getTotalAmount(false, "amountCartridge")}</div>
-        <div>${getTotalAmount(false, "amountThanksgiving")}</div>
-        <div>${getTotalAmount(false, "amountSelfDenial")}</div>
-        <div>${getTotalAmount(false, "amountBuildingFund")}</div>
-        <div>${getTotalAmount(false, "total")}</div>
+        <div>${totals.offeringTotal}</div>
+        <div>${totals.cartridgeTotal}</div>
+        <div>${totals.thanksGivingTotal}</div>
+        <div>${totals.selfDenialTotal}</div>
+        <div>${totals.buildingTotal}</div>
+        <div>${totals.total}</div>
         <div></div>
       </div>
     </>

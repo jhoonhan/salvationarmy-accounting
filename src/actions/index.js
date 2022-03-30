@@ -10,6 +10,7 @@ import {
   FETCH_USER,
   FETCH_USERS,
   DELETE_USER,
+  CREATE_REPORT,
 } from "./types";
 
 export const signOut = () => {
@@ -72,6 +73,14 @@ export const deleteUser = (userId, users) => async (dispatch) => {
     console.log(users);
     await server.delete(`/users/${userId}`);
     dispatch({ type: DELETE_USER, payload: users });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const createReport = (data) => async (dispatch) => {
+  try {
+    console.log(data);
   } catch (error) {
     console.error(error);
   }
