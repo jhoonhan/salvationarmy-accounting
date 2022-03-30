@@ -21,47 +21,8 @@ const OrderForm = ({
   selectedUser,
 }) => {
   const [orderType, setOrderType] = useState("cash");
-  // const [selectedUser, setSelectedUser] = useState({});
-  // const [searchResults, setSearchResults] = useState([]);
-  // const refNameSearch = useRef(null);
 
   useEffect(() => {}, []);
-
-  // useEffect(() => {
-  //   if (searchTerm.length === 0) {
-  //     setSearchResults([]);
-  //     return;
-  //   }
-  //   if (searchTerm.length > 0) {
-  //     const searchResults = user.users
-  //       .filter((el) => {
-  //         let results;
-  //         if (!el.nameK && !el.name) {
-  //           results = null;
-  //         }
-  //         if (!el.nameK) {
-  //           results = el.name.toLowerCase().match(searchTerm.toLowerCase());
-  //         }
-
-  //         if (el.nameK && el.name) {
-  //           results =
-  //             el.nameK[0].match(searchTerm) ||
-  //             el.name.toLowerCase().match(searchTerm.toLowerCase());
-  //         }
-  //         return results;
-  //       })
-  //       .sort((a, b) => {
-  //         let results;
-  //         if (!a.nameK || !b.nameK) {
-  //           results = a.name.localeCompare(b.name);
-  //         } else {
-  //           results = a.nameK.localeCompare(b.nameK);
-  //         }
-  //         return results;
-  //       });
-  //     setSearchResults(searchResults);
-  //   }
-  // }, [searchTerm, user.users]);
 
   const orderSubmit = (formValues) => {
     const values = {
@@ -101,63 +62,6 @@ const OrderForm = ({
     };
     createOrder(combinedData);
   };
-  // const onUserSearchChange = (event) => {
-  //   event.preventDefault();
-  //   setSearchTerm(event.target.value);
-  // };
-  // const onSelectUser = (user) => {
-  //   setSelectedUser(user);
-  //   change("name", user.name);
-  //   change("nameK", user.nameK);
-  // };
-
-  // const onClickDeleteUser = (selectedUser) => {
-  //   console.log(`delete ${selectedUser.nameK}`);
-  //   const filteredUsers = user.users.filter((el) => el.id !== selectedUser.id);
-  //   deleteUser(selectedUser.id, filteredUsers);
-  // };
-
-  // const onDateChange = (e) => {
-  //   const selectedDate = new Date(e.target.value);
-  //   if (selectedDate.getDay() !== 6) {
-  //     console.error(`sunday must be selected`);
-  //   }
-  //   if (selectedDate.getDay() == 6) {
-  //     console.log(`date changed`);
-  //     setCurrentDate(e.target.value);
-  //   }
-  // };
-
-  // const renderUserSearch = () => {
-  //   return (
-  //     <div className="name-search__results">
-  //       {searchResults.map((user, i) => {
-  //         return (
-  //           <div key={i} className="name-search__result">
-  //             <div
-  //               onClick={() => onSelectUser(user)}
-  //               className="name-search__name"
-  //               style={
-  //                 user.name === selectedUser.name &&
-  //                 user.nameK === selectedUser.nameK
-  //                   ? { backgroundColor: "red" }
-  //                   : {}
-  //               }
-  //             >
-  //               {user.nameK} / {user.name}
-  //             </div>
-  //             <div
-  //               onClick={() => onClickDeleteUser(user)}
-  //               className="name--search__delete"
-  //             >
-  //               X
-  //             </div>
-  //           </div>
-  //         );
-  //       })}
-  //     </div>
-  //   );
-  // };
 
   return (
     <form
@@ -165,30 +69,10 @@ const OrderForm = ({
       autoComplete="off"
       className="order__form"
     >
-      {/* <Field
-        name="date"
-        type="date"
-        component={renderField}
-        onChange={onDateChange}
-      /> */}
-
-      {/* <div className="name-search">
-        <input
-          ref={refNameSearch}
-          type="text"
-          value={searchTerm}
-          onChange={onUserSearchChange}
-          onClick={() => setSearchTerm("")}
-        />
-        {renderUserSearch()}
-      </div> */}
-
       <label className="order__amounts__item__label">User Info</label>
       <div className="order__user-info">
         <div>{selectedUser.nameK}</div>
         <div>{selectedUser.name}</div>
-        {/* <Field name="nameK" component={renderField} type="text" label="이름" />
-        <Field name="name" component={renderField} type="text" label="name" /> */}
       </div>
 
       <div className="order__order-type">

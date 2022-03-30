@@ -14,7 +14,7 @@ const useGetTotal = (orders) => {
         return a + b[amount];
       }, 0);
     }
-    return sum;
+    return parseInt(sum).toFixed(2);
   };
   return {
     offeringCheckSub: getTotalAmount("check", "amountOffering"),

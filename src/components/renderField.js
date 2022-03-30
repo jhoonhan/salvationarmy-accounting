@@ -12,7 +12,6 @@ const renderField = ({
   const inputArea = (
     <input
       {...input}
-      value={`$ ${input.value}`}
       placeholder={label}
       type={type}
       autoComplete="off"
