@@ -17,25 +17,31 @@ const useGetTotal = (orders) => {
     return sum;
   };
   return {
-    offeringCheckSub: getTotalAmount("check", "amountOffering"),
-    offeringCashSub: getTotalAmount("cash", "amountOffering"),
-    offeringTotal: getTotalAmount(false, "amountOffering"),
-
-    cartridgeCheckSub: getTotalAmount("check", "amountCartridge"),
-    cartridgeCashSub: getTotalAmount("cash", "amountCartridge"),
-    cartridgeTotal: getTotalAmount(false, "amountCartridge"),
-
-    thanksGivingCheckSub: getTotalAmount("check", "amountThanksgiving"),
-    thanksGivingCashSub: getTotalAmount("cash", "amountThanksgiving"),
-    thanksGivingTotal: getTotalAmount(false, "amountThanksgiving"),
-
-    selfDenialCheckSub: getTotalAmount("check", "amountSelfDenial"),
-    selfDenialCashSub: getTotalAmount("cash", "amountSelfDenial"),
-    selfDenialTotal: getTotalAmount(false, "amountSelfDenial"),
-
-    buildingCheckSub: getTotalAmount("check", "amountBuildingFund"),
-    buildingCashSub: getTotalAmount("cash", "amountBuildingFund"),
-    buildingTotal: getTotalAmount(false, "amountBuildingFund"),
+    offering: {
+      check: getTotalAmount("check", "amountOffering"),
+      cash: getTotalAmount("cash", "amountOffering"),
+      total: getTotalAmount(false, "amountOffering"),
+    },
+    cartridge: {
+      check: getTotalAmount("check", "amountCartridge"),
+      cash: getTotalAmount("cash", "amountCartridge"),
+      total: getTotalAmount(false, "amountCartridge"),
+    },
+    thanksGiving: {
+      check: getTotalAmount("check", "amountThanksgiving"),
+      cash: getTotalAmount("cash", "amountThanksgiving"),
+      total: getTotalAmount(false, "amountThanksgiving"),
+    },
+    selfDenial: {
+      check: getTotalAmount("check", "amountSelfDenial"),
+      cash: getTotalAmount("cash", "amountSelfDenial"),
+      total: getTotalAmount(false, "amountSelfDenial"),
+    },
+    buildingFund: {
+      check: getTotalAmount("check", "amountBuildingFund"),
+      cash: getTotalAmount("cash", "amountBuildingFund"),
+      total: getTotalAmount(false, "amountBuildingFund"),
+    },
 
     subTotalCheck: getTotalAmount("check", "total"),
     subTotalCash: getTotalAmount("cash", "total"),

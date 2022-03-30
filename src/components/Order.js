@@ -45,7 +45,7 @@ export const Order = ({
             totals={totals}
             currentDate={currentDate}
           />
-          <Report totals={totals} />
+          <Report totals={totals} currentDate={currentDate} />
         </div>
         <div className="order__container__col print-hide-adea">
           <DateSelector setCurrentDate={setCurrentDate} />

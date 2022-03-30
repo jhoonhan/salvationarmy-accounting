@@ -22,8 +22,9 @@ export const signOut = () => {
 
 export const createOrder = (data) => async (dispatch) => {
   try {
-    const res = await server.post("/orders", data);
-    dispatch({ type: CREATE_ORDER, payload: res.data });
+    const res = await server.post("/order", data);
+    console.log(res.data.data.data);
+    dispatch({ type: CREATE_ORDER, payload: res.data.data.data });
     dispatch(reset("orderForm"));
   } catch (error) {
     console.error(error);
@@ -32,8 +33,8 @@ export const createOrder = (data) => async (dispatch) => {
 
 export const fetchOrders = () => async (dispatch) => {
   try {
-    const res = await server.get("/orders");
-    dispatch({ type: FETCH_ORDERS, payload: res.data });
+    const res = await server.get("/order/getall");
+    dispatch({ type: FETCH_ORDERS, payload: res.data.data });
   } catch (error) {
     console.error(error);
   }
@@ -41,7 +42,7 @@ export const fetchOrders = () => async (dispatch) => {
 
 export const deleteOrder = (orderId, orders) => async (dispatch) => {
   try {
-    const res = await server.delete(`/orders/${orderId}`);
+    await server.delete(`/order/${orderId}`);
     dispatch({ type: DELETE_ORDER, payload: orders });
   } catch (error) {
     console.error(error);
@@ -50,8 +51,8 @@ export const deleteOrder = (orderId, orders) => async (dispatch) => {
 
 export const fetchUsers = () => async (dispatch) => {
   try {
-    const res = await server.get("/users");
-    dispatch({ type: FETCH_USERS, payload: res.data });
+    const res = await server.get("/user/getall");
+    dispatch({ type: FETCH_USERS, payload: res.data.data });
   } catch (error) {
     console.log(error);
   }
@@ -59,7 +60,8 @@ export const fetchUsers = () => async (dispatch) => {
 
 export const createUser = (formValues) => async (dispatch) => {
   try {
-    await server.post("/users", formValues);
+    console.log(formValues);
+    await server.post("/user", formValues);
     dispatch({ type: CREATE_USER, payload: formValues });
     dispatch(reset("userForm"));
   } catch (error) {
@@ -68,9 +70,7 @@ export const createUser = (formValues) => async (dispatch) => {
 };
 export const deleteUser = (userId, users) => async (dispatch) => {
   try {
-    console.log(userId);
-    console.log(users);
-    await server.delete(`/users/${userId}`);
+    await server.delete(`/user/${userId}`);
     dispatch({ type: DELETE_USER, payload: users });
   } catch (error) {
     console.error(error);
@@ -80,6 +80,9 @@ export const deleteUser = (userId, users) => async (dispatch) => {
 export const createReport = (data) => async (dispatch) => {
   try {
     console.log(data);
+    // const res = await server.post("/report", data);
+    // console.log(res.data.data.data);
+    dispatch({ type: CREATE_REPORT, payload: data });
   } catch (error) {
     console.error(error);
   }

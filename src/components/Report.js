@@ -7,6 +7,7 @@ import FixedField from "./FixedField";
 
 const Report = ({
   totals,
+  currentDate,
   meetingValues,
   groupValues,
   handleSubmit,
@@ -24,6 +25,7 @@ const Report = ({
     const combinedData = {
       ...testValues,
       ...totals,
+      date: currentDate,
     };
     createReport(combinedData);
   };
@@ -210,10 +212,12 @@ const Report = ({
           </div>
 
           <div className="addform__row">
-            <div>(4003) Offering (Offering + Thanksgiving)</div>
+            <div>(4003) Offering + Thanksgiving</div>
             <div className="addform__input">
               <div className="addform__inputarea">
-                {(+totals.offeringTotal + +totals.thanksGivingTotal).toFixed(2)}
+                {(+totals.offering.total + +totals.thanksGiving.total).toFixed(
+                  2
+                )}
               </div>
             </div>
           </div>
@@ -222,7 +226,7 @@ const Report = ({
             <div>(4004) Cartridges</div>
             <div className="addform__input">
               <div className="addform__inputarea">
-                {totals.cartridgeTotal.toFixed(2)}
+                {totals.cartridge.total.toFixed(2)}
               </div>
             </div>
           </div>
@@ -231,7 +235,7 @@ const Report = ({
             <div>(4601) Corps Groups</div>
             <div className="addform__input">
               <div className="addform__inputarea">
-                {totals.cartridgeTotal.toFixed(2)}
+                {totals.cartridge.total.toFixed(2)}
               </div>
             </div>
           </div>
@@ -240,7 +244,7 @@ const Report = ({
             <div>(6901) Self Denial</div>
             <div className="addform__input">
               <div className="addform__inputarea">
-                {totals.selfDenialTotal.toFixed(2)}
+                {totals.selfDenial.total.toFixed(2)}
               </div>
             </div>
           </div>
@@ -249,7 +253,7 @@ const Report = ({
             <div>World Services</div>
             <div className="addform__input">
               <div className="addform__inputarea">
-                {totals.selfDenialTotal.toFixed(2)}
+                {totals.selfDenial.total.toFixed(2)}
               </div>
             </div>
           </div>
@@ -258,7 +262,7 @@ const Report = ({
             <div>Building Fund</div>
             <div className="addform__input">
               <div className="addform__inputarea">
-                {totals.buildingTotal.toFixed(2)}
+                {totals.buildingFund.total.toFixed(2)}
               </div>
             </div>
           </div>
@@ -288,28 +292,28 @@ const Report = ({
 
               <div>Offerings</div>
               <div className="addform__cartridge-report--number">
-                {+totals.offeringTotal + +totals.thanksGivingTotal}
+                {+totals.offering.total + +totals.thanksGiving.total}
               </div>
               <div className="addform__cartridge-report--number"></div>
               <div className="addform__cartridge-report--number"></div>
 
               <div>Cartrdiges</div>
               <div className="addform__cartridge-report--number">
-                {totals.cartridgeTotal}
+                {totals.cartridge.total}
               </div>
               <div className="addform__cartridge-report--number"></div>
               <div className="addform__cartridge-report--number"></div>
 
               <div>World Serv.</div>
               <div className="addform__cartridge-report--number">
-                {totals.selfDenialTotal}
+                {totals.selfDenial.total}
               </div>
               <div className="addform__cartridge-report--number"></div>
               <div className="addform__cartridge-report--number"></div>
 
               <div>Building Fund</div>
               <div className="addform__cartridge-report--number">
-                {totals.buildingTotal}
+                {totals.buildingFund.total}
               </div>
               <div className="addform__cartridge-report--number"></div>
               <div className="addform__cartridge-report--number"></div>

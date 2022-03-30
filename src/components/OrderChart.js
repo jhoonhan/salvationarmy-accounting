@@ -4,8 +4,8 @@ import { deleteOrder } from "../actions";
 
 const OrderChart = ({ orders, deleteOrder, currentDate, totals }) => {
   const onClickDelete = (selectedOrder) => {
-    const filteredOrders = orders.filter((el) => el.id !== selectedOrder.id);
-    deleteOrder(selectedOrder.id, filteredOrders);
+    const filteredOrders = orders.filter((el) => el._id !== selectedOrder._id);
+    deleteOrder(selectedOrder._id, filteredOrders);
   };
 
   const renderOrderRow = orders
@@ -42,77 +42,81 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals }) => {
       );
     });
 
-  return (
-    <>
-      <label>{currentDate}</label>
+  const render = () => {
+    return (
+      <>
+        <label>{currentDate}</label>
 
-      <div className="order__chart">
-        <div>
-          <label></label>
-        </div>
-        <div>
-          <label>name</label>
-        </div>
-        <div>
-          <label>check #</label>
-        </div>
-        <div>
-          <label>offering</label>
-        </div>
-        <div>
-          <label>cartridge</label>
-        </div>
-        <div>
-          <label>thanksgiving</label>
-        </div>
-        <div>
-          <label>self denial</label>
-        </div>
-        <div>
-          <label>building fund</label>
-        </div>
+        <div className="order__chart">
+          <div>
+            <label></label>
+          </div>
+          <div>
+            <label>name</label>
+          </div>
+          <div>
+            <label>check #</label>
+          </div>
+          <div>
+            <label>offering</label>
+          </div>
+          <div>
+            <label>cartridge</label>
+          </div>
+          <div>
+            <label>thanksgiving</label>
+          </div>
+          <div>
+            <label>self denial</label>
+          </div>
+          <div>
+            <label>building fund</label>
+          </div>
 
-        <div>
-          <label>total</label>
+          <div>
+            <label>total</label>
+          </div>
+          <div></div>
+          {renderOrderRow}
+
+          <div></div>
+          <div style={{ borderRight: "none" }}></div>
+          <div style={{ justifyContent: "end" }}>subtotal check:</div>
+          <div>${totals.offering.check.toFixed(2)}</div>
+          <div>${totals.cartridge.check.toFixed(2)}</div>
+          <div>${totals.thanksGiving.check.toFixed(2)}</div>
+          <div>${totals.selfDenial.check.toFixed(2)}</div>
+          <div>${totals.buildingFund.check.toFixed(2)}</div>
+          <div>${totals.subTotalCheck.toFixed(2)}</div>
+          <div></div>
+
+          <div></div>
+          <div style={{ borderRight: "none" }}></div>
+          <div style={{ justifyContent: "end" }}>subtotal cash:</div>
+          <div>${totals.offering.cash.toFixed(2)}</div>
+          <div>${totals.cartridge.cash.toFixed(2)}</div>
+          <div>${totals.thanksGiving.cash.toFixed(2)}</div>
+          <div>${totals.selfDenial.cash.toFixed(2)}</div>
+          <div>${totals.buildingFund.cash.toFixed(2)}</div>
+          <div>${totals.subTotalCash.toFixed(2)}</div>
+          <div></div>
+
+          <div></div>
+          <div style={{ borderRight: "none" }}></div>
+          <div style={{ justifyContent: "end" }}>total:</div>
+          <div>${totals.offering.total.toFixed(2)}</div>
+          <div>${totals.cartridge.total.toFixed(2)}</div>
+          <div>${totals.thanksGiving.total.toFixed(2)}</div>
+          <div>${totals.selfDenial.total.toFixed(2)}</div>
+          <div>${totals.buildingFund.total.toFixed(2)}</div>
+          <div>${totals.total.toFixed(2)}</div>
+          <div></div>
         </div>
-        <div></div>
-        {renderOrderRow}
+      </>
+    );
+  };
 
-        <div></div>
-        <div style={{ borderRight: "none" }}></div>
-        <div style={{ justifyContent: "end" }}>subtotal check:</div>
-        <div>${totals.offeringCheckSub.toFixed(2)}</div>
-        <div>${totals.cartridgeCheckSub.toFixed(2)}</div>
-        <div>${totals.thanksGivingCheckSub.toFixed(2)}</div>
-        <div>${totals.selfDenialCheckSub.toFixed(2)}</div>
-        <div>${totals.buildingCheckSub.toFixed(2)}</div>
-        <div>${totals.subTotalCheck.toFixed(2)}</div>
-        <div></div>
-
-        <div></div>
-        <div style={{ borderRight: "none" }}></div>
-        <div style={{ justifyContent: "end" }}>subtotal cash:</div>
-        <div>${totals.offeringCashSub.toFixed(2)}</div>
-        <div>${totals.cartridgeCashSub.toFixed(2)}</div>
-        <div>${totals.thanksGivingCashSub.toFixed(2)}</div>
-        <div>${totals.selfDenialCashSub.toFixed(2)}</div>
-        <div>${totals.buildingCashSub.toFixed(2)}</div>
-        <div>${totals.subTotalCash.toFixed(2)}</div>
-        <div></div>
-
-        <div></div>
-        <div style={{ borderRight: "none" }}></div>
-        <div style={{ justifyContent: "end" }}>total:</div>
-        <div>${totals.offeringTotal.toFixed(2)}</div>
-        <div>${totals.cartridgeTotal.toFixed(2)}</div>
-        <div>${totals.thanksGivingTotal.toFixed(2)}</div>
-        <div>${totals.selfDenialTotal.toFixed(2)}</div>
-        <div>${totals.buildingTotal.toFixed(2)}</div>
-        <div>${totals.total.toFixed(2)}</div>
-        <div></div>
-      </div>
-    </>
-  );
+  return render();
 };
 
 const mapStateToProps = () => {

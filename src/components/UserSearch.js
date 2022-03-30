@@ -58,9 +58,10 @@ const UserSearch = ({
   };
 
   const onClickDeleteUser = (selectedUser) => {
-    console.log(`delete ${selectedUser.nameK}`);
-    const filteredUsers = user.users.filter((el) => el.id !== selectedUser.id);
-    deleteUser(selectedUser.id, filteredUsers);
+    const filteredUsers = user.users.filter(
+      (el) => el._id !== selectedUser._id
+    );
+    deleteUser(selectedUser._id, filteredUsers);
   };
 
   const onUserSearchChange = (event) => {
@@ -90,7 +91,7 @@ const UserSearch = ({
                 onClick={() => onClickDeleteUser(el)}
                 className="name--search__delete"
               >
-                X
+                DELETE USER
               </div>
             </div>
           );
