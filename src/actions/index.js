@@ -22,7 +22,6 @@ export const signOut = () => {
 
 export const createOrder = (data) => async (dispatch) => {
   try {
-    console.log(data);
     const res = await server.post("/orders", data);
     dispatch({ type: CREATE_ORDER, payload: res.data });
     dispatch(reset("orderForm"));

@@ -165,22 +165,35 @@
   border-width: 1px 0 0 1px;
   border-color: #ccc;
   border-style: solid;
+  box-sizing: border-box;
 
   & div {
     border-bottom: 1px solid #ccc;
     border-right: 1px solid #ccc;
-    padding: 0rem;
-    text-align: center;
+    padding: 0.5rem 1rem;
+    text-align: right;
     box-sizing: border-box;
+  }
+  & div:nth-child(-n + 4) {
+    text-align: center;
+  }
+  & div:nth-child(4n - 3) {
+    text-align: left;
   }
   & input {
     width: 25%;
     border: none;
     padding: 0;
-    text-align: center;
+    text-align: right;
   }
 }
-
+.addform__cartridge-report--number {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  &::before {
+    content: "$";
+  }
+}
 .addform__inputarea {
   width: 100%;
   padding: 0 2rem;

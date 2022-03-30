@@ -25,12 +25,12 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals }) => {
           <div>{el.nameK ? el.nameK : el.name}</div>
           <div>{el.checkNumber}</div>
 
-          <div>${el.amountOffering}</div>
-          <div>${el.amountCartridge}</div>
-          <div>${el.amountThanksgiving}</div>
-          <div>${el.amountSelfDenial}</div>
-          <div>${el.amountBuildingFund}</div>
-          <div>${el.total}</div>
+          <div>${el.amountOffering.toFixed(2)}</div>
+          <div>${el.amountCartridge.toFixed(2)}</div>
+          <div>${el.amountThanksgiving.toFixed(2)}</div>
+          <div>${el.amountSelfDenial.toFixed(2)}</div>
+          <div>${el.amountBuildingFund.toFixed(2)}</div>
+          <div>${el.total.toFixed(2)}</div>
 
           <div
             className="order__chart__delete"
@@ -81,34 +81,34 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals }) => {
         <div></div>
         <div style={{ borderRight: "none" }}></div>
         <div style={{ justifyContent: "end" }}>subtotal check:</div>
-        <div>${totals.offeringCheckSub}</div>
-        <div>${totals.cartridgeCheckSub}</div>
-        <div>${totals.thanksGivingCheckSub}</div>
-        <div>${totals.selfDenialCheckSub}</div>
-        <div>${totals.buildingCheckSub}</div>
-        <div>${totals.subTotalCheck}</div>
+        <div>${totals.offeringCheckSub.toFixed(2)}</div>
+        <div>${totals.cartridgeCheckSub.toFixed(2)}</div>
+        <div>${totals.thanksGivingCheckSub.toFixed(2)}</div>
+        <div>${totals.selfDenialCheckSub.toFixed(2)}</div>
+        <div>${totals.buildingCheckSub.toFixed(2)}</div>
+        <div>${totals.subTotalCheck.toFixed(2)}</div>
         <div></div>
 
         <div></div>
         <div style={{ borderRight: "none" }}></div>
         <div style={{ justifyContent: "end" }}>subtotal cash:</div>
-        <div>${totals.offeringCashSub}</div>
-        <div>${totals.cartridgeCashSub}</div>
-        <div>${totals.thanksGivingCashSub}</div>
-        <div>${totals.selfDenialCashSub}</div>
-        <div>${totals.buildingCashSub}</div>
-        <div>${totals.subTotalCash}</div>
+        <div>${totals.offeringCashSub.toFixed(2)}</div>
+        <div>${totals.cartridgeCashSub.toFixed(2)}</div>
+        <div>${totals.thanksGivingCashSub.toFixed(2)}</div>
+        <div>${totals.selfDenialCashSub.toFixed(2)}</div>
+        <div>${totals.buildingCashSub.toFixed(2)}</div>
+        <div>${totals.subTotalCash.toFixed(2)}</div>
         <div></div>
 
         <div></div>
         <div style={{ borderRight: "none" }}></div>
         <div style={{ justifyContent: "end" }}>total:</div>
-        <div>${totals.offeringTotal}</div>
-        <div>${totals.cartridgeTotal}</div>
-        <div>${totals.thanksGivingTotal}</div>
-        <div>${totals.selfDenialTotal}</div>
-        <div>${totals.buildingTotal}</div>
-        <div>${totals.total}</div>
+        <div>${totals.offeringTotal.toFixed(2)}</div>
+        <div>${totals.cartridgeTotal.toFixed(2)}</div>
+        <div>${totals.thanksGivingTotal.toFixed(2)}</div>
+        <div>${totals.selfDenialTotal.toFixed(2)}</div>
+        <div>${totals.buildingTotal.toFixed(2)}</div>
+        <div>${totals.total.toFixed(2)}</div>
         <div></div>
       </div>
     </>

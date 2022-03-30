@@ -1,5 +1,3 @@
-import React from "react";
-
 const renderField = ({
   input,
   label,
@@ -7,11 +5,17 @@ const renderField = ({
   style,
   className,
   required,
+  toFixed,
   meta: { touched, error },
 }) => {
   const inputArea = (
     <input
       {...input}
+      value={
+        toFixed && type === "number"
+          ? Number(input.value).toFixed(2)
+          : input.value
+      }
       placeholder={label}
       type={type}
       autoComplete="off"

@@ -3,6 +3,7 @@ import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import renderField from "./renderField";
 import { createReport } from "../actions";
+import FixedField from "./FixedField";
 
 const Report = ({
   totals,
@@ -26,6 +27,7 @@ const Report = ({
     };
     createReport(combinedData);
   };
+
   useEffect(() => {
     const meetingTotal = Object.values(meetingValues).reduce((prev, curr) => {
       return prev + (curr ? curr : 0);
@@ -51,7 +53,7 @@ const Report = ({
           <div className="addform__row">
             <div>Sunday School</div>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="sundaySchool"
                 component={renderField}
                 type="number"
@@ -62,7 +64,7 @@ const Report = ({
           <div className="addform__row">
             <div>Holiness Meeting</div>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="holinessMeeting"
                 component={renderField}
                 type="number"
@@ -73,7 +75,7 @@ const Report = ({
           <div className="addform__row">
             <div>Salvation Meeting</div>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="salvationMeeting"
                 component={renderField}
                 type="number"
@@ -84,7 +86,7 @@ const Report = ({
           <div className="addform__row">
             <div>Mid-Week Meeting</div>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="midweekMeeting"
                 component={renderField}
                 type="number"
@@ -95,7 +97,7 @@ const Report = ({
           <div className="addform__row">
             <div>Other</div>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="otherMeeting"
                 component={renderField}
                 type="number"
@@ -126,7 +128,7 @@ const Report = ({
           <div className="addform__row">
             <div>Adventure Corps</div>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="adventrueCorps"
                 component={renderField}
                 type="number"
@@ -137,7 +139,7 @@ const Report = ({
           <div className="addform__row">
             <div>Jr. Legion</div>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="jrLegion"
                 component={renderField}
                 type="number"
@@ -148,7 +150,7 @@ const Report = ({
           <div className="addform__row">
             <div>Sunbeams</div>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="sunbeams"
                 component={renderField}
                 type="number"
@@ -159,7 +161,7 @@ const Report = ({
           <div className="addform__row">
             <div>Girl Guards</div>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="girlGuards"
                 component={renderField}
                 type="number"
@@ -170,7 +172,7 @@ const Report = ({
           <div className="addform__row">
             <label>Y.P.L.</label>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="ypl"
                 component={renderField}
                 type="number"
@@ -181,7 +183,7 @@ const Report = ({
           <div className="addform__row">
             <label>Other</label>
             <div className="addform__input">
-              <Field
+              <FixedField
                 name="otherGroup"
                 component={renderField}
                 type="number"
@@ -219,42 +221,54 @@ const Report = ({
           <div className="addform__row">
             <div>(4004) Cartridges</div>
             <div className="addform__input">
-              <div className="addform__inputarea">{totals.cartridgeTotal}</div>
+              <div className="addform__inputarea">
+                {totals.cartridgeTotal.toFixed(2)}
+              </div>
             </div>
           </div>
 
           <div className="addform__row">
             <div>(4601) Corps Groups</div>
             <div className="addform__input">
-              <div className="addform__inputarea">{totals.cartridgeTotal}</div>
+              <div className="addform__inputarea">
+                {totals.cartridgeTotal.toFixed(2)}
+              </div>
             </div>
           </div>
 
           <div className="addform__row">
             <div>(6901) Self Denial</div>
             <div className="addform__input">
-              <div className="addform__inputarea">{totals.selfDenialTotal}</div>
+              <div className="addform__inputarea">
+                {totals.selfDenialTotal.toFixed(2)}
+              </div>
             </div>
           </div>
 
           <div className="addform__row">
             <div>World Services</div>
             <div className="addform__input">
-              <div className="addform__inputarea">{totals.selfDenialTotal}</div>
+              <div className="addform__inputarea">
+                {totals.selfDenialTotal.toFixed(2)}
+              </div>
             </div>
           </div>
 
           <div className="addform__row">
             <div>Building Fund</div>
             <div className="addform__input">
-              <div className="addform__inputarea">{totals.buildingTotal}</div>
+              <div className="addform__inputarea">
+                {totals.buildingTotal.toFixed(2)}
+              </div>
             </div>
           </div>
 
           <div className="addform__row">
             <div>Grand Total</div>
             <div className="addform__input">
-              <div className="addform__inputarea">{totals.total}</div>
+              <div className="addform__inputarea">
+                {totals.total.toFixed(2)}
+              </div>
             </div>
           </div>
 
@@ -273,51 +287,39 @@ const Report = ({
               <div>Total to Date</div>
 
               <div>Offerings</div>
-              <div>{+totals.offeringTotal + +totals.thanksGivingTotal}</div>
-              <div></div>
-              <div>
-                <input />
+              <div className="addform__cartridge-report--number">
+                {+totals.offeringTotal + +totals.thanksGivingTotal}
               </div>
+              <div className="addform__cartridge-report--number"></div>
+              <div className="addform__cartridge-report--number"></div>
 
               <div>Cartrdiges</div>
-              <div>{totals.cartridgeTotal}</div>
-
-              <div>
-                <input />
+              <div className="addform__cartridge-report--number">
+                {totals.cartridgeTotal}
               </div>
-              <div>
-                <input />
-              </div>
+              <div className="addform__cartridge-report--number"></div>
+              <div className="addform__cartridge-report--number"></div>
 
               <div>World Serv.</div>
-              <div>{totals.selfDenialTotal}</div>
-
-              <div>
-                <input />
+              <div className="addform__cartridge-report--number">
+                {totals.selfDenialTotal}
               </div>
-              <div>
-                <input />
-              </div>
+              <div className="addform__cartridge-report--number"></div>
+              <div className="addform__cartridge-report--number"></div>
 
               <div>Building Fund</div>
-              <div>{totals.buildingTotal}</div>
-
-              <div>
-                <input />
+              <div className="addform__cartridge-report--number">
+                {totals.buildingTotal}
               </div>
-              <div>
-                <input />
-              </div>
+              <div className="addform__cartridge-report--number"></div>
+              <div className="addform__cartridge-report--number"></div>
 
               <div>Total</div>
-              <div>{totals.total}</div>
-
-              <div>
-                <input />
+              <div className="addform__cartridge-report--number">
+                {totals.total}
               </div>
-              <div>
-                <input />
-              </div>
+              <div className="addform__cartridge-report--number"></div>
+              <div className="addform__cartridge-report--number"></div>
             </div>
           </div>
         </div>
