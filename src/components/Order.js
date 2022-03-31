@@ -28,14 +28,17 @@ export const Order = ({
   );
 
   const [searchTerm, setSearchTerm] = useState("");
+
   const [currentDate, setCurrentDate] = useState(
     lastSunday.toISOString().split("T")[0]
   );
   const [prevDate, setPrevDate] = useState(
     prevSunday.toISOString().split("T")[0]
   );
+
   const [selectedUser, setSelectedUser] = useState({});
   const [selectedOrders, setSelectedOrders] = useState([]);
+
   const [currentReport, setCurrentReport] = useState([]);
   const [prevReport, setPrevReport] = useState([]);
 
@@ -72,10 +75,10 @@ export const Order = ({
   }, [report, currentDate, prevDate]);
 
   useEffect(() => {
-    const now = new Date();
+    const now = new Date(currentDate);
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const prevSunday = new Date(
-      today.setDate(today.getDate() - today.getDay() - 7)
+      today.setDate(today.getDate() - today.getDay())
     );
     setPrevDate(prevSunday.toISOString().split("T")[0]);
   }, [currentDate]);

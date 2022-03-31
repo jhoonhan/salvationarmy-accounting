@@ -10,7 +10,7 @@ const DateSelector = ({ setCurrentDate }) => {
     if (selectedDate.getDay() !== 6) {
       console.error(`sunday must be selected`);
     }
-    if (selectedDate.getDay() == 6) {
+    if (selectedDate.getDay() === 6) {
       setCurrentDate(e.target.value);
     }
   };
