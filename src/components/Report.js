@@ -9,6 +9,7 @@ const Report = ({
   totals,
   currentDate,
   orders,
+  prevReport,
   meetingValues,
   groupValues,
   handleSubmit,
@@ -16,6 +17,10 @@ const Report = ({
 }) => {
   const [meetingTotal, setMeetingTotal] = useState(0);
   const [groupTotal, setGroupTotal] = useState(0);
+
+  useEffect(() => {
+    console.log(prevReport);
+  }, [prevReport]);
 
   const reportSubmit = (formValues) => {
     const orderIds = orders.map((order) => order._id);
@@ -323,7 +328,7 @@ const Report = ({
               <div className="addform__cartridge-report--number">
                 {+totals.offering.total + +totals.thanksGiving.total}
               </div>
-              <div className="addform__cartridge-report--number"></div>
+              <div className="addform__cartridge-report--number">aang</div>
               <div className="addform__cartridge-report--number"></div>
 
               <div>Cartrdiges</div>
