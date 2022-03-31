@@ -39,8 +39,8 @@ export const Order = ({
   const [selectedUser, setSelectedUser] = useState({});
   const [selectedOrders, setSelectedOrders] = useState([]);
 
-  const [currentReport, setCurrentReport] = useState([]);
-  const [prevReport, setPrevReport] = useState([]);
+  const [currentReport, setCurrentReport] = useState(null);
+  const [prevReport, setPrevReport] = useState(null);
 
   const refPrint = useRef(null);
   const totals = useGetTotal(selectedOrders);
@@ -69,9 +69,11 @@ export const Order = ({
 
   useEffect(() => {
     setCurrentReport(
-      report.reports.filter((report) => report.date === currentDate)
+      report.reports.filter((report) => report.date === currentDate)[0]
     );
-    setPrevReport(report.reports.filter((report) => report.date === prevDate));
+    setPrevReport(
+      report.reports.filter((report) => report.date === prevDate)[0]
+    );
   }, [report, currentDate, prevDate]);
 
   useEffect(() => {

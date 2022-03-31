@@ -328,35 +328,45 @@ const Report = ({
               <div className="addform__cartridge-report--number">
                 {+totals.offering.total + +totals.thanksGiving.total}
               </div>
-              <div className="addform__cartridge-report--number">aang</div>
+              <div className="addform__cartridge-report--number">
+                {prevReport?.offering.total}
+              </div>
               <div className="addform__cartridge-report--number"></div>
 
               <div>Cartrdiges</div>
               <div className="addform__cartridge-report--number">
                 {totals.cartridge.total}
               </div>
-              <div className="addform__cartridge-report--number"></div>
+              <div className="addform__cartridge-report--number">
+                {prevReport?.cartridge.total}
+              </div>
               <div className="addform__cartridge-report--number"></div>
 
               <div>World Serv.</div>
               <div className="addform__cartridge-report--number">
                 {totals.selfDenial.total}
               </div>
-              <div className="addform__cartridge-report--number"></div>
+              <div className="addform__cartridge-report--number">
+                {prevReport?.selfDenial.total}
+              </div>
               <div className="addform__cartridge-report--number"></div>
 
               <div>Building Fund</div>
               <div className="addform__cartridge-report--number">
                 {totals.buildingFund.total}
               </div>
-              <div className="addform__cartridge-report--number"></div>
+              <div className="addform__cartridge-report--number">
+                {prevReport?.buildingFund.total}
+              </div>
               <div className="addform__cartridge-report--number"></div>
 
               <div>Total</div>
               <div className="addform__cartridge-report--number">
                 {totals.total}
               </div>
-              <div className="addform__cartridge-report--number"></div>
+              <div className="addform__cartridge-report--number">
+                {prevReport?.total}
+              </div>
               <div className="addform__cartridge-report--number"></div>
             </div>
           </div>
@@ -395,7 +405,7 @@ const wrappedForm = reduxForm({
 const selector = formValueSelector("reportsForm");
 
 const mapStateToProps = (state, ownProps) => {
-  const [currentReport] = ownProps.currentReport;
+  const { currentReport } = ownProps;
   return {
     initialValues: {
       sundaySchool: currentReport?.meeting.sundaySchool,
