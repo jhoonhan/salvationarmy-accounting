@@ -8,9 +8,7 @@ import FixedField from "./FixedField";
 const Report = ({
   totals,
   currentDate,
-  prevDate,
   orders,
-  reports,
   meetingValues,
   groupValues,
   handleSubmit,
@@ -18,52 +16,42 @@ const Report = ({
 }) => {
   const [meetingTotal, setMeetingTotal] = useState(0);
   const [groupTotal, setGroupTotal] = useState(0);
-  const [currentReport, setCurrentReport] = useState(null);
-  const [prevReport, setPrevReport] = useState(null);
-
-  useEffect(() => {
-    const curr = reports.filter((report) => report.date === currentDate);
-    const prev = reports.filter((report) => report.date === prevDate);
-
-    setCurrentReport(curr);
-    setPrevReport(prev);
-  }, [reports, currentDate]);
 
   const reportSubmit = (formValues) => {
     const orderIds = orders.map((order) => order._id);
-    const testValues = { ...formValues };
-    Object.keys(testValues).forEach(
-      (el) => (testValues[el] = parseInt(testValues[el]))
+    const convertedValues = { ...formValues };
+    Object.keys(convertedValues).forEach(
+      (el) => (convertedValues[el] = parseInt(convertedValues[el]))
     );
-    console.log(testValues);
     const combinedData = {
-      ...testValues,
+      ...convertedValues,
       ...totals,
       meeting: {
-        sundaySchool: testValues.sundaySchool,
-        holinessMeeting: testValues.holinessMeeting,
-        salvationMeeting: testValues.salvationMeeting,
-        otherMeeting: testValues.otherMeeting,
+        sundaySchool: convertedValues.sundaySchool,
+        holinessMeeting: convertedValues.holinessMeeting,
+        salvationMeeting: convertedValues.salvationMeeting,
+        midweekMeeting: convertedValues.midweekMeeting,
+        otherMeeting: convertedValues.otherMeeting,
         total:
-          testValues.sundaySchool +
-          testValues.holinessMeeting +
-          testValues.salvationMeeting +
-          testValues.otherMeeting,
+          convertedValues.sundaySchool +
+          convertedValues.holinessMeeting +
+          convertedValues.salvationMeeting +
+          convertedValues.otherMeeting,
       },
       groups: {
-        adventureCorps: testValues.adventureCorps,
-        jrLegion: testValues.jrLegion,
-        sunbeams: testValues.sunbeams,
-        girlGuards: testValues.girlGuards,
-        ypl: testValues.ypl,
-        otherGroup: testValues.otherGroup,
+        adventureCorps: convertedValues.adventureCorps,
+        jrLegion: convertedValues.jrLegion,
+        sunbeams: convertedValues.sunbeams,
+        girlGuards: convertedValues.girlGuards,
+        ypl: convertedValues.ypl,
+        otherGroup: convertedValues.otherGroup,
         total:
-          testValues.adventureCorps +
-          testValues.jrLegion +
-          testValues.sunbeams +
-          testValues.girlGuards +
-          testValues.ypl +
-          testValues.otherGroup,
+          convertedValues.adventureCorps +
+          convertedValues.jrLegion +
+          convertedValues.sunbeams +
+          convertedValues.girlGuards +
+          convertedValues.ypl +
+          convertedValues.otherGroup,
       },
       date: currentDate,
       orders: orderIds,
@@ -402,17 +390,20 @@ const wrappedForm = reduxForm({
 const selector = formValueSelector("reportsForm");
 
 const mapStateToProps = (state, ownProps) => {
-  const { reports } = ownProps;
-  console.log(reports);
+  const [currentReport] = ownProps.currentReport;
   return {
     initialValues: {
-      meeting: {
-        sundaySchool: 0,
-        holinessMeeting: 0,
-        salvationMeeting: 0,
-        otherMeeting: 0,
-        total: 0,
-      },
+      sundaySchool: currentReport?.meeting.sundaySchool,
+      holinessMeeting: currentReport?.meeting.holinessMeeting,
+      salvationMeeting: currentReport?.meeting.salvationMeeting,
+      midweekMeeting: currentReport?.meeting.midweekMeeting,
+      otherMeeting: currentReport?.meeting.otherMeeting,
+      adventureCorps: currentReport?.groups.adventureCorps,
+      jrLegion: currentReport?.groups.jrLegion,
+      sunbeams: currentReport?.groups.sunbeams,
+      girlGuards: currentReport?.groups.girlGuards,
+      ypl: currentReport?.groups.ypl,
+      otherGroup: currentReport?.groups.otherGroup,
     },
     meetingValues: {
       sundaySchool: +selector(state, "sundaySchool"),

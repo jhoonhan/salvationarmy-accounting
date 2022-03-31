@@ -34,10 +34,13 @@ export const Order = ({
   const [prevDate, setPrevDate] = useState(
     prevSunday.toISOString().split("T")[0]
   );
-
   const [selectedUser, setSelectedUser] = useState({});
+  const [selectedOrders, setSelectedOrders] = useState([]);
+  const [currentReport, setCurrentReport] = useState([]);
+  const [prevReport, setPrevReport] = useState([]);
+
   const refPrint = useRef(null);
-  const totals = useGetTotal(order.orders);
+  const totals = useGetTotal(selectedOrders);
 
   // useEffect(() => {
   //   const now = new Date();
@@ -58,6 +61,17 @@ export const Order = ({
   }, []);
 
   useEffect(() => {
+    setSelectedOrders(order.orders.filter((el) => el.date === currentDate));
+  }, [order, currentDate]);
+
+  useEffect(() => {
+    setCurrentReport(
+      report.reports.filter((report) => report.date === currentDate)
+    );
+    setPrevReport(report.reports.filter((report) => report.date === prevDate));
+  }, [report, currentDate, prevDate]);
+
+  useEffect(() => {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const prevSunday = new Date(
@@ -72,14 +86,15 @@ export const Order = ({
         <div ref={refPrint} className="order__container__col print-area">
           <div onClick={window.print}>print</div>
           <OrderChart
-            orders={order.orders.filter((el) => el.date === currentDate)}
+            orders={selectedOrders}
             totals={totals}
             currentDate={currentDate}
           />
           <Report
             totals={totals}
-            orders={order.orders.filter((el) => el.date === currentDate)}
-            reports={report.reports}
+            orders={selectedOrders}
+            currentReport={currentReport}
+            prevReport={prevReport}
             currentDate={currentDate}
             prevDate={prevDate}
           />
