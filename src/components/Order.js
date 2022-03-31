@@ -14,28 +14,57 @@ import { createOrder, fetchOrders, fetchUsers, fetchReports } from "../actions";
 export const Order = ({
   user,
   order,
+  report,
   createOrder,
   fetchOrders,
   fetchUsers,
   fetchReports,
 }) => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const lastSunday = new Date(today.setDate(today.getDate() - today.getDay()));
+  const prevSunday = new Date(
+    today.setDate(today.getDate() - today.getDay() - 7)
+  );
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [currentDate, setCurrentDate] = useState(null);
+  const [currentDate, setCurrentDate] = useState(
+    lastSunday.toISOString().split("T")[0]
+  );
+  const [prevDate, setPrevDate] = useState(
+    prevSunday.toISOString().split("T")[0]
+  );
+
   const [selectedUser, setSelectedUser] = useState({});
   const refPrint = useRef(null);
   const totals = useGetTotal(order.orders);
 
-  useEffect(() => {
-    let prevSunday = new Date();
-    prevSunday.setDate(prevSunday.getDate() - ((prevSunday.getDay() + 7) % 7));
-    setCurrentDate(prevSunday.toISOString().split("T")[0]);
-  }, []);
+  // useEffect(() => {
+  //   const now = new Date();
+  //   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  //   const lastSunday = new Date(
+  //     today.setDate(today.getDate() - today.getDay())
+  //   );
+  //   const prevSunday = new Date(
+  //     today.setDate(today.getDate() - today.getDay() - 7)
+  //   );
+  //   setCurrentDate(lastSunday.toISOString().split("T")[0]);
+  // }, []);
 
   useEffect(() => {
     fetchOrders();
     fetchUsers();
     fetchReports();
   }, []);
+
+  useEffect(() => {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const prevSunday = new Date(
+      today.setDate(today.getDate() - today.getDay() - 7)
+    );
+    setPrevDate(prevSunday.toISOString().split("T")[0]);
+  }, [currentDate]);
 
   const render = () => {
     return (
@@ -49,8 +78,10 @@ export const Order = ({
           />
           <Report
             totals={totals}
-            currentDate={currentDate}
             orders={order.orders.filter((el) => el.date === currentDate)}
+            reports={report.reports}
+            currentDate={currentDate}
+            prevDate={prevDate}
           />
         </div>
         <div className="order__container__col print-hide-adea">
@@ -77,10 +108,11 @@ export const Order = ({
   return render();
 };
 
-const mapStateToProps = ({ user, form, order }) => {
+const mapStateToProps = ({ user, order, report }) => {
   return {
     user,
     order,
+    report,
   };
 };
 

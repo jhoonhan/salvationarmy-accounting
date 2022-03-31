@@ -8,7 +8,9 @@ import FixedField from "./FixedField";
 const Report = ({
   totals,
   currentDate,
+  prevDate,
   orders,
+  reports,
   meetingValues,
   groupValues,
   handleSubmit,
@@ -16,6 +18,16 @@ const Report = ({
 }) => {
   const [meetingTotal, setMeetingTotal] = useState(0);
   const [groupTotal, setGroupTotal] = useState(0);
+  const [currentReport, setCurrentReport] = useState(null);
+  const [prevReport, setPrevReport] = useState(null);
+
+  useEffect(() => {
+    const curr = reports.filter((report) => report.date === currentDate);
+    const prev = reports.filter((report) => report.date === prevDate);
+
+    setCurrentReport(curr);
+    setPrevReport(prev);
+  }, [reports, currentDate]);
 
   const reportSubmit = (formValues) => {
     const orderIds = orders.map((order) => order._id);
@@ -23,10 +35,36 @@ const Report = ({
     Object.keys(testValues).forEach(
       (el) => (testValues[el] = parseInt(testValues[el]))
     );
-
+    console.log(testValues);
     const combinedData = {
       ...testValues,
       ...totals,
+      meeting: {
+        sundaySchool: testValues.sundaySchool,
+        holinessMeeting: testValues.holinessMeeting,
+        salvationMeeting: testValues.salvationMeeting,
+        otherMeeting: testValues.otherMeeting,
+        total:
+          testValues.sundaySchool +
+          testValues.holinessMeeting +
+          testValues.salvationMeeting +
+          testValues.otherMeeting,
+      },
+      groups: {
+        adventureCorps: testValues.adventureCorps,
+        jrLegion: testValues.jrLegion,
+        sunbeams: testValues.sunbeams,
+        girlGuards: testValues.girlGuards,
+        ypl: testValues.ypl,
+        otherGroup: testValues.otherGroup,
+        total:
+          testValues.adventureCorps +
+          testValues.jrLegion +
+          testValues.sunbeams +
+          testValues.girlGuards +
+          testValues.ypl +
+          testValues.otherGroup,
+      },
       date: currentDate,
       orders: orderIds,
     };
@@ -134,7 +172,7 @@ const Report = ({
             <div>Adventure Corps</div>
             <div className="addform__input">
               <FixedField
-                name="adventrueCorps"
+                name="adventureCorps"
                 component={renderField}
                 type="number"
                 className="addform__inputarea"
@@ -364,7 +402,18 @@ const wrappedForm = reduxForm({
 const selector = formValueSelector("reportsForm");
 
 const mapStateToProps = (state, ownProps) => {
+  const { reports } = ownProps;
+  console.log(reports);
   return {
+    initialValues: {
+      meeting: {
+        sundaySchool: 0,
+        holinessMeeting: 0,
+        salvationMeeting: 0,
+        otherMeeting: 0,
+        total: 0,
+      },
+    },
     meetingValues: {
       sundaySchool: +selector(state, "sundaySchool"),
       holinessMeeting: +selector(state, "holinessMeeting"),
@@ -373,7 +422,7 @@ const mapStateToProps = (state, ownProps) => {
       otherMeeting: +selector(state, "otherMeeting"),
     },
     groupValues: {
-      adventrueCorps: +selector(state, "adventrueCorps"),
+      adventureCorps: +selector(state, "adventureCorps"),
       jrLegion: +selector(state, "jrLegion"),
       sunbeams: +selector(state, "sunbeams"),
       girlGuards: +selector(state, "girlGuards"),

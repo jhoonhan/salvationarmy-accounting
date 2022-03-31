@@ -91,12 +91,8 @@ export const createReport = (data) => async (dispatch) => {
 
 export const fetchReports = () => async (dispatch) => {
   try {
-    const obj = {};
     const res = await server.get("/report/getall");
-    res.data.data.forEach((order) => {
-      obj[order.date] = { ...order };
-    });
-    dispatch({ type: FETCH_REPORTS, payload: obj });
+    dispatch({ type: FETCH_REPORTS, payload: res.data.data });
   } catch (error) {
     console.error(error);
   }
