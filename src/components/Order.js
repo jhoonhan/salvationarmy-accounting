@@ -91,6 +91,7 @@ export const Order = ({
       <div className="order__container">
         <div ref={refPrint} className="order__container__col print-area">
           <div onClick={window.print}>print</div>
+
           <OrderChart
             orders={selectedOrders}
             totals={totals}

@@ -12,6 +12,7 @@ import {
   DELETE_USER,
   CREATE_REPORT,
   FETCH_REPORTS,
+  PUT_REPORT,
 } from "./types";
 
 export const signOut = () => {
@@ -80,7 +81,6 @@ export const deleteUser = (userId, users) => async (dispatch) => {
 
 export const createReport = (data) => async (dispatch) => {
   try {
-    console.log(data);
     const res = await server.post("/report", data);
     console.log(res.data);
     dispatch({ type: CREATE_REPORT, payload: data });
@@ -93,6 +93,17 @@ export const fetchReports = () => async (dispatch) => {
   try {
     const res = await server.get("/report/getall");
     dispatch({ type: FETCH_REPORTS, payload: res.data.data });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const putReport = (reportId, data) => async (dispatch) => {
+  try {
+    console.log(data);
+    const res = await server.put(`/report/${reportId}`, data);
+    console.log(res.data);
+    // dispatch({ type: PUT_REPORT, payload: data });
   } catch (error) {
     console.error(error);
   }

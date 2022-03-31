@@ -2,25 +2,27 @@ import React, { useEffect, useState } from "react";
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import renderField from "./renderField";
-import { createReport } from "../actions";
+import { createReport, putReport } from "../actions";
 import FixedField from "./FixedField";
 
 const Report = ({
   totals,
   currentDate,
   orders,
+  currentReport,
   prevReport,
   meetingValues,
   groupValues,
   handleSubmit,
   createReport,
+  putReport,
 }) => {
   const [meetingTotal, setMeetingTotal] = useState(0);
   const [groupTotal, setGroupTotal] = useState(0);
 
   useEffect(() => {
-    console.log(prevReport);
-  }, [prevReport]);
+    console.log(currentReport?._id);
+  }, [currentReport]);
 
   const reportSubmit = (formValues) => {
     const orderIds = orders.map((order) => order._id);
@@ -41,6 +43,7 @@ const Report = ({
           convertedValues.sundaySchool +
           convertedValues.holinessMeeting +
           convertedValues.salvationMeeting +
+          convertedValues.midweekMeeting +
           convertedValues.otherMeeting,
       },
       groups: {
@@ -61,7 +64,8 @@ const Report = ({
       date: currentDate,
       orders: orderIds,
     };
-    createReport(combinedData);
+    if (!currentReport) createReport(combinedData);
+    if (currentReport) putReport(currentReport._id, combinedData);
   };
 
   useEffect(() => {
@@ -389,7 +393,7 @@ const Report = ({
           </div>
         </div>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">{currentReport ? "update" : "submit"}</button>
     </form>
   );
 };
@@ -441,4 +445,5 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(mapStateToProps, {
   change,
   createReport,
+  putReport,
 })(wrappedForm);

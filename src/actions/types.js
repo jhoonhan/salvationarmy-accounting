@@ -11,3 +11,4 @@ export const DELETE_USER = "DELETE_USER";
 
 export const CREATE_REPORT = "CREATE_REPORT";
 export const FETCH_REPORTS = "FETCH_REPORTS";
+export const PUT_REPORT = "PUT_REPORT";
