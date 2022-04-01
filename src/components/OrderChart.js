@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { deleteOrder } from "../actions";
 import capitalizeName from "./helpers/capitalizeName";
 
-const OrderChart = ({ orders, deleteOrder, currentDate, totals }) => {
+const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
   const onClickDelete = (selectedOrder) => {
+    if (!showForm) return;
     const filteredOrders = orders.filter((el) => el._id !== selectedOrder._id);
     deleteOrder(selectedOrder._id, filteredOrders);
   };
@@ -27,11 +28,13 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals }) => {
           <div>${el.amountBuildingFund.toFixed(2)}</div>
           <div>${el.total.toFixed(2)}</div>
 
-          <div
-            className="order__chart__delete"
-            onClick={() => onClickDelete(el)}
-          >
-            X
+          <div className="order__chart__delete">
+            <span
+              onClick={() => onClickDelete(el)}
+              style={!showForm ? { display: "none" } : {}}
+            >
+              X
+            </span>
           </div>
         </React.Fragment>
       );
@@ -40,43 +43,27 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals }) => {
   const render = () => {
     return (
       <>
-        <label>{currentDate}</label>
+        <div style={{ marginBottom: "1rem" }}>Date: {currentDate}</div>
 
         <div className="order__chart">
           <div>
-            <label></label>
+            <div></div>
           </div>
-          <div>
-            <label>name</label>
-          </div>
-          <div>
-            <label>check #</label>
-          </div>
-          <div>
-            <label>offering</label>
-          </div>
-          <div>
-            <label>cartridge</label>
-          </div>
-          <div>
-            <label>thanksgiving</label>
-          </div>
-          <div>
-            <label>self denial</label>
-          </div>
-          <div>
-            <label>building fund</label>
-          </div>
+          <div>Name</div>
+          <div>Check #</div>
+          <div>Offering</div>
+          <div>Cartridge</div>
+          <div>Thanksgiving</div>
+          <div>Self Denial</div>
+          <div>Building</div>
 
-          <div>
-            <label>total</label>
-          </div>
+          <div>Total</div>
           <div></div>
           {renderOrderRow}
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
-          <div style={{ justifyContent: "end" }}>subtotal check:</div>
+          <div style={{ justifyContent: "end" }}>Subtotal Check:</div>
           <div>${totals.offering.check.toFixed(2)}</div>
           <div>${totals.cartridge.check.toFixed(2)}</div>
           <div>${totals.thanksGiving.check.toFixed(2)}</div>
@@ -87,7 +74,7 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals }) => {
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
-          <div style={{ justifyContent: "end" }}>subtotal cash:</div>
+          <div style={{ justifyContent: "end" }}>Subtotal Cash:</div>
           <div>${totals.offering.cash.toFixed(2)}</div>
           <div>${totals.cartridge.cash.toFixed(2)}</div>
           <div>${totals.thanksGiving.cash.toFixed(2)}</div>
@@ -98,7 +85,7 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals }) => {
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
-          <div style={{ justifyContent: "end" }}>total:</div>
+          <div style={{ justifyContent: "end" }}>Total:</div>
           <div>${totals.offering.total.toFixed(2)}</div>
           <div>${totals.cartridge.total.toFixed(2)}</div>
           <div>${totals.thanksGiving.total.toFixed(2)}</div>

@@ -10,8 +10,14 @@ button,
   padding: 1rem 2rem;
 
   background-color: blue;
-  border: 1px solid #ccc;
+  border: $border--default;
   box-sizing: border-box;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: red;
+  }
 }
 .input-box {
   font-family: "Nunito Sans", sans-serif;
@@ -22,12 +28,15 @@ button,
   padding: 0.7rem;
   box-sizing: border-box;
   outline: none;
-  border: 1px solid #ccc;
+  border: $border--default;
   background-color: transparent;
 }
 input {
   @extend .input-box;
   background-color: white;
+  &:focus {
+    border: 1px solid red;
+  }
 }
 
 /* Firefox */
@@ -39,6 +48,10 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+label {
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .app-container {
@@ -73,15 +86,20 @@ input::-webkit-inner-spin-button {
   padding: 0;
 
   background-color: white;
-  border: 1px solid #ccc;
+  border: $border--default;
+  border-top: none;
+
   box-sizing: border-box;
 
   overflow-y: scroll;
+  &:hover {
+    box-shadow: inset -5px 0px 10px #ccc;
+  }
 }
 .name-search__result {
   display: grid;
   grid-template-columns: 1fr auto;
-  border-bottom: 1px solid #ccc;
+  border-bottom: $border--default;
   cursor: pointer;
   &:hover {
     border-bottom: 1px solid red;
@@ -113,7 +131,7 @@ input::-webkit-inner-spin-button {
   gap: 2rem;
   padding: 2rem;
   background-color: #efefef;
-  border: 1px solid #ccc;
+  border: $border--default;
   border-radius: 1rem;
   box-sizing: border-box;
 }

@@ -1,4 +1,6 @@
-@import 'base';
-@import 'home';
-@import 'form';
-@import 'order'
+$border--default: 1px solid #ccc;
+
+@import "base";
+@import "home";
+@import "form";
+@import "order";

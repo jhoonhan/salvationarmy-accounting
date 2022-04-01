@@ -96,12 +96,13 @@ export const Order = ({
     return (
       <div className="order__container">
         <div ref={refPrint} className="order__container__col print-area">
-          <div onClick={window.print}>print</div>
+          <button onClick={window.print}>print</button>
 
           <OrderChart
             orders={selectedOrders}
             totals={totals}
             currentDate={currentDate}
+            showForm={showForm}
           />
           <Report
             totals={totals}

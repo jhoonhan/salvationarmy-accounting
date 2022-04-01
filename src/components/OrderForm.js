@@ -86,7 +86,7 @@ const OrderForm = ({
           <label>Enter Amount</label>
           <div className="order__amounts">
             <div className="order__amounts__item">
-              <label>offering</label>
+              <div>Offering</div>
               <Field
                 name="amountOffering"
                 component={renderField}
@@ -95,7 +95,7 @@ const OrderForm = ({
               />
             </div>
             <div className="order__amounts__item">
-              <label>cartridge</label>
+              <div>Cartridge</div>
               <Field
                 name="amountCartridge"
                 component={renderField}
@@ -104,7 +104,7 @@ const OrderForm = ({
               />
             </div>
             <div className="order__amounts__item">
-              <label>thanksgiving</label>
+              <div>Thanksgiving</div>
               <Field
                 name="amountThanksgiving"
                 component={renderField}
@@ -113,7 +113,7 @@ const OrderForm = ({
               />
             </div>
             <div className="order__amounts__item">
-              <label>self denial</label>
+              <div>Self Denial</div>
               <Field
                 name="amountSelfDenial"
                 component={renderField}
@@ -122,7 +122,7 @@ const OrderForm = ({
               />
             </div>
             <div className="order__amounts__item">
-              <label>building fund</label>
+              <div>Building</div>
               <Field
                 name="amountBuildingFund"
                 component={renderField}
@@ -136,21 +136,37 @@ const OrderForm = ({
           <label>Select Type</label>
           <div className="order__order-type">
             <div
-              style={orderType === "cash" ? { backgroundColor: "red" } : {}}
+              style={
+                orderType === "cash"
+                  ? {
+                      backgroundColor: "white",
+                      border: "1px solid red",
+                      color: "red",
+                    }
+                  : {}
+              }
               onClick={() => {
                 setOrderType("cash");
                 change("checkNumber", "");
               }}
               className="order__order-type--cash"
             >
-              cash
+              Cash
             </div>
             <div onClick={() => setOrderType("check")}>
               <Field
                 name="checkNumber"
                 component={renderField}
-                label="check #"
-                style={orderType === "check" ? { backgroundColor: "red" } : {}}
+                label="Check #"
+                style={
+                  orderType === "check"
+                    ? {
+                        backgroundColor: "white",
+                        border: "1px solid red",
+                        color: "red",
+                      }
+                    : { backgroundColor: "#efefef" }
+                }
                 required={orderType === "check" ? true : false}
               />
             </div>
