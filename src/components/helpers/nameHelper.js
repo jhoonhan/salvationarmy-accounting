@@ -1,4 +1,4 @@
-export const capitalizeName = (name) => {
+export const splitCapitalizeName = (name) => {
   const lowerCase = name.toLowerCase();
   const capitalized = lowerCase
     .split(" ")
@@ -8,6 +8,10 @@ export const capitalizeName = (name) => {
     })
     .join(" ");
   return capitalized;
+};
+
+export const capitalizeName = (name) => {
+  return `${name.slice(0, 1).toUpperCase()}${name.slice(1)}`;
 };
 
 export const lastFirst = (name) => {

@@ -86,8 +86,7 @@ export const deleteUser = (userId, users) => async (dispatch) => {
 export const createReport = (data) => async (dispatch) => {
   try {
     const res = await server.post("/report", data);
-    console.log(res.data);
-    dispatch({ type: CREATE_REPORT, payload: data });
+    dispatch({ type: CREATE_REPORT, payload: res.data.data });
   } catch (error) {
     console.error(error);
   }

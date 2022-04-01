@@ -281,12 +281,7 @@ const Report = ({
               </div>
 
               <div className="addform__list">
-                <div>(6901) Self Denial</div>
-                <div className="addform__input">
-                  <div className="addform__inputarea disabled">
-                    {totals.selfDenial.total.toFixed(2)}
-                  </div>
-                </div>
+                <div>(6901) Self Denial +</div>
               </div>
 
               <div className="addform__list">
@@ -384,11 +379,13 @@ const Report = ({
         >
           <div className="addform__column">
             <div className="addform__list-combined">
+              <h3 style={{ padding: "0 0 0.5rem 1rem" }}>Hyungoo Han</h3>
               <div style={{ borderTop: "1px solid #666" }}>Counter</div>
             </div>
           </div>
           <div className="addform__column">
             <div className="addform__list-combined">
+              <h3 style={{ padding: "0 0 0.5rem 1rem" }}>Younchil Hong</h3>
               <div style={{ borderTop: "1px solid #666" }}>Counter</div>
             </div>
           </div>

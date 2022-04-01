@@ -9,11 +9,11 @@ import { createOrder, deleteUser } from "../actions";
 
 const OrderForm = ({
   selectedUser,
+  currentDate,
   userError,
   handleSubmit,
   createOrder,
   change,
-  refUserSearch,
 }) => {
   const [orderType, setOrderType] = useState("cash");
 
@@ -45,9 +45,12 @@ const OrderForm = ({
     const combinedData = {
       ...formValues,
       ...values,
+      lastname: selectedUser.lastname,
+      firstname: selectedUser.firstname,
       name: selectedUser.name,
       nameK: selectedUser.nameK,
       type: orderType,
+      date: currentDate,
       total:
         values.amountThanksgiving +
         values.amountCartridge +
@@ -78,7 +81,13 @@ const OrderForm = ({
                 {selectedUser.nameK ? selectedUser.nameK : "이름"}
               </div>
               <div className="input-box">
-                {selectedUser.name ? capitalizeName(selectedUser.name) : "Name"}
+                {selectedUser.name
+                  ? `${capitalizeName(selectedUser.lastname)}${
+                      selectedUser.firstname
+                        ? `, ${capitalizeName(selectedUser.firstname)}`
+                        : ""
+                    }`
+                  : "Name"}
               </div>
             </div>
           </div>
@@ -193,13 +202,8 @@ const wrappedForm = reduxForm({
   keepDirtyOnReinitialize: true,
 })(OrderForm);
 
-const selector = formValueSelector("orderForm");
-
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    initialValues: {
-      date: ownProps.currentDate,
-    },
     user: state.user,
     order: state.order,
     userError: state.userError,

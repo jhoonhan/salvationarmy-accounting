@@ -10,25 +10,37 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
     deleteOrder(selectedOrder._id, filteredOrders);
   };
 
+  const convertOutput = (str) => {
+    let output;
+    if (str === 0 || str === "0") {
+      output = "";
+    } else {
+      output = `$ ${str.toFixed(2)}`;
+    }
+
+    return output;
+  };
+
   const renderOrderRow = orders
     .sort((a, b) => {
       return lastFirst(a.name).localeCompare(lastFirst(b.name));
     })
     .map((el, i) => {
-      lastFirst(el.name);
-
       return (
         <React.Fragment key={i}>
           <div>{i + 1}</div>
-          <div>{lastFirst(capitalizeName(el.name))}</div>
+          <div>
+            {`${capitalizeName(el.lastname)}${
+              el.firstname ? `, ${capitalizeName(el.firstname)}` : ""
+            }`}
+          </div>
           <div>{el.checkNumber}</div>
-
-          <div>${el.amountOffering.toFixed(2)}</div>
-          <div>${el.amountCartridge.toFixed(2)}</div>
-          <div>${el.amountThanksgiving.toFixed(2)}</div>
-          <div>${el.amountSelfDenial.toFixed(2)}</div>
-          <div>${el.amountBuildingFund.toFixed(2)}</div>
-          <div>${el.total.toFixed(2)}</div>
+          <div>{convertOutput(el.amountOffering)}</div>
+          <div>{convertOutput(el.amountCartridge)}</div>
+          <div>{convertOutput(el.amountThanksgiving)}</div>
+          <div>{convertOutput(el.amountSelfDenial)}</div>
+          <div>{convertOutput(el.amountBuildingFund)}</div>
+          <div>$ {el.total.toFixed(2)}</div>
 
           <div className="order__chart__delete">
             <span
@@ -56,7 +68,7 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
           <div>Offering</div>
           <div>Cartridge</div>
           <div>Thanksgiving</div>
-          <div>Self Denial</div>
+          <div>Self & World</div>
           <div>Building</div>
 
           <div>Total</div>
@@ -66,34 +78,34 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
           <div></div>
           <div style={{ borderRight: "none" }}></div>
           <div style={{ justifyContent: "end" }}>Subtotal Check:</div>
-          <div>${totals.offering.check.toFixed(2)}</div>
-          <div>${totals.cartridge.check.toFixed(2)}</div>
-          <div>${totals.thanksGiving.check.toFixed(2)}</div>
-          <div>${totals.selfDenial.check.toFixed(2)}</div>
-          <div>${totals.buildingFund.check.toFixed(2)}</div>
-          <div>${totals.subTotalCheck.toFixed(2)}</div>
+          <div>$ {totals.offering.check.toFixed(2)}</div>
+          <div>$ {totals.cartridge.check.toFixed(2)}</div>
+          <div>$ {totals.thanksGiving.check.toFixed(2)}</div>
+          <div>$ {totals.selfDenial.check.toFixed(2)}</div>
+          <div>$ {totals.buildingFund.check.toFixed(2)}</div>
+          <div>$ {totals.subTotalCheck.toFixed(2)}</div>
           <div></div>
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
           <div style={{ justifyContent: "end" }}>Subtotal Cash:</div>
-          <div>${totals.offering.cash.toFixed(2)}</div>
-          <div>${totals.cartridge.cash.toFixed(2)}</div>
-          <div>${totals.thanksGiving.cash.toFixed(2)}</div>
-          <div>${totals.selfDenial.cash.toFixed(2)}</div>
-          <div>${totals.buildingFund.cash.toFixed(2)}</div>
-          <div>${totals.subTotalCash.toFixed(2)}</div>
+          <div>$ {totals.offering.cash.toFixed(2)}</div>
+          <div>$ {totals.cartridge.cash.toFixed(2)}</div>
+          <div>$ {totals.thanksGiving.cash.toFixed(2)}</div>
+          <div>$ {totals.selfDenial.cash.toFixed(2)}</div>
+          <div>$ {totals.buildingFund.cash.toFixed(2)}</div>
+          <div>$ {totals.subTotalCash.toFixed(2)}</div>
           <div></div>
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
           <div style={{ justifyContent: "end" }}>Total:</div>
-          <div>${totals.offering.total.toFixed(2)}</div>
-          <div>${totals.cartridge.total.toFixed(2)}</div>
-          <div>${totals.thanksGiving.total.toFixed(2)}</div>
-          <div>${totals.selfDenial.total.toFixed(2)}</div>
-          <div>${totals.buildingFund.total.toFixed(2)}</div>
-          <div>${totals.total.toFixed(2)}</div>
+          <div>$ {totals.offering.total}</div>
+          <div>$ {totals.cartridge.total}</div>
+          <div>$ {totals.thanksGiving.total}</div>
+          <div>$ {totals.selfDenial.total}</div>
+          <div>$ {totals.buildingFund.total}</div>
+          <div>$ {totals.total.toFixed(2)}</div>
           <div></div>
         </div>
       </>

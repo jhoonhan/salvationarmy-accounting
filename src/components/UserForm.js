@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import { createUser, createOrder, deleteUser } from "../actions";
 import renderField from "./renderField";
-import { capitalizeName, combineFirstLast } from "./helpers/nameHelper";
+import { splitCapitalizeName, combineFirstLast } from "./helpers/nameHelper";
 import useUserErrorController from "./useUserErrorController";
 
 import { connect } from "react-redux";
@@ -75,7 +75,13 @@ const UserForm = ({
   const { type } = useUserErrorController(userError);
 
   const userSubmit = (formValues) => {
-    const firstname = formValues.firstname.trim().toLowerCase();
+    let firstname;
+    if (!formValues.firstname) {
+      firstname = "";
+    } else {
+      firstname = formValues.firstname.trim().toLowerCase();
+    }
+
     const lastname = formValues.lastname.trim().toLowerCase();
     const names = {
       name: combineFirstLast(firstname, lastname).toLowerCase(),
@@ -103,7 +109,42 @@ const UserForm = ({
     event.preventDefault();
     setSearchTerm(event.target.value);
   };
+  const renderCreateUser = () => {
+    return (
+      <>
+        <label>Create New User</label>
+        <form
+          onSubmit={handleSubmit(userSubmit)}
+          autoComplete="off"
+          className="order__form"
+        >
+          <div className="order__user-info">
+            <Field
+              name="lastname"
+              component={renderField}
+              type="text"
+              label="Lastname"
+              required="required"
+            />
+            <Field
+              name="firstname"
+              component={renderField}
+              type="text"
+              label="Firstname"
+            />
+            <Field
+              name="nameK"
+              component={renderField}
+              type="text"
+              label="이름"
+            />
 
+            <button type="submit">submit</button>
+          </div>
+        </form>
+      </>
+    );
+  };
   const renderUserForm = () => {
     return (
       <>
@@ -135,7 +176,7 @@ const UserForm = ({
                         : {}
                     }
                   >
-                    {el.nameK} / {capitalizeName(el.name)}
+                    {el.nameK} / {splitCapitalizeName(el.name)}
                   </div>
                   <div
                     onClick={() => onClickDeleteUser(el)}
@@ -148,40 +189,6 @@ const UserForm = ({
             })}
           </div>
         </div>
-      </>
-    );
-  };
-  const renderCreateUser = () => {
-    return (
-      <>
-        <label>Create New User</label>
-        <form
-          onSubmit={handleSubmit(userSubmit)}
-          autoComplete="off"
-          className="order__form"
-        >
-          <div className="order__user-info">
-            <Field
-              name="nameK"
-              component={renderField}
-              type="text"
-              label="이름"
-            />
-            <Field
-              name="firstname"
-              component={renderField}
-              type="text"
-              label="Firstname"
-            />
-            <Field
-              name="lastname"
-              component={renderField}
-              type="text"
-              label="Lastname"
-            />
-            <button type="submit">submit</button>
-          </div>
-        </form>
       </>
     );
   };

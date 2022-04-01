@@ -35,17 +35,20 @@ const DateSelector = ({ setCurrentDate, dispatch }) => {
 };
 
 const wrappedForm = reduxForm({
-  form: "orderForm",
+  form: "dateForm",
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   enableReinitialize: true,
   keepDirtyOnReinitialize: true,
 })(DateSelector);
 
-const mapStateToProps = ({ user, form, order }) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    user,
-    order,
+    initialValues: {
+      date: ownProps.currentDate,
+    },
+    user: state.suer,
+    order: state.order,
   };
 };
 

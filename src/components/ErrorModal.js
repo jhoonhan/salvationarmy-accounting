@@ -10,7 +10,7 @@ const ErrorModal = ({ userError }) => {
   }, [userError]);
 
   const render = () => {
-    if (!show) return null;
+    if (!show || !userError) return null;
     return (
       <div className="error-modal__container">
         <div className="error__message">

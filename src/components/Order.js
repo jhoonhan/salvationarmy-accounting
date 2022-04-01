@@ -64,8 +64,7 @@ export const Order = ({
 
   useEffect(() => {
     resetForms();
-    console.log(currentDate);
-  }, [currentDate, resetForms]);
+  }, [currentDate]);
 
   useEffect(() => {
     setSelectedOrders(order.orders.filter((el) => el.date === currentDate));
@@ -95,7 +94,6 @@ export const Order = ({
   }, [currentReport]);
 
   const conditionalRender = () => {
-    console.log(userError);
     if (userError?.name === "selectSunday") {
       return <ErrorSunday userError={userError} />;
     }
@@ -116,14 +114,9 @@ export const Order = ({
             setSelectedUser={setSelectedUser}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
-            refUserSearch={refUserSearch}
           />
 
-          <OrderForm
-            currentDate={currentDate}
-            selectedUser={selectedUser}
-            refUserSearch={refUserSearch}
-          />
+          <OrderForm currentDate={currentDate} selectedUser={selectedUser} />
         </>
       );
     }
@@ -152,7 +145,10 @@ export const Order = ({
         </div>
         <div className="order__container__col print-hide-adea">
           <div className="order__col--conditional">
-            <DateSelector setCurrentDate={setCurrentDate} />
+            <DateSelector
+              currentDate={currentDate}
+              setCurrentDate={setCurrentDate}
+            />
 
             {conditionalRender()}
           </div>
