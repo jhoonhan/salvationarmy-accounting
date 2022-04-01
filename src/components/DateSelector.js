@@ -16,12 +16,15 @@ const DateSelector = ({ setCurrentDate }) => {
   };
 
   return (
-    <Field
-      name="date"
-      type="date"
-      component={renderField}
-      onChange={onDateChange}
-    />
+    <div className="ui__container">
+      <label>Select date</label>
+      <Field
+        name="date"
+        type="date"
+        component={renderField}
+        onChange={onDateChange}
+      />
+    </div>
   );
 };
 

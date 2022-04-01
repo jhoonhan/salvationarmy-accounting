@@ -16,8 +16,18 @@ const UserSearch = ({
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
+    const sortedUsers = user.users.sort((a, b) => {
+      let results;
+      if (!a.nameK || !b.nameK) {
+        results = a.name.localeCompare(b.name);
+      } else {
+        results = a.nameK.localeCompare(b.nameK);
+      }
+      return results;
+    });
+
     if (searchTerm.length === 0) {
-      setSearchResults([]);
+      setSearchResults(sortedUsers);
       return;
     }
     if (searchTerm.length > 0) {
@@ -101,16 +111,21 @@ const UserSearch = ({
   };
 
   return (
-    <div className="name-search">
-      <input
-        ref={refNameSearch}
-        type="text"
-        value={searchTerm}
-        onChange={onUserSearchChange}
-        onClick={() => setSearchTerm("")}
-      />
-      {renderUserSearch()}
-    </div>
+    <>
+      <div className="ui__container">
+        <div className="name-search">
+          <label>Search user</label>
+          <input
+            ref={refNameSearch}
+            type="text"
+            value={searchTerm}
+            onChange={onUserSearchChange}
+            onClick={() => setSearchTerm("")}
+          />
+          {renderUserSearch()}
+        </div>
+      </div>
+    </>
   );
 };
 

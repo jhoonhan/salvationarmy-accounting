@@ -12,8 +12,8 @@ const UserForm = ({ createUser, handleSubmit }) => {
 
   const render = () => {
     return (
-      <>
-        <h2>Create New User</h2>
+      <div className="ui__container">
+        <label>Create New User</label>
         <form
           onSubmit={handleSubmit(userSubmit)}
           autoComplete="off"
@@ -32,10 +32,10 @@ const UserForm = ({ createUser, handleSubmit }) => {
               type="text"
               label="name"
             />
+            <button type="submit">submit</button>
           </div>
-          <button type="submit">Submit</button>
         </form>
-      </>
+      </div>
     );
   };
   return render();

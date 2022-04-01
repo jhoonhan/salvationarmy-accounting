@@ -6,6 +6,7 @@ import OrderForm from "./OrderForm";
 import UserForm from "./UserForm";
 import UserSearch from "./UserSearch";
 import DateSelector from "./DateSelector";
+import UpdateConfrim from "./UpdateConfrim";
 import Report from "./Report";
 import useGetTotal from "./useGetTotal";
 
@@ -41,6 +42,8 @@ export const Order = ({
 
   const [currentReport, setCurrentReport] = useState(null);
   const [prevReport, setPrevReport] = useState(null);
+
+  const [showForm, setShowForm] = useState(false);
 
   const refPrint = useRef(null);
   const totals = useGetTotal(selectedOrders);
@@ -86,6 +89,10 @@ export const Order = ({
     setPrevDate(prevSunday.toISOString().split("T")[0]);
   }, [currentDate]);
 
+  useEffect(() => {
+    setShowForm(currentReport ? false : true);
+  }, [currentReport]);
+
   const render = () => {
     return (
       <div className="order__container">
@@ -104,25 +111,39 @@ export const Order = ({
             prevReport={prevReport}
             currentDate={currentDate}
             prevDate={prevDate}
+            showForm={showForm}
+            setShowForm={setShowForm}
           />
         </div>
         <div className="order__container__col print-hide-adea">
-          <DateSelector setCurrentDate={setCurrentDate} />
-          <UserSearch
-            selectedUser={selectedUser}
-            setSelectedUser={setSelectedUser}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-          />
-          <OrderForm
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            currentDate={currentDate}
-            setCurrentDate={setCurrentDate}
-            selectedUser={selectedUser}
-          />
+          <div className="order__col--conditional">
+            <DateSelector setCurrentDate={setCurrentDate} />
 
-          <UserForm />
+            {!showForm ? (
+              <UpdateConfrim
+                setShowForm={setShowForm}
+                currentReport={currentReport}
+              />
+            ) : (
+              <>
+                <UserSearch
+                  selectedUser={selectedUser}
+                  setSelectedUser={setSelectedUser}
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                />
+                <UserForm />
+
+                <OrderForm
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                  currentDate={currentDate}
+                  setCurrentDate={setCurrentDate}
+                  selectedUser={selectedUser}
+                />
+              </>
+            )}
+          </div>
         </div>
       </div>
     );

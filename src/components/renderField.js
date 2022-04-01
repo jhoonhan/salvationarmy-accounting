@@ -6,6 +6,7 @@ const renderField = ({
   className,
   required,
   toFixed,
+  isDisabled,
   meta: { touched, error },
 }) => {
   const inputArea = (
@@ -22,6 +23,7 @@ const renderField = ({
       className={`input--100 ${className}`}
       style={style}
       required={required}
+      disabled={isDisabled}
     />
   );
   const textArea = <textarea {...input} placeholder={label} type={type} />;
