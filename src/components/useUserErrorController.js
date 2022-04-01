@@ -13,8 +13,8 @@ const useUserErrorController = (userError) => {
     }
   }
 
-  if (userError.name === "SelectSunday") {
-    error.type = "SelectSunday";
+  if (userError.name === "selectSunday") {
+    error.type = "selectSunday";
     error.message = "You must select Sunday";
   }
 

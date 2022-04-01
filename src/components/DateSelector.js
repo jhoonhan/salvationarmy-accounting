@@ -6,7 +6,17 @@ import renderField from "./renderField";
 
 const DateSelector = ({ setCurrentDate, dispatch }) => {
   const onDateChange = (e) => {
-    setCurrentDate(e.target.value);
+    const selectedDate = new Date(e.target.value);
+    if (selectedDate.getDay() !== 6) {
+      dispatch({
+        type: "CREATE_ERROR",
+        payload: { name: "selectSunday", message: "You must select Sunday" },
+      });
+    }
+    if (selectedDate.getDay() === 6) {
+      setCurrentDate(e.target.value);
+      dispatch({ type: "CLEAR_ERROR" });
+    }
   };
 
   return (
@@ -33,13 +43,7 @@ const wrappedForm = reduxForm({
 })(DateSelector);
 
 const mapStateToProps = ({ user, form, order }) => {
-  let prevSunday = new Date();
-  prevSunday.setDate(prevSunday.getDate() - ((prevSunday.getDay() + 7) % 7));
-  const currentDate = prevSunday.toISOString().split("T")[0];
   return {
-    initialValues: {
-      date: currentDate,
-    },
     user,
     order,
   };

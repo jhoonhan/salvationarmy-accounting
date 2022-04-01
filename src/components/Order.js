@@ -6,6 +6,7 @@ import OrderForm from "./OrderForm";
 import UserForm from "./UserForm";
 import DateSelector from "./DateSelector";
 import UpdateConfrim from "./UpdateConfrim";
+import ErrorSunday from "./ErrorSunday";
 import Report from "./Report";
 import useGetTotal from "./useGetTotal";
 
@@ -20,26 +21,13 @@ import {
 export const Order = ({
   order,
   report,
+  userError,
   fetchOrders,
   fetchUsers,
   fetchReports,
   resetForms,
 }) => {
-  // const now = new Date();
-  // const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  // const lastSunday = new Date(today.setDate(today.getDate() - today.getDay()));
-  // const prevSunday = new Date(
-  //   today.setDate(today.getDate() - today.getDay() - 7)
-  // );
-
   const [searchTerm, setSearchTerm] = useState("");
-
-  // const [currentDate, setCurrentDate] = useState(
-  //   lastSunday.toISOString().split("T")[0]
-  // );
-  // const [prevDate, setPrevDate] = useState(
-  //   prevSunday.toISOString().split("T")[0]
-  // );
 
   const [currentDate, setCurrentDate] = useState(null);
   const [prevDate, setPrevDate] = useState(null);
@@ -57,19 +45,6 @@ export const Order = ({
 
   const totals = useGetTotal(selectedOrders);
 
-  // useEffect(() => {
-  //   const now = new Date();
-  //   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  //   const lastSunday = new Date(
-  //     today.setDate(today.getDate() - today.getDay())
-  //   );
-  //   const prevSunday = new Date(
-  //     today.setDate(today.getDate() - today.getDay() - 7)
-  //   );
-  //   setCurrentDate(lastSunday.toISOString().split("T")[0]);
-  // }, []);
-
-  //
   useEffect(() => {
     fetchOrders();
     fetchUsers();
@@ -120,10 +95,9 @@ export const Order = ({
   }, [currentReport]);
 
   const conditionalRender = () => {
-    const newDate = new Date(currentDate);
-    const day = newDate.getDay();
-    if (day !== 6) {
-      return <div>aaang</div>;
+    console.log(userError);
+    if (userError?.name === "selectSunday") {
+      return <ErrorSunday userError={userError} />;
     }
     if (!showForm && currentDate) {
       return (
@@ -189,11 +163,12 @@ export const Order = ({
   return render();
 };
 
-const mapStateToProps = ({ user, order, report }) => {
+const mapStateToProps = ({ user, order, report, userError }) => {
   return {
     user,
     order,
     report,
+    userError,
   };
 };
 
