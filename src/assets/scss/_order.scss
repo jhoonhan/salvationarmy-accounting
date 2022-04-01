@@ -1,18 +1,45 @@
 .order__container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: grid;
   grid-template-columns: 3fr 2fr;
-  column-gap: 2rem;
+  column-gap: 0rem;
 
-  padding: 0 2rem;
+  padding: 0 0rem;
 
   box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.order__container__col {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 1.5rem 1.5rem;
+
+  box-sizing: border-box;
+
+  overflow-y: scroll;
+}
+
+.order__col--conditional {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  box-sizing: border-box;
+
+  & input {
+    height: 4rem;
+  }
 }
 .order__form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
   width: 100%;
 }
 .order__amounts {
@@ -86,17 +113,6 @@
     width: 100%;
   }
 }
-
-.order__container__col {
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-
-  padding: 2rem 0;
-
-  box-sizing: border-box;
-}
 .order__user-info {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -113,7 +129,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 2rem;
+  column-gap: 1.5rem;
 }
 .order__chart__delete {
   color: red;
@@ -131,12 +147,14 @@
     }
   }
 }
-
-.addform__container {
+.addform {
+  width: 100%;
+}
+.addform__section {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 2rem;
+  column-gap: 1.5rem;
   box-sizing: border-box;
 }
 .addform__column {
@@ -148,7 +166,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   & label {
     border-bottom: $border--default;
     margin-bottom: 0.3rem;
@@ -207,7 +225,7 @@
 }
 .addform__inputarea {
   width: 100%;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   box-sizing: border-box;
   border: 1px solid transparent;
   text-align: right;
@@ -216,7 +234,7 @@
 .addform__input {
   display: grid;
   grid-template-columns: auto 1fr;
-  justify-content: center;
+  align-items: center;
   column-gap: 1rem;
 
   border: $border--default;
@@ -232,17 +250,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-}
-.order__col--conditional {
-  height: 100%;
-  min-height: 70vh;
 
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
-  box-sizing: border-box;
+  & .info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 }
 
 .order__form__row {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { deleteOrder } from "../actions";
-import capitalizeName from "./helpers/capitalizeName";
+import { capitalizeName, lastFirst } from "./helpers/nameHelper";
 
 const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
   const onClickDelete = (selectedOrder) => {
@@ -12,13 +12,15 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
 
   const renderOrderRow = orders
     .sort((a, b) => {
-      return a.name.localeCompare(b.name);
+      return lastFirst(a.name).localeCompare(lastFirst(b.name));
     })
     .map((el, i) => {
+      lastFirst(el.name);
+
       return (
         <React.Fragment key={i}>
           <div>{i + 1}</div>
-          <div>{capitalizeName(el.name)}</div>
+          <div>{lastFirst(capitalizeName(el.name))}</div>
           <div>{el.checkNumber}</div>
 
           <div>${el.amountOffering.toFixed(2)}</div>

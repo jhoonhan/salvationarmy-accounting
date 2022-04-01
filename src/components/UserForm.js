@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import { createUser, createOrder, deleteUser } from "../actions";
 import renderField from "./renderField";
-import capitalizeName from "./helpers/capitalizeName";
+import { capitalizeName } from "./helpers/nameHelper";
 
 import { connect } from "react-redux";
 
@@ -121,20 +121,6 @@ const UserSearch = ({
   return (
     <>
       <div className="ui__container">
-        <div className="name-search__container">
-          <label>Search user</label>
-          <input
-            ref={refNameSearch}
-            type="text"
-            value={searchTerm}
-            onChange={onUserSearchChange}
-            onClick={() => setSearchTerm("")}
-            // style={{ borderBottom: "none" }}
-            placeholder="Search for Users"
-          />
-          {renderUserSearch()}
-        </div>
-
         <div className="name-create__container">
           <label>Create New User</label>
           <form
@@ -158,6 +144,19 @@ const UserSearch = ({
               <button type="submit">submit</button>
             </div>
           </form>
+        </div>
+        <div className="name-search__container">
+          <label>Search user</label>
+          <input
+            ref={refNameSearch}
+            type="text"
+            value={searchTerm}
+            onChange={onUserSearchChange}
+            onClick={() => setSearchTerm("")}
+            // style={{ borderBottom: "none" }}
+            placeholder="Search for Users"
+          />
+          {renderUserSearch()}
         </div>
       </div>
     </>

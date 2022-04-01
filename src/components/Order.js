@@ -101,6 +101,7 @@ export const Order = ({
 
   useEffect(() => {
     setShowForm(currentReport ? false : true);
+    refPrint.current.scrollTo(0, 0);
   }, [currentReport]);
 
   const render = () => {
@@ -132,6 +133,7 @@ export const Order = ({
               <UpdateConfrim
                 setShowForm={setShowForm}
                 currentReport={currentReport}
+                refPrint={refPrint}
               />
             ) : (
               <>

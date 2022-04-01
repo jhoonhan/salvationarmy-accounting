@@ -1,5 +1,7 @@
 body {
   font-size: 1.6rem;
+  height: 100vh;
+  overflow: hidden;
 }
 button,
 .btn {
@@ -7,7 +9,9 @@ button,
   font-size: 1.6rem;
   text-transform: uppercase;
 
-  padding: 1rem 2rem;
+  height: 4rem;
+
+  padding: 0rem 2rem;
 
   background-color: blue;
   border: $border--default;
@@ -30,8 +34,6 @@ button,
   font-weight: 400;
   line-height: 1.6;
   font-size: 1.6rem;
-
-  height: 4rem;
 
   display: flex;
   align-items: center;
@@ -63,6 +65,19 @@ input::-webkit-inner-spin-button {
 label {
   text-transform: uppercase;
   font-weight: 600;
+}
+
+::-webkit-scrollbar {
+  width: 0.7rem;
+}
+::-webkit-scrollbar-track {
+  background: #efefef;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
 }
 
 .app-container {
@@ -104,7 +119,10 @@ label {
 
   overflow-y: scroll;
   &:hover {
-    box-shadow: inset -5px 0px 10px #ccc;
+    box-shadow: inset 0px 10px 10px -10px #ccc, inset 0px -10px 10px -10px #ccc;
+  }
+  & .name-search__result:last-child {
+    border-bottom: 1px solid transparent;
   }
 }
 .name-search__result {

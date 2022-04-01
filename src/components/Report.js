@@ -87,8 +87,8 @@ const Report = ({
 
   const render = () => {
     return (
-      <form onSubmit={handleSubmit(reportSubmit)}>
-        <div className="addform__container">
+      <form onSubmit={handleSubmit(reportSubmit)} className="addform">
+        <div className="addform__section">
           <div className="addform__column">
             <div className="addform__row">
               <label>(4003) Meeting Collections</label>
@@ -379,7 +379,7 @@ const Report = ({
           </div>
         </div>
         <div
-          className="addform__container"
+          className="addform__section"
           style={{ marginTop: "8rem", marginBottom: "4rem" }}
         >
           <div className="addform__column">
@@ -393,9 +393,14 @@ const Report = ({
             </div>
           </div>
         </div>
-        <button type="submit" style={!showForm ? { display: "none" } : {}}>
-          {currentReport ? "update" : "submit"}
-        </button>
+        <div>
+          <button
+            type="submit"
+            style={!showForm ? { display: "none" } : { width: "100%" }}
+          >
+            {currentReport ? "update" : "submit"}
+          </button>
+        </div>
       </form>
     );
   };

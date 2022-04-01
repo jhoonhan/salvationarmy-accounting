@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import renderField from "./renderField";
-import capitalizeName from "./helpers/capitalizeName";
+import { capitalizeName } from "./helpers/nameHelper";
 
 import { createOrder, deleteUser } from "../actions";
 
