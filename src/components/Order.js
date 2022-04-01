@@ -9,7 +9,13 @@ import UpdateConfrim from "./UpdateConfrim";
 import Report from "./Report";
 import useGetTotal from "./useGetTotal";
 
-import { createOrder, fetchOrders, fetchUsers, fetchReports } from "../actions";
+import {
+  createOrder,
+  fetchOrders,
+  fetchUsers,
+  fetchReports,
+  resetForms,
+} from "../actions";
 
 export const Order = ({
   user,
@@ -19,6 +25,7 @@ export const Order = ({
   fetchOrders,
   fetchUsers,
   fetchReports,
+  resetForms,
 }) => {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -65,6 +72,10 @@ export const Order = ({
     fetchUsers();
     fetchReports();
   }, []);
+
+  useEffect(() => {
+    resetForms();
+  }, [currentDate, resetForms]);
 
   useEffect(() => {
     setSelectedOrders(order.orders.filter((el) => el.date === currentDate));
@@ -163,4 +174,5 @@ export default connect(mapStateToProps, {
   fetchOrders,
   fetchUsers,
   fetchReports,
+  resetForms,
 })(Order);

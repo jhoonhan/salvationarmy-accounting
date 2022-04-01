@@ -98,13 +98,21 @@ export const fetchReports = () => async (dispatch) => {
   }
 };
 
-export const putReport = (reportId, data) => async (dispatch) => {
+export const putReport = (reportId, data) => async (dispatch, getState) => {
   try {
-    console.log(data);
     const res = await server.put(`/report/${reportId}`, data);
-    console.log(res.data);
-    // dispatch({ type: PUT_REPORT, payload: data });
+    const filteredReports = getState().report.reports.filter(
+      (report) => report._id !== res.data.data._id
+    );
+    const combinedReports = [...filteredReports, res.data.data];
+    dispatch({ type: PUT_REPORT, payload: combinedReports });
   } catch (error) {
     console.error(error);
   }
+};
+
+export const resetForms = () => (dispatch) => {
+  dispatch(reset("reportsForm"));
+  dispatch(reset("orderForm"));
+  dispatch(reset("userForm"));
 };

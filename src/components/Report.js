@@ -17,7 +17,6 @@ const Report = ({
   createReport,
   putReport,
   showForm,
-  setShowForm,
 }) => {
   const [meetingTotal, setMeetingTotal] = useState(0);
   const [groupTotal, setGroupTotal] = useState(0);
