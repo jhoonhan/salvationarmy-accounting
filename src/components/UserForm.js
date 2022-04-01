@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import { createUser, createOrder, deleteUser } from "../actions";
 import renderField from "./renderField";
-import { capitalizeName } from "./helpers/nameHelper";
+import { capitalizeName, combineFirstLast } from "./helpers/nameHelper";
 
 import { connect } from "react-redux";
 
@@ -66,7 +66,15 @@ const UserSearch = ({
   }, [searchTerm, user.users]);
 
   const userSubmit = (formValues) => {
-    createUser(formValues);
+    const firstname = formValues.firstname.trim().toLowerCase();
+    const lastname = formValues.lastname.trim().toLowerCase();
+    const names = {
+      name: combineFirstLast(firstname, lastname).toLowerCase(),
+      firstname,
+      lastname,
+    };
+    // console.log({ ...formValues, ...names });
+    createUser({ ...formValues, ...names });
   };
 
   const onSelectUser = (el) => {
@@ -136,10 +144,16 @@ const UserSearch = ({
                 label="이름"
               />
               <Field
-                name="name"
+                name="firstname"
                 component={renderField}
                 type="text"
-                label="name"
+                label="Firstname"
+              />
+              <Field
+                name="lastname"
+                component={renderField}
+                type="text"
+                label="Lastname"
               />
               <button type="submit">submit</button>
             </div>

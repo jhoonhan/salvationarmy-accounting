@@ -15,3 +15,7 @@ export const lastFirst = (name) => {
   const converted = `${splitted[1]}, ${splitted[0]}`;
   return converted;
 };
+
+export const combineFirstLast = (firstname, lastname) => {
+  return `${firstname} ${lastname}`;
+};

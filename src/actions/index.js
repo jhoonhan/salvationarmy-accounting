@@ -14,6 +14,7 @@ import {
   CREATE_REPORT,
   FETCH_REPORTS,
   PUT_REPORT,
+  ERROR,
 } from "./types";
 
 export const signOut = () => {
@@ -26,11 +27,10 @@ export const signOut = () => {
 export const createOrder = (data) => async (dispatch) => {
   try {
     const res = await server.post("/order", data);
-    console.log(res.data.data.data);
-    dispatch({ type: CREATE_ORDER, payload: res.data.data.data });
+    dispatch({ type: CREATE_ORDER, payload: res.data.data });
     dispatch(reset("orderForm"));
   } catch (error) {
-    console.error(error);
+    dispatch({ type: ERROR, payload: error.response.data.error });
   }
 };
 
@@ -64,9 +64,8 @@ export const fetchUsers = () => async (dispatch) => {
 
 export const createUser = (formValues) => async (dispatch) => {
   try {
-    console.log(formValues);
-    await server.post("/user", formValues);
-    dispatch({ type: CREATE_USER, payload: formValues });
+    const res = await server.post("/user", formValues);
+    dispatch({ type: CREATE_USER, payload: res.data.data });
     dispatch(reset("userForm"));
   } catch (error) {
     console.error(error);
@@ -112,7 +111,7 @@ export const putReport = (reportId, data) => async (dispatch, getState) => {
     /// finalize delete order
     if (getState().order.markedOrders.length > 0) {
       const markedOrders = getState().order.markedOrders;
-      const res1 = await server.delete(`/order/batch/${markedOrders}`);
+      await server.delete(`/order/batch/${markedOrders}`);
     }
   } catch (error) {
     console.error(error);
