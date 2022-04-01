@@ -3,11 +3,13 @@ import {
   CREATE_ORDER,
   FETCH_ORDERS,
   DELETE_ORDER,
+  MARK_DELETE_ORDER,
 } from "../actions/types";
 
 const initialState = {
   fetched: false,
   orders: [],
+  markedOrders: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,6 +22,11 @@ const reducer = (state = initialState, action) => {
       return { ...state, fetched: true, orders: action.payload };
     case DELETE_ORDER:
       return { ...state, orders: action.payload };
+    case MARK_DELETE_ORDER:
+      return {
+        ...state,
+        markedOrders: [...state.markedOrders, action.payload],
+      };
     default:
       return state;
   }

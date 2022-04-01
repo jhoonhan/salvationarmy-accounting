@@ -6,6 +6,7 @@ import {
   FETCH_ORDER,
   FETCH_ORDERS,
   DELETE_ORDER,
+  MARK_DELETE_ORDER,
   CREATE_USER,
   FETCH_USER,
   FETCH_USERS,
@@ -44,8 +45,9 @@ export const fetchOrders = () => async (dispatch) => {
 
 export const deleteOrder = (orderId, orders) => async (dispatch) => {
   try {
-    await server.delete(`/order/${orderId}`);
+    // await server.delete(`/order/${orderId}`);
     dispatch({ type: DELETE_ORDER, payload: orders });
+    dispatch({ type: MARK_DELETE_ORDER, payload: orderId });
   } catch (error) {
     console.error(error);
   }
@@ -106,6 +108,12 @@ export const putReport = (reportId, data) => async (dispatch, getState) => {
     );
     const combinedReports = [...filteredReports, res.data.data];
     dispatch({ type: PUT_REPORT, payload: combinedReports });
+
+    /// finalize delete order
+    if (getState().order.markedOrders.length > 0) {
+      const markedOrders = getState().order.markedOrders;
+      const res1 = await server.delete(`/order/batch/${markedOrders}`);
+    }
   } catch (error) {
     console.error(error);
   }
