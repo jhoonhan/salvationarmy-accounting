@@ -3,11 +3,13 @@ import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import { createUser, createOrder, deleteUser } from "../actions";
 import renderField from "./renderField";
 import { capitalizeName, combineFirstLast } from "./helpers/nameHelper";
+import useUserErrorController from "./useUserErrorController";
 
 import { connect } from "react-redux";
 
-const UserSearch = ({
+const UserForm = ({
   user,
+  userError,
   searchTerm,
   setSearchTerm,
   deleteUser,
@@ -15,6 +17,7 @@ const UserSearch = ({
   setSelectedUser,
   createUser,
   handleSubmit,
+  refUserSearch,
 }) => {
   const refNameSearch = useRef(null);
   const [searchResults, setSearchResults] = useState([]);
@@ -65,6 +68,12 @@ const UserSearch = ({
     }
   }, [searchTerm, user.users]);
 
+  // useEffect(() => {
+  //   console.log(userError);
+  // }, [userError]);
+
+  const { type } = useUserErrorController(userError);
+
   const userSubmit = (formValues) => {
     const firstname = formValues.firstname.trim().toLowerCase();
     const lastname = formValues.lastname.trim().toLowerCase();
@@ -90,90 +99,98 @@ const UserSearch = ({
     deleteUser(selectedUser._id, filteredUsers);
   };
 
-  const onUserSearchChange = (event) => {
+  const onUserFormChange = (event) => {
     event.preventDefault();
     setSearchTerm(event.target.value);
   };
 
-  const renderUserSearch = () => {
+  const renderUserForm = () => {
     return (
-      <div className="name-search__results">
-        {searchResults.map((el, i) => {
-          return (
-            <div key={i} className="name-search__result">
-              <div
-                onClick={() => onSelectUser(el)}
-                className="name-search__name"
-                style={
-                  el.name === selectedUser.name &&
-                  el.nameK === selectedUser.nameK
-                    ? { color: "red" }
-                    : {}
-                }
-              >
-                {el.nameK} / {capitalizeName(el.name)}
-              </div>
-              <div
-                onClick={() => onClickDeleteUser(el)}
-                className="name--search__delete"
-              >
-                DELETE
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  return (
-    <>
-      <div className="ui__container">
-        <div className="name-create__container">
-          <label>Create New User</label>
-          <form
-            onSubmit={handleSubmit(userSubmit)}
-            autoComplete="off"
-            className="order__form"
-          >
-            <div className="order__user-info">
-              <Field
-                name="nameK"
-                component={renderField}
-                type="text"
-                label="이름"
-              />
-              <Field
-                name="firstname"
-                component={renderField}
-                type="text"
-                label="Firstname"
-              />
-              <Field
-                name="lastname"
-                component={renderField}
-                type="text"
-                label="Lastname"
-              />
-              <button type="submit">submit</button>
-            </div>
-          </form>
-        </div>
-        <div className="name-search__container">
-          <label>Search user</label>
+      <>
+        <label>Search user</label>
+        <div
+          className="name-search__subcontainer"
+          style={type === "noUserName" ? { border: "1px solid red" } : {}}
+        >
           <input
             ref={refNameSearch}
             type="text"
             value={searchTerm}
-            onChange={onUserSearchChange}
+            onChange={onUserFormChange}
             onClick={() => setSearchTerm("")}
             // style={{ borderBottom: "none" }}
             placeholder="Search for Users"
           />
-          {renderUserSearch()}
+          <div className="name-search__results">
+            {searchResults.map((el, i) => {
+              return (
+                <div key={i} className="name-search__result">
+                  <div
+                    onClick={() => onSelectUser(el)}
+                    className="name-search__name"
+                    style={
+                      el.name === selectedUser.name &&
+                      el.nameK === selectedUser.nameK
+                        ? { color: "red" }
+                        : {}
+                    }
+                  >
+                    {el.nameK} / {capitalizeName(el.name)}
+                  </div>
+                  <div
+                    onClick={() => onClickDeleteUser(el)}
+                    className="name--search__delete"
+                  >
+                    DELETE
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </>
+      </>
+    );
+  };
+  const renderCreateUser = () => {
+    return (
+      <>
+        <label>Create New User</label>
+        <form
+          onSubmit={handleSubmit(userSubmit)}
+          autoComplete="off"
+          className="order__form"
+        >
+          <div className="order__user-info">
+            <Field
+              name="nameK"
+              component={renderField}
+              type="text"
+              label="이름"
+            />
+            <Field
+              name="firstname"
+              component={renderField}
+              type="text"
+              label="Firstname"
+            />
+            <Field
+              name="lastname"
+              component={renderField}
+              type="text"
+              label="Lastname"
+            />
+            <button type="submit">submit</button>
+          </div>
+        </form>
+      </>
+    );
+  };
+
+  return (
+    <div className="ui__container">
+      <div className="name-create__container">{renderCreateUser()}</div>
+      <div className="name-search__container">{renderUserForm()}</div>
+    </div>
   );
 };
 
@@ -183,13 +200,14 @@ const wrappedForm = reduxForm({
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   enableReinitialize: true,
   keepDirtyOnReinitialize: true,
-})(UserSearch);
+})(UserForm);
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ user, order, userError }) => {
   return {
     initialValues: {},
-    user: state.user,
-    order: state.order,
+    user,
+    order,
+    userError,
   };
 };
 

@@ -3,7 +3,7 @@ import ReactToPrint from "react-to-print";
 import { connect } from "react-redux";
 import OrderChart from "./OrderChart";
 import OrderForm from "./OrderForm";
-import UserSearch from "./UserForm";
+import UserForm from "./UserForm";
 import DateSelector from "./DateSelector";
 import UpdateConfrim from "./UpdateConfrim";
 import Report from "./Report";
@@ -18,30 +18,31 @@ import {
 } from "../actions";
 
 export const Order = ({
-  user,
   order,
   report,
-  createOrder,
   fetchOrders,
   fetchUsers,
   fetchReports,
   resetForms,
 }) => {
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const lastSunday = new Date(today.setDate(today.getDate() - today.getDay()));
-  const prevSunday = new Date(
-    today.setDate(today.getDate() - today.getDay() - 7)
-  );
+  // const now = new Date();
+  // const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  // const lastSunday = new Date(today.setDate(today.getDate() - today.getDay()));
+  // const prevSunday = new Date(
+  //   today.setDate(today.getDate() - today.getDay() - 7)
+  // );
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [currentDate, setCurrentDate] = useState(
-    lastSunday.toISOString().split("T")[0]
-  );
-  const [prevDate, setPrevDate] = useState(
-    prevSunday.toISOString().split("T")[0]
-  );
+  // const [currentDate, setCurrentDate] = useState(
+  //   lastSunday.toISOString().split("T")[0]
+  // );
+  // const [prevDate, setPrevDate] = useState(
+  //   prevSunday.toISOString().split("T")[0]
+  // );
+
+  const [currentDate, setCurrentDate] = useState(null);
+  const [prevDate, setPrevDate] = useState(null);
 
   const [selectedUser, setSelectedUser] = useState({});
   const [selectedOrders, setSelectedOrders] = useState([]);
@@ -52,6 +53,8 @@ export const Order = ({
   const [showForm, setShowForm] = useState(false);
 
   const refPrint = useRef(null);
+  const refUserSearch = useRef(null);
+
   const totals = useGetTotal(selectedOrders);
 
   // useEffect(() => {
@@ -71,10 +74,22 @@ export const Order = ({
     fetchOrders();
     fetchUsers();
     fetchReports();
+
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const lastSunday = new Date(
+      today.setDate(today.getDate() - today.getDay())
+    );
+    const prevSunday = new Date(
+      today.setDate(today.getDate() - today.getDay() - 7)
+    );
+    setCurrentDate(lastSunday.toISOString().split("T")[0]);
+    setPrevDate(prevSunday.toISOString().split("T")[0]);
   }, []);
 
   useEffect(() => {
     resetForms();
+    console.log(currentDate);
   }, [currentDate, resetForms]);
 
   useEffect(() => {
@@ -104,6 +119,42 @@ export const Order = ({
     refPrint.current.scrollTo(0, 0);
   }, [currentReport]);
 
+  const conditionalRender = () => {
+    const newDate = new Date(currentDate);
+    const day = newDate.getDay();
+    if (day !== 6) {
+      return <div>aaang</div>;
+    }
+    if (!showForm && currentDate) {
+      return (
+        <UpdateConfrim
+          setShowForm={setShowForm}
+          currentReport={currentReport}
+          refPrint={refPrint}
+        />
+      );
+    }
+    if (showForm && currentDate) {
+      return (
+        <>
+          <UserForm
+            selectedUser={selectedUser}
+            setSelectedUser={setSelectedUser}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            refUserSearch={refUserSearch}
+          />
+
+          <OrderForm
+            currentDate={currentDate}
+            selectedUser={selectedUser}
+            refUserSearch={refUserSearch}
+          />
+        </>
+      );
+    }
+  };
+
   const render = () => {
     return (
       <div className="order__container">
@@ -129,30 +180,7 @@ export const Order = ({
           <div className="order__col--conditional">
             <DateSelector setCurrentDate={setCurrentDate} />
 
-            {!showForm ? (
-              <UpdateConfrim
-                setShowForm={setShowForm}
-                currentReport={currentReport}
-                refPrint={refPrint}
-              />
-            ) : (
-              <>
-                <UserSearch
-                  selectedUser={selectedUser}
-                  setSelectedUser={setSelectedUser}
-                  searchTerm={searchTerm}
-                  setSearchTerm={setSearchTerm}
-                />
-
-                <OrderForm
-                  searchTerm={searchTerm}
-                  setSearchTerm={setSearchTerm}
-                  currentDate={currentDate}
-                  setCurrentDate={setCurrentDate}
-                  selectedUser={selectedUser}
-                />
-              </>
-            )}
+            {conditionalRender()}
           </div>
         </div>
       </div>

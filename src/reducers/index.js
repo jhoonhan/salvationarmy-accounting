@@ -10,6 +10,6 @@ export default combineReducers({
   user: userReducer,
   order: orderReducer,
   report: reportReducer,
-  error: errorReducer,
+  userError: errorReducer,
   form: formReducer,
 });

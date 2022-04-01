@@ -4,15 +4,9 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import renderField from "./renderField";
 
-const DateSelector = ({ setCurrentDate }) => {
+const DateSelector = ({ setCurrentDate, dispatch }) => {
   const onDateChange = (e) => {
-    const selectedDate = new Date(e.target.value);
-    if (selectedDate.getDay() !== 6) {
-      console.error(`sunday must be selected`);
-    }
-    if (selectedDate.getDay() === 6) {
-      setCurrentDate(e.target.value);
-    }
+    setCurrentDate(e.target.value);
   };
 
   return (

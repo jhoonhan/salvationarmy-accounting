@@ -97,6 +97,20 @@ label {
   display: flex;
   flex-direction: column;
 }
+.name-search__subcontainer {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  border: $border--default;
+  box-sizing: border-box;
+
+  & input {
+    border: none;
+    border-bottom: $border--default;
+  }
+}
 .name-search__results {
   color: black;
 
@@ -112,7 +126,6 @@ label {
   padding: 0;
 
   background-color: white;
-  border: $border--default;
   border-top: none;
 
   box-sizing: border-box;
@@ -166,4 +179,7 @@ label {
 }
 .disabled {
   background-color: #efefef;
+}
+.error-message {
+  color: red;
 }

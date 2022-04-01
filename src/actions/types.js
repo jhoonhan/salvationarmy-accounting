@@ -14,4 +14,5 @@ export const CREATE_REPORT = "CREATE_REPORT";
 export const FETCH_REPORTS = "FETCH_REPORTS";
 export const PUT_REPORT = "PUT_REPORT";
 
-export const ERROR = "ERROR";
+export const CREATE_ERROR = "CREATE_ERROR";
+export const CLEAR_ERROR = "CLEAR_ERROR";

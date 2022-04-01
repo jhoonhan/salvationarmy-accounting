@@ -1,12 +1,11 @@
-import { ERROR } from "../actions/types";
+import { CREATE_ERROR, CLEAR_ERROR } from "../actions/types";
 
-const initialValues = {};
-
-const reducer = (state = initialValues, action) => {
+const reducer = (state = null, action) => {
   switch (action.type) {
-    case ERROR:
+    case CREATE_ERROR:
       return { ...state, ...action.payload };
-
+    case CLEAR_ERROR:
+      return null;
     default:
       return state;
   }

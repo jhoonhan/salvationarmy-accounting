@@ -14,7 +14,8 @@ import {
   CREATE_REPORT,
   FETCH_REPORTS,
   PUT_REPORT,
-  ERROR,
+  CREATE_ERROR,
+  CLEAR_ERROR,
 } from "./types";
 
 export const signOut = () => {
@@ -28,9 +29,11 @@ export const createOrder = (data) => async (dispatch) => {
   try {
     const res = await server.post("/order", data);
     dispatch({ type: CREATE_ORDER, payload: res.data.data });
+    dispatch({ type: CLEAR_ERROR });
     dispatch(reset("orderForm"));
   } catch (error) {
-    dispatch({ type: ERROR, payload: error.response.data.error });
+    dispatch({ type: CREATE_ERROR, payload: error.response.data.error });
+    console.error(error.response.data.error);
   }
 };
 

@@ -8,17 +8,12 @@ import { capitalizeName } from "./helpers/nameHelper";
 import { createOrder, deleteUser } from "../actions";
 
 const OrderForm = ({
-  user,
-  formName,
+  selectedUser,
+  userError,
   handleSubmit,
   createOrder,
-  deleteUser,
   change,
-  searchTerm,
-  setSearchTerm,
-  currentDate,
-  setCurrentDate,
-  selectedUser,
+  refUserSearch,
 }) => {
   const [orderType, setOrderType] = useState("cash");
 
@@ -63,120 +58,131 @@ const OrderForm = ({
     createOrder(combinedData);
   };
 
-  return (
-    <div className="ui__container">
-      <form
-        onSubmit={handleSubmit(orderSubmit)}
-        autoComplete="off"
-        className="order__form"
-      >
-        <div className="order__form__row">
-          <label>User Info</label>
-          <div className="order__user-info">
-            <div className="input-box">
-              {selectedUser.nameK ? selectedUser.nameK : "이름"}
-            </div>
-            <div className="input-box">
-              {selectedUser.name ? capitalizeName(selectedUser.name) : "Name"}
-            </div>
-          </div>
-        </div>
+  const orderSubmitError = () => {
+    // refUserSearch.current.style.border = "1px solid red";
+    return "You must select an user";
+  };
 
-        <div className="order__form__row">
-          <label>Enter Amount</label>
-          <div className="order__amounts">
-            <div className="order__amounts__item">
-              <div>Offering</div>
-              <Field
-                name="amountOffering"
-                component={renderField}
-                type="number"
-                label="0"
-              />
-            </div>
-            <div className="order__amounts__item">
-              <div>Cartridge</div>
-              <Field
-                name="amountCartridge"
-                component={renderField}
-                type="number"
-                label="0"
-              />
-            </div>
-            <div className="order__amounts__item">
-              <div>Thanksgiving</div>
-              <Field
-                name="amountThanksgiving"
-                component={renderField}
-                type="number"
-                label="0"
-              />
-            </div>
-            <div className="order__amounts__item">
-              <div>Self Denial</div>
-              <Field
-                name="amountSelfDenial"
-                component={renderField}
-                type="number"
-                label="0"
-              />
-            </div>
-            <div className="order__amounts__item">
-              <div>Building</div>
-              <Field
-                name="amountBuildingFund"
-                component={renderField}
-                type="number"
-                label="0"
-              />
+  const render = () => {
+    return (
+      <div className="ui__container">
+        <form
+          onSubmit={handleSubmit(orderSubmit)}
+          autoComplete="off"
+          className="order__form"
+        >
+          <div className="order__form__row">
+            <label>User Info</label>
+            <div className="order__user-info">
+              <div className="input-box">
+                {selectedUser.nameK ? selectedUser.nameK : "이름"}
+              </div>
+              <div className="input-box">
+                {selectedUser.name ? capitalizeName(selectedUser.name) : "Name"}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="order__form__row">
-          <label>Select Type</label>
-          <div className="order__order-type">
-            <div
-              style={
-                orderType === "cash"
-                  ? {
-                      backgroundColor: "white",
-                      border: "1px solid red",
-                      color: "red",
-                    }
-                  : {}
-              }
-              onClick={() => {
-                setOrderType("cash");
-                change("checkNumber", "");
-              }}
-              className="order__order-type--cash"
-            >
-              Cash
+
+          <div className="order__form__row">
+            <label>Enter Amount</label>
+            <div className="order__amounts">
+              <div className="order__amounts__item">
+                <div>Offering</div>
+                <Field
+                  name="amountOffering"
+                  component={renderField}
+                  type="number"
+                  label="0"
+                />
+              </div>
+              <div className="order__amounts__item">
+                <div>Cartridge</div>
+                <Field
+                  name="amountCartridge"
+                  component={renderField}
+                  type="number"
+                  label="0"
+                />
+              </div>
+              <div className="order__amounts__item">
+                <div>Thanksgiving</div>
+                <Field
+                  name="amountThanksgiving"
+                  component={renderField}
+                  type="number"
+                  label="0"
+                />
+              </div>
+              <div className="order__amounts__item">
+                <div>Self Denial</div>
+                <Field
+                  name="amountSelfDenial"
+                  component={renderField}
+                  type="number"
+                  label="0"
+                />
+              </div>
+              <div className="order__amounts__item">
+                <div>Building</div>
+                <Field
+                  name="amountBuildingFund"
+                  component={renderField}
+                  type="number"
+                  label="0"
+                />
+              </div>
             </div>
-            <div onClick={() => setOrderType("check")}>
-              <Field
-                name="checkNumber"
-                component={renderField}
-                label="Check #"
+          </div>
+          <div className="order__form__row">
+            <label>Select Type</label>
+            <div className="order__order-type">
+              <div
                 style={
-                  orderType === "check"
+                  orderType === "cash"
                     ? {
                         backgroundColor: "white",
                         border: "1px solid red",
                         color: "red",
                       }
-                    : { backgroundColor: "#efefef" }
+                    : {}
                 }
-                required={orderType === "check" ? true : false}
-              />
+                onClick={() => {
+                  setOrderType("cash");
+                  change("checkNumber", "");
+                }}
+                className="order__order-type--cash"
+              >
+                Cash
+              </div>
+              <div onClick={() => setOrderType("check")}>
+                <Field
+                  name="checkNumber"
+                  component={renderField}
+                  label="Check #"
+                  style={
+                    orderType === "check"
+                      ? {
+                          backgroundColor: "white",
+                          border: "1px solid red",
+                          color: "red",
+                        }
+                      : { backgroundColor: "#efefef" }
+                  }
+                  required={orderType === "check" ? true : false}
+                />
+              </div>
             </div>
           </div>
-        </div>
+          <div className="error-message">
+            {userError ? orderSubmitError() : ""}
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    );
+  };
 
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  );
+  return render();
 };
 
 const wrappedForm = reduxForm({
@@ -196,6 +202,7 @@ const mapStateToProps = (state, ownProps) => {
     },
     user: state.user,
     order: state.order,
+    userError: state.userError,
   };
 };
 
