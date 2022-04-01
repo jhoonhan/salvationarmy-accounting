@@ -128,6 +128,8 @@ const UserSearch = ({
             value={searchTerm}
             onChange={onUserSearchChange}
             onClick={() => setSearchTerm("")}
+            style={{ borderBottom: "none" }}
+            placeholder="Search for Users"
           />
           {renderUserSearch()}
         </div>

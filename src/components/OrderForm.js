@@ -85,7 +85,7 @@ const OrderForm = ({
           <label>Enter Amount</label>
           <div className="order__amounts">
             <div className="order__amounts__item">
-              <label className="order__amounts__item__label">offering</label>
+              <label>offering</label>
               <Field
                 name="amountOffering"
                 component={renderField}
@@ -94,7 +94,7 @@ const OrderForm = ({
               />
             </div>
             <div className="order__amounts__item">
-              <label className="order__amounts__item__label">cartridge</label>
+              <label>cartridge</label>
               <Field
                 name="amountCartridge"
                 component={renderField}
@@ -103,9 +103,7 @@ const OrderForm = ({
               />
             </div>
             <div className="order__amounts__item">
-              <label className="order__amounts__item__label">
-                thanksgiving
-              </label>
+              <label>thanksgiving</label>
               <Field
                 name="amountThanksgiving"
                 component={renderField}
@@ -114,7 +112,7 @@ const OrderForm = ({
               />
             </div>
             <div className="order__amounts__item">
-              <label className="order__amounts__item__label">self denial</label>
+              <label>self denial</label>
               <Field
                 name="amountSelfDenial"
                 component={renderField}
@@ -123,9 +121,7 @@ const OrderForm = ({
               />
             </div>
             <div className="order__amounts__item">
-              <label className="order__amounts__item__label">
-                building fund
-              </label>
+              <label>building fund</label>
               <Field
                 name="amountBuildingFund"
                 component={renderField}
