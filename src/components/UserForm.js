@@ -120,7 +120,7 @@ const UserSearch = ({
   return (
     <>
       <div className="ui__container">
-        <div className="name-search">
+        <div className="name-search__container">
           <label>Search user</label>
           <input
             ref={refNameSearch}
@@ -131,7 +131,8 @@ const UserSearch = ({
           />
           {renderUserSearch()}
         </div>
-        <div>
+
+        <div className="name-create__container">
           <label>Create New User</label>
           <form
             onSubmit={handleSubmit(userSubmit)}
