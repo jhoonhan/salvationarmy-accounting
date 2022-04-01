@@ -3,8 +3,7 @@ import ReactToPrint from "react-to-print";
 import { connect } from "react-redux";
 import OrderChart from "./OrderChart";
 import OrderForm from "./OrderForm";
-import UserForm from "./UserForm";
-import UserSearch from "./UserSearch";
+import UserSearch from "./UserForm";
 import DateSelector from "./DateSelector";
 import UpdateConfrim from "./UpdateConfrim";
 import Report from "./Report";
@@ -132,7 +131,6 @@ export const Order = ({
                   searchTerm={searchTerm}
                   setSearchTerm={setSearchTerm}
                 />
-                <UserForm />
 
                 <OrderForm
                   searchTerm={searchTerm}

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import renderField from "./renderField";
-import UserForm from "./UserForm";
 
 import { createOrder, deleteUser } from "../actions";
 

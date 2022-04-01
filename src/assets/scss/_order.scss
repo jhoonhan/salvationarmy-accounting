@@ -88,8 +88,10 @@
 }
 
 .order__order-type--cash {
+  display: flex;
+  align-items: center;
   border: 1px solid #ccc;
-  padding: 1.5rem;
+  padding: 0 1rem;
 }
 .order__order-type {
   width: 100%;

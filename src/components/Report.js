@@ -21,7 +21,8 @@ const Report = ({
 }) => {
   const [meetingTotal, setMeetingTotal] = useState(0);
   const [groupTotal, setGroupTotal] = useState(0);
-  const [disableClass, setDisableClass] = useState("addform__inputarea");
+  const [conditionalClass, setConditionalClass] =
+    useState("addform__inputarea");
 
   const reportSubmit = (formValues) => {
     const orderIds = orders.map((order) => order._id);
@@ -80,7 +81,7 @@ const Report = ({
   }, [meetingValues, groupValues]);
 
   useEffect(() => {
-    setDisableClass(`addform__inputarea ${!showForm ? "disabled" : ""}`);
+    setConditionalClass(`addform__inputarea ${!showForm ? "disabled" : ""}`);
   }, [showForm]);
 
   // const meetingTotal =
@@ -101,7 +102,7 @@ const Report = ({
                   name="sundaySchool"
                   component={renderField}
                   type="number"
-                  className={disableClass}
+                  className={conditionalClass}
                 />
               </div>
             </div>
@@ -112,7 +113,7 @@ const Report = ({
                   name="holinessMeeting"
                   component={renderField}
                   type="number"
-                  className="addform__inputarea"
+                  className={conditionalClass}
                 />
               </div>
             </div>
@@ -123,7 +124,7 @@ const Report = ({
                   name="salvationMeeting"
                   component={renderField}
                   type="number"
-                  className="addform__inputarea"
+                  className={conditionalClass}
                 />
               </div>
             </div>
@@ -134,7 +135,7 @@ const Report = ({
                   name="midweekMeeting"
                   component={renderField}
                   type="number"
-                  className="addform__inputarea"
+                  className={conditionalClass}
                 />
               </div>
             </div>
@@ -145,7 +146,7 @@ const Report = ({
                   name="otherMeeting"
                   component={renderField}
                   type="number"
-                  className="addform__inputarea"
+                  className={conditionalClass}
                 />
               </div>
             </div>
@@ -156,7 +157,7 @@ const Report = ({
             <div className="addform__row">
               <div>Total</div>
               <div className="addform__input">
-                <div className={`addform__inputarea`}>
+                <div className="addform__inputarea disabled">
                   {meetingTotal.toFixed(2)}
                 </div>
               </div>
@@ -176,7 +177,7 @@ const Report = ({
                   name="adventureCorps"
                   component={renderField}
                   type="number"
-                  className="addform__inputarea"
+                  className={conditionalClass}
                   isDisabled={!showForm}
                 />
               </div>
@@ -188,7 +189,7 @@ const Report = ({
                   name="jrLegion"
                   component={renderField}
                   type="number"
-                  className="addform__inputarea"
+                  className={conditionalClass}
                   isDisabled={!showForm}
                 />
               </div>
@@ -200,7 +201,7 @@ const Report = ({
                   name="sunbeams"
                   component={renderField}
                   type="number"
-                  className="addform__inputarea"
+                  className={conditionalClass}
                   isDisabled={!showForm}
                 />
               </div>
@@ -212,7 +213,7 @@ const Report = ({
                   name="girlGuards"
                   component={renderField}
                   type="number"
-                  className="addform__inputarea"
+                  className={conditionalClass}
                   isDisabled={!showForm}
                 />
               </div>
@@ -224,7 +225,7 @@ const Report = ({
                   name="ypl"
                   component={renderField}
                   type="number"
-                  className="addform__inputarea"
+                  className={conditionalClass}
                   isDisabled={!showForm}
                 />
               </div>
@@ -236,7 +237,7 @@ const Report = ({
                   name="otherGroup"
                   component={renderField}
                   type="number"
-                  className="addform__inputarea"
+                  className={conditionalClass}
                   isDisabled={!showForm}
                 />
               </div>
@@ -248,7 +249,7 @@ const Report = ({
             <div className="addform__row">
               <label>Total Corps Groups</label>
               <div className="addform__input">
-                <div className="addform__inputarea">
+                <div className="addform__inputarea disabled">
                   {groupTotal.toFixed(2)}
                 </div>
               </div>
@@ -264,7 +265,7 @@ const Report = ({
             <div className="addform__row">
               <div>(4003) Offering + Thanksgiving</div>
               <div className="addform__input">
-                <div className="addform__inputarea">
+                <div className="addform__inputarea disabled">
                   {(
                     +totals.offering.total + +totals.thanksGiving.total
                   ).toFixed(2)}
@@ -275,7 +276,7 @@ const Report = ({
             <div className="addform__row">
               <div>(4004) Cartridges</div>
               <div className="addform__input">
-                <div className="addform__inputarea">
+                <div className="addform__inputarea disabled">
                   {totals.cartridge.total.toFixed(2)}
                 </div>
               </div>
@@ -284,7 +285,7 @@ const Report = ({
             <div className="addform__row">
               <div>(4601) Corps Groups</div>
               <div className="addform__input">
-                <div className="addform__inputarea">
+                <div className="addform__inputarea disabled">
                   {totals.cartridge.total.toFixed(2)}
                 </div>
               </div>
@@ -293,7 +294,7 @@ const Report = ({
             <div className="addform__row">
               <div>(6901) Self Denial</div>
               <div className="addform__input">
-                <div className="addform__inputarea">
+                <div className="addform__inputarea disabled">
                   {totals.selfDenial.total.toFixed(2)}
                 </div>
               </div>
@@ -302,7 +303,7 @@ const Report = ({
             <div className="addform__row">
               <div>World Services</div>
               <div className="addform__input">
-                <div className="addform__inputarea">
+                <div className="addform__inputarea disabled">
                   {totals.selfDenial.total.toFixed(2)}
                 </div>
               </div>
@@ -311,7 +312,7 @@ const Report = ({
             <div className="addform__row">
               <div>Building Fund</div>
               <div className="addform__input">
-                <div className="addform__inputarea">
+                <div className="addform__inputarea disabled">
                   {totals.buildingFund.total.toFixed(2)}
                 </div>
               </div>
@@ -320,7 +321,7 @@ const Report = ({
             <div className="addform__row">
               <div>Grand Total</div>
               <div className="addform__input">
-                <div className="addform__inputarea">
+                <div className="addform__inputarea disabled">
                   {totals.total.toFixed(2)}
                 </div>
               </div>
@@ -341,49 +342,49 @@ const Report = ({
                 <div>Total to Date</div>
 
                 <div>Offerings</div>
-                <div className="addform__cartridge-report--number">
+                <div className="addform__cartridge-report--number disabled">
                   {+totals.offering.total + +totals.thanksGiving.total}
                 </div>
-                <div className="addform__cartridge-report--number">
+                <div className="addform__cartridge-report--number disabled">
                   {prevReport?.offering.total}
                 </div>
-                <div className="addform__cartridge-report--number"></div>
+                <div className="addform__cartridge-report--number disabled"></div>
 
                 <div>Cartrdiges</div>
-                <div className="addform__cartridge-report--number">
+                <div className="addform__cartridge-report--number disabled">
                   {totals.cartridge.total}
                 </div>
-                <div className="addform__cartridge-report--number">
+                <div className="addform__cartridge-report--number disabled">
                   {prevReport?.cartridge.total}
                 </div>
-                <div className="addform__cartridge-report--number"></div>
+                <div className="addform__cartridge-report--number disabled"></div>
 
                 <div>World Serv.</div>
-                <div className="addform__cartridge-report--number">
+                <div className="addform__cartridge-report--number disabled">
                   {totals.selfDenial.total}
                 </div>
-                <div className="addform__cartridge-report--number">
+                <div className="addform__cartridge-report--number disabled">
                   {prevReport?.selfDenial.total}
                 </div>
-                <div className="addform__cartridge-report--number"></div>
+                <div className="addform__cartridge-report--number disabled"></div>
 
                 <div>Building Fund</div>
-                <div className="addform__cartridge-report--number">
+                <div className="addform__cartridge-report--number disabled">
                   {totals.buildingFund.total}
                 </div>
-                <div className="addform__cartridge-report--number">
+                <div className="addform__cartridge-report--number disabled">
                   {prevReport?.buildingFund.total}
                 </div>
-                <div className="addform__cartridge-report--number"></div>
+                <div className="addform__cartridge-report--number disabled"></div>
 
                 <div>Total</div>
-                <div className="addform__cartridge-report--number">
+                <div className="addform__cartridge-report--number disabled">
                   {totals.total}
                 </div>
-                <div className="addform__cartridge-report--number">
+                <div className="addform__cartridge-report--number disabled">
                   {prevReport?.total}
                 </div>
-                <div className="addform__cartridge-report--number"></div>
+                <div className="addform__cartridge-report--number disabled"></div>
               </div>
             </div>
           </div>
@@ -394,13 +395,13 @@ const Report = ({
         >
           <div className="addform__column">
             <div className="addform__row-combined">
-              <div className="addform__inputarea" />
+              <div className={conditionalClass} />
               <div>Counter</div>
             </div>
           </div>
           <div className="addform__column">
             <div className="addform__row-combined">
-              <div className="addform__inputarea" />
+              <div className={conditionalClass} />
               <div>Counter</div>
             </div>
           </div>
