@@ -9,6 +9,7 @@ const renderField = ({
   isDisabled,
   meta: { touched, error },
 }) => {
+  console.log(isDisabled);
   const inputArea = (
     <input
       {...input}

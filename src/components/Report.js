@@ -91,11 +91,8 @@ const Report = ({
       <form onSubmit={handleSubmit(reportSubmit)}>
         <div className="addform__container">
           <div className="addform__column">
-            <div className="addform__row" style={{ marginBottom: "1rem" }}>
-              <label>(4003) Meeting Collections</label>
-              <div></div>
-            </div>
-            <div className="addform__row">
+            <label>(4003) Meeting Collections</label>
+            <div className="addform__list">
               <div>Sunday School</div>
               <div className="addform__input">
                 <FixedField
@@ -103,10 +100,11 @@ const Report = ({
                   component={renderField}
                   type="number"
                   className={conditionalClass}
+                  isDisabled={!showForm}
                 />
               </div>
             </div>
-            <div className="addform__row">
+            <div className="addform__list">
               <div>Holiness Meeting</div>
               <div className="addform__input">
                 <FixedField
@@ -114,10 +112,11 @@ const Report = ({
                   component={renderField}
                   type="number"
                   className={conditionalClass}
+                  isDisabled={!showForm}
                 />
               </div>
             </div>
-            <div className="addform__row">
+            <div className="addform__list">
               <div>Salvation Meeting</div>
               <div className="addform__input">
                 <FixedField
@@ -125,10 +124,11 @@ const Report = ({
                   component={renderField}
                   type="number"
                   className={conditionalClass}
+                  isDisabled={!showForm}
                 />
               </div>
             </div>
-            <div className="addform__row">
+            <div className="addform__list">
               <div>Mid-Week Meeting</div>
               <div className="addform__input">
                 <FixedField
@@ -136,10 +136,11 @@ const Report = ({
                   component={renderField}
                   type="number"
                   className={conditionalClass}
+                  isDisabled={!showForm}
                 />
               </div>
             </div>
-            <div className="addform__row">
+            <div className="addform__list">
               <div>Other</div>
               <div className="addform__input">
                 <FixedField
@@ -147,14 +148,11 @@ const Report = ({
                   component={renderField}
                   type="number"
                   className={conditionalClass}
+                  isDisabled={!showForm}
                 />
               </div>
             </div>
-            <div className="addform__row">
-              <div></div>
-              <div></div>
-            </div>
-            <div className="addform__row">
+            <div className="addform__list">
               <div>Total</div>
               <div className="addform__input">
                 <div className="addform__inputarea disabled">
@@ -163,106 +161,98 @@ const Report = ({
               </div>
             </div>
 
-            <div
-              className="addform__row"
-              style={{ marginTop: "2rem", marginBottom: "1rem" }}
-            >
+            <div className="addform__row">
               <label>(4601) Corps Groups</label>
-              <div></div>
-            </div>
-            <div className="addform__row">
-              <div>Adventure Corps</div>
-              <div className="addform__input">
-                <FixedField
-                  name="adventureCorps"
-                  component={renderField}
-                  type="number"
-                  className={conditionalClass}
-                  isDisabled={!showForm}
-                />
+              <div className="addform__list">
+                <div>Adventure Corps</div>
+                <div className="addform__input">
+                  <FixedField
+                    name="adventureCorps"
+                    component={renderField}
+                    type="number"
+                    className={conditionalClass}
+                    isDisabled={!showForm}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="addform__row">
-              <div>Jr. Legion</div>
-              <div className="addform__input">
-                <FixedField
-                  name="jrLegion"
-                  component={renderField}
-                  type="number"
-                  className={conditionalClass}
-                  isDisabled={!showForm}
-                />
+              <div className="addform__list">
+                <div>Jr. Legion</div>
+                <div className="addform__input">
+                  <FixedField
+                    name="jrLegion"
+                    component={renderField}
+                    type="number"
+                    className={conditionalClass}
+                    isDisabled={!showForm}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="addform__row">
-              <div>Sunbeams</div>
-              <div className="addform__input">
-                <FixedField
-                  name="sunbeams"
-                  component={renderField}
-                  type="number"
-                  className={conditionalClass}
-                  isDisabled={!showForm}
-                />
+              <div className="addform__list">
+                <div>Sunbeams</div>
+                <div className="addform__input">
+                  <FixedField
+                    name="sunbeams"
+                    component={renderField}
+                    type="number"
+                    className={conditionalClass}
+                    isDisabled={!showForm}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="addform__row">
-              <div>Girl Guards</div>
-              <div className="addform__input">
-                <FixedField
-                  name="girlGuards"
-                  component={renderField}
-                  type="number"
-                  className={conditionalClass}
-                  isDisabled={!showForm}
-                />
+              <div className="addform__list">
+                <div>Girl Guards</div>
+                <div className="addform__input">
+                  <FixedField
+                    name="girlGuards"
+                    component={renderField}
+                    type="number"
+                    className={conditionalClass}
+                    isDisabled={!showForm}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="addform__row">
-              <label>Y.P.L.</label>
-              <div className="addform__input">
-                <FixedField
-                  name="ypl"
-                  component={renderField}
-                  type="number"
-                  className={conditionalClass}
-                  isDisabled={!showForm}
-                />
+              <div className="addform__list">
+                <label>Y.P.L.</label>
+                <div className="addform__input">
+                  <FixedField
+                    name="ypl"
+                    component={renderField}
+                    type="number"
+                    className={conditionalClass}
+                    isDisabled={!showForm}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="addform__row">
-              <label>Other</label>
-              <div className="addform__input">
-                <FixedField
-                  name="otherGroup"
-                  component={renderField}
-                  type="number"
-                  className={conditionalClass}
-                  isDisabled={!showForm}
-                />
+              <div className="addform__list">
+                <label>Other</label>
+                <div className="addform__input">
+                  <FixedField
+                    name="otherGroup"
+                    component={renderField}
+                    type="number"
+                    className={conditionalClass}
+                    isDisabled={!showForm}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="addform__row">
-              <div></div>
-              <div></div>
-            </div>
-            <div className="addform__row">
-              <label>Total Corps Groups</label>
-              <div className="addform__input">
-                <div className="addform__inputarea disabled">
-                  {groupTotal.toFixed(2)}
+              <div className="addform__list">
+                <div></div>
+                <div></div>
+              </div>
+              <div className="addform__list">
+                <label>Total Corps Groups</label>
+                <div className="addform__input">
+                  <div className="addform__inputarea disabled">
+                    {groupTotal.toFixed(2)}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="addform__column">
-            <div className="addform__row" style={{ marginBottom: "1rem" }}>
-              <label>Recapitulation</label>
-              <div></div>
-            </div>
-
-            <div className="addform__row">
+            <label>Recapitulation</label>
+            <div className="addform__list">
               <div>(4003) Offering + Thanksgiving</div>
               <div className="addform__input">
                 <div className="addform__inputarea disabled">
@@ -273,7 +263,7 @@ const Report = ({
               </div>
             </div>
 
-            <div className="addform__row">
+            <div className="addform__list">
               <div>(4004) Cartridges</div>
               <div className="addform__input">
                 <div className="addform__inputarea disabled">
@@ -282,7 +272,7 @@ const Report = ({
               </div>
             </div>
 
-            <div className="addform__row">
+            <div className="addform__list">
               <div>(4601) Corps Groups</div>
               <div className="addform__input">
                 <div className="addform__inputarea disabled">
@@ -291,7 +281,7 @@ const Report = ({
               </div>
             </div>
 
-            <div className="addform__row">
+            <div className="addform__list">
               <div>(6901) Self Denial</div>
               <div className="addform__input">
                 <div className="addform__inputarea disabled">
@@ -300,7 +290,7 @@ const Report = ({
               </div>
             </div>
 
-            <div className="addform__row">
+            <div className="addform__list">
               <div>World Services</div>
               <div className="addform__input">
                 <div className="addform__inputarea disabled">
@@ -309,7 +299,7 @@ const Report = ({
               </div>
             </div>
 
-            <div className="addform__row">
+            <div className="addform__list">
               <div>Building Fund</div>
               <div className="addform__input">
                 <div className="addform__inputarea disabled">
@@ -318,7 +308,7 @@ const Report = ({
               </div>
             </div>
 
-            <div className="addform__row">
+            <div className="addform__list">
               <div>Grand Total</div>
               <div className="addform__input">
                 <div className="addform__inputarea disabled">
@@ -328,13 +318,10 @@ const Report = ({
             </div>
 
             <div
-              className="addform__row-combined"
-              style={{ marginTop: "2rem", marginBottom: "1rem" }}
+              className="addform__list-combined"
+              style={{ textAlign: "left" }}
             >
               <label>Cartrdige Report</label>
-            </div>
-
-            <div className="addform__row-combined">
               <div className="addform__cartridge-report">
                 <div></div>
                 <div>This Week</div>
@@ -394,13 +381,13 @@ const Report = ({
           style={{ marginTop: "6rem", marginBottom: "4rem" }}
         >
           <div className="addform__column">
-            <div className="addform__row-combined">
+            <div className="addform__list-combined">
               <div className={conditionalClass} />
               <div>Counter</div>
             </div>
           </div>
           <div className="addform__column">
-            <div className="addform__row-combined">
+            <div className="addform__list-combined">
               <div className={conditionalClass} />
               <div>Counter</div>
             </div>

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import renderField from "./renderField";
+import capitalizeName from "./helpers/capitalizeName";
 
 import { createOrder, deleteUser } from "../actions";
 
@@ -76,7 +77,7 @@ const OrderForm = ({
               {selectedUser.nameK ? selectedUser.nameK : "이름"}
             </div>
             <div className="input-box">
-              {selectedUser.name ? selectedUser.name : "Name"}
+              {selectedUser.name ? capitalizeName(selectedUser.name) : "Name"}
             </div>
           </div>
         </div>

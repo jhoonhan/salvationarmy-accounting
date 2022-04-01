@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import { createUser, createOrder, deleteUser } from "../actions";
 import renderField from "./renderField";
+import capitalizeName from "./helpers/capitalizeName";
 
 import { connect } from "react-redux";
 
@@ -102,7 +103,7 @@ const UserSearch = ({
                     : {}
                 }
               >
-                {el.nameK} / {el.name}
+                {el.nameK} / {capitalizeName(el.name)}
               </div>
               <div
                 onClick={() => onClickDeleteUser(el)}
