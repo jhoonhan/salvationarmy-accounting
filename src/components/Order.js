@@ -173,6 +173,7 @@ export const Order = ({
 
             {conditionalRender()}
           </div>
+          <p>v.1.0.0</p>
         </div>
       </div>
     );
