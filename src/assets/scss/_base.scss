@@ -120,7 +120,7 @@ label {
 
   width: 100%;
   max-height: 20vh;
-  max-height: auto;
+  min-height: 20vh;
 
   display: flex;
   flex-direction: column;
@@ -134,9 +134,6 @@ label {
   overflow-y: scroll;
   &:hover {
     box-shadow: inset 0px 10px 10px -10px #ccc, inset 0px -10px 10px -10px #ccc;
-  }
-  & .name-search__result:last-child {
-    border-bottom: 1px solid transparent;
   }
 }
 .name-search__result {

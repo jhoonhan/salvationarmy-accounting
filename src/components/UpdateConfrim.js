@@ -9,7 +9,7 @@ const UpdateConfrim = ({ setShowForm, currentReport, refPrint }) => {
   return (
     <div className="order__update-confirm">
       <div className="info">
-        <h2>Report Submitted.</h2>
+        <h2>Report Submitted</h2>
         <div>
           <p>Submitted on: {currentReport?.submittedDate.split("T")[0]}</p>
           <p>
