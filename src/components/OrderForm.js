@@ -9,7 +9,10 @@ import { createOrder, deleteUser } from "../actions";
 
 const OrderForm = ({
   selectedUser,
+  setSelectedUser,
+  setSearchTerm,
   currentDate,
+  refUserSearch,
   userError,
   handleSubmit,
   createOrder,
@@ -59,6 +62,9 @@ const OrderForm = ({
         values.amountBuildingFund,
     };
     createOrder(combinedData);
+    setSelectedUser(null);
+    refUserSearch.current.focus();
+    setSearchTerm("");
   };
 
   const orderSubmitError = () => {
@@ -78,10 +84,10 @@ const OrderForm = ({
             <label>User Info</label>
             <div className="order__user-info">
               <div className="input-box">
-                {selectedUser.nameK ? selectedUser.nameK : "이름"}
+                {selectedUser?.nameK ? selectedUser.nameK : "이름"}
               </div>
               <div className="input-box">
-                {selectedUser.name
+                {selectedUser?.name
                   ? `${capitalizeName(selectedUser.lastname)}${
                       selectedUser.firstname
                         ? `, ${capitalizeName(selectedUser.firstname)}`
@@ -91,23 +97,61 @@ const OrderForm = ({
               </div>
             </div>
           </div>
-
+          <div className="order__form__row">
+            <label>Select Type</label>
+            <div className="order__order-type">
+              <div
+                style={
+                  orderType === "cash"
+                    ? {
+                        backgroundColor: "#4064ff",
+                        color: "white",
+                      }
+                    : {}
+                }
+                onClick={() => {
+                  setOrderType("cash");
+                  change("checkNumber", "");
+                }}
+                className="order__order-type--cash"
+              >
+                Cash
+              </div>
+              <div onClick={() => setOrderType("check")}>
+                <Field
+                  name="checkNumber"
+                  component={renderField}
+                  label="Check #"
+                  style={
+                    orderType === "check"
+                      ? {
+                          backgroundColor: "#4064ff",
+                          color: "white",
+                        }
+                      : {}
+                  }
+                  className="order__order-type--check"
+                  required={orderType === "check" ? true : false}
+                />
+              </div>
+            </div>
+          </div>
           <div className="order__form__row">
             <label>Enter Amount</label>
             <div className="order__amounts">
               <div className="order__amounts__item">
-                <div>Offering</div>
+                <div>Cartridge</div>
                 <Field
-                  name="amountOffering"
+                  name="amountCartridge"
                   component={renderField}
                   type="number"
                   label="0"
                 />
               </div>
               <div className="order__amounts__item">
-                <div>Cartridge</div>
+                <div>Offering</div>
                 <Field
-                  name="amountCartridge"
+                  name="amountOffering"
                   component={renderField}
                   type="number"
                   label="0"
@@ -142,46 +186,7 @@ const OrderForm = ({
               </div>
             </div>
           </div>
-          <div className="order__form__row">
-            <label>Select Type</label>
-            <div className="order__order-type">
-              <div
-                style={
-                  orderType === "cash"
-                    ? {
-                        backgroundColor: "white",
-                        border: "1px solid red",
-                        color: "red",
-                      }
-                    : {}
-                }
-                onClick={() => {
-                  setOrderType("cash");
-                  change("checkNumber", "");
-                }}
-                className="order__order-type--cash"
-              >
-                Cash
-              </div>
-              <div onClick={() => setOrderType("check")}>
-                <Field
-                  name="checkNumber"
-                  component={renderField}
-                  label="Check #"
-                  style={
-                    orderType === "check"
-                      ? {
-                          backgroundColor: "white",
-                          border: "1px solid red",
-                          color: "red",
-                        }
-                      : { backgroundColor: "#efefef" }
-                  }
-                  required={orderType === "check" ? true : false}
-                />
-              </div>
-            </div>
-          </div>
+
           <div className="error-message">
             {userError ? orderSubmitError() : ""}
           </div>

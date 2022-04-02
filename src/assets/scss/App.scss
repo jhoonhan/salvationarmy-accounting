@@ -1,3 +1,12 @@
+$color--primary: #4064ff;
+$color--primary--tone: #8ea3ff;
+$color--primary--hover: #ff4040;
+$color--primary--hover--accent: black;
+
+$color--background: #e9e9f4;
+$color--background--shade: #ccc;
+$color--disabled: #efefef;
+
 $border--default: 1px solid #ccc;
 
 @import "base";
@@ -5,4 +14,4 @@ $border--default: 1px solid #ccc;
 @import "form";
 @import "order";
 @import "error";
-@import "print"
+@import "print";

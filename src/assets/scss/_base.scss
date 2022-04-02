@@ -13,14 +13,15 @@ button,
 
   padding: 0rem 2rem;
 
-  background-color: blue;
-  border: $border--default;
+  background-color: $color--primary;
+  // border: $border--default;
+  border: none;
   box-sizing: border-box;
 
   cursor: pointer;
 
   &:hover {
-    background-color: red;
+    background-color: $color--primary--hover;
   }
 }
 .button-container--horizontal {
@@ -48,7 +49,7 @@ input {
   @extend .input-box;
   background-color: white;
   &:focus {
-    border: 1px solid red;
+    border: 1px solid $color--primary;
   }
 }
 
@@ -71,13 +72,13 @@ label {
   width: 0.7rem;
 }
 ::-webkit-scrollbar-track {
-  background: #efefef;
+  background: $color--background;
 }
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: $color--primary--tone;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #666;
+  background: $color--primary;
 }
 
 .app-container {
@@ -144,26 +145,28 @@ label {
   border-bottom: $border--default;
   cursor: pointer;
   &:hover {
-    border-bottom: 1px solid red;
+    background-color: $color--primary;
   }
 }
 .name-search__name {
   padding: 0.5rem 1rem;
   &:hover {
-    color: red;
+    color: white;
   }
 }
 .name--search__delete {
-  color: red;
+  color: white;
   display: flex;
   padding: 0 1rem;
 
   align-items: center;
 
+  background-color: $color--primary--hover;
+
   cursor: pointer;
   &:hover {
     color: white;
-    background-color: red;
+    background-color: $color--primary;
   }
 }
 .ui__container {
@@ -171,15 +174,19 @@ label {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
   padding: 2rem;
-  background-color: #efefef;
+
+  background-color: $color--background;
+
   border: $border--default;
   border-radius: 1rem;
+  box-shadow: 2px 2px 3px $color--background;
   box-sizing: border-box;
 }
 .disabled {
-  background-color: #efefef;
+  background-color: $color--background;
 }
 .error-message {
-  color: red;
+  color: $color--primary--hover;
 }

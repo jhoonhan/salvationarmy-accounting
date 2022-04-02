@@ -1,4 +1,5 @@
 import React from "react";
+import { capitalizeName } from "./helpers/nameHelper";
 
 const UpdateConfrim = ({ setShowForm, currentReport, refPrint }) => {
   const onClickPrint = () => {
@@ -11,7 +12,10 @@ const UpdateConfrim = ({ setShowForm, currentReport, refPrint }) => {
         <h2>Report Submitted.</h2>
         <div>
           <p>Submitted on: {currentReport?.submittedDate.split("T")[0]}</p>
-          <p>by: Hyungoo Han and Younchil Hong</p>
+          <p>
+            by: {capitalizeName(currentReport?.counter1)} and{" "}
+            {capitalizeName(currentReport?.counter2)}
+          </p>
         </div>
         <div className="button-container--horizontal">
           <button onClick={() => setShowForm(true)}>Edit Report</button>

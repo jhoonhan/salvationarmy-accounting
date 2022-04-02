@@ -16,8 +16,8 @@ const App = () => {
       <Route path="/" component={ErrorModal} />
 
       <Switch location={location} key={location.pathname}>
-        <Route path="/" exact component={Home} />
-        <Route path="/order" exact component={Order} />
+        <Route path="/" exact component={Order} />
+        {/* <Route path="/order" exact component={Order} /> */}
       </Switch>
     </div>
   );

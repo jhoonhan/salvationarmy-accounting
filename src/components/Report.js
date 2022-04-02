@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import renderField from "./renderField";
 import { createReport, putReport } from "../actions";
 import FixedField from "./FixedField";
+import { capitalizeName } from "./helpers/nameHelper";
 
 const Report = ({
   totals,
@@ -62,6 +63,8 @@ const Report = ({
       },
       date: currentDate,
       orders: orderIds,
+      counter1: formValues.counter1,
+      counter2: formValues.counter2,
     };
     if (!currentReport) createReport(combinedData);
     if (currentReport) putReport(currentReport._id, combinedData);
@@ -275,7 +278,7 @@ const Report = ({
                 <div>(4601) Corps Groups</div>
                 <div className="addform__input">
                   <div className="addform__inputarea disabled">
-                    {totals.cartridge.total.toFixed(2)}
+                    {currentReport?.groups.total.toFixed(2) || "0.00"}
                   </div>
                 </div>
               </div>
@@ -306,7 +309,11 @@ const Report = ({
                 <div>Grand Total</div>
                 <div className="addform__input">
                   <div className="addform__inputarea disabled">
-                    {totals.total.toFixed(2)}
+                    {(
+                      totals.total +
+                      currentReport?.meeting.total +
+                      currentReport?.groups.total
+                    ).toFixed(2)}
                   </div>
                 </div>
               </div>
@@ -324,48 +331,50 @@ const Report = ({
                   <div>Prev. Week</div>
                   <div>Total to Date</div>
 
-                  <div>Offerings</div>
+                  <div>Cartrdiges</div>
                   <div className="addform__cartridge-report--number disabled">
-                    {+totals.offering.total + +totals.thanksGiving.total}
+                    {totals.cartridge.total.toFixed(2)}
                   </div>
                   <div className="addform__cartridge-report--number disabled">
-                    {prevReport?.offering.total}
+                    {prevReport?.cartridge.total.toFixed(2)}
                   </div>
                   <div className="addform__cartridge-report--number disabled"></div>
 
-                  <div>Cartrdiges</div>
+                  <div>Offerings</div>
                   <div className="addform__cartridge-report--number disabled">
-                    {totals.cartridge.total}
+                    {(
+                      +totals.offering.total + +totals.thanksGiving.total
+                    ).toFixed(2)}
                   </div>
                   <div className="addform__cartridge-report--number disabled">
-                    {prevReport?.cartridge.total}
+                    {prevReport?.offering.total.toFixed(2)}
                   </div>
                   <div className="addform__cartridge-report--number disabled"></div>
 
                   <div>World Serv.</div>
                   <div className="addform__cartridge-report--number disabled">
-                    {totals.selfDenial.total}
+                    {totals.selfDenial.total.toFixed(2)}
                   </div>
                   <div className="addform__cartridge-report--number disabled">
-                    {prevReport?.selfDenial.total}
+                    {prevReport?.selfDenial.total.toFixed(2)}
                   </div>
                   <div className="addform__cartridge-report--number disabled"></div>
 
                   <div>Building</div>
                   <div className="addform__cartridge-report--number disabled">
-                    {totals.buildingFund.total}
+                    {totals.buildingFund.total.toFixed(2)}
                   </div>
                   <div className="addform__cartridge-report--number disabled">
-                    {prevReport?.buildingFund.total}
+                    {prevReport?.buildingFund.total.toFixed(2)}
                   </div>
                   <div className="addform__cartridge-report--number disabled"></div>
 
                   <div>Total</div>
                   <div className="addform__cartridge-report--number disabled">
-                    {totals.total}
+                    {totals.total.toFixed(2)}
                   </div>
                   <div className="addform__cartridge-report--number disabled">
-                    {prevReport?.total}
+                    {prevReport?.total.toFixed(2)}
                   </div>
                   <div className="addform__cartridge-report--number disabled"></div>
                 </div>
@@ -375,17 +384,33 @@ const Report = ({
         </div>
         <div
           className="addform__section"
-          style={{ marginTop: "8rem", marginBottom: "4rem" }}
+          style={{ marginTop: "4rem", marginBottom: "4rem" }}
         >
           <div className="addform__column">
             <div className="addform__list-combined">
-              <h3 style={{ padding: "0 0 0.5rem 1rem" }}>Hyungoo Han</h3>
+              <Field
+                name="counter1"
+                component={renderField}
+                type="text"
+                className={`${conditionalClass} report__counter`}
+                isDisabled={!showForm}
+                required="required"
+              />
               <div style={{ borderTop: "1px solid #666" }}>Counter</div>
             </div>
           </div>
           <div className="addform__column">
             <div className="addform__list-combined">
-              <h3 style={{ padding: "0 0 0.5rem 1rem" }}>Younchil Hong</h3>
+              {/* <h3 style={{ padding: "0 0 0.5rem 1rem" }}>Young Chul Hong</h3> */}
+
+              <Field
+                name="counter2"
+                component={renderField}
+                type="text"
+                className={`${conditionalClass} report__counter`}
+                isDisabled={!showForm}
+                required="required"
+              />
               <div style={{ borderTop: "1px solid #666" }}>Counter</div>
             </div>
           </div>
@@ -418,17 +443,19 @@ const mapStateToProps = (state, ownProps) => {
   const { currentReport } = ownProps;
   return {
     initialValues: {
-      sundaySchool: currentReport?.meeting.sundaySchool,
-      holinessMeeting: currentReport?.meeting.holinessMeeting,
-      salvationMeeting: currentReport?.meeting.salvationMeeting,
-      midweekMeeting: currentReport?.meeting.midweekMeeting,
-      otherMeeting: currentReport?.meeting.otherMeeting,
-      adventureCorps: currentReport?.groups.adventureCorps,
-      jrLegion: currentReport?.groups.jrLegion,
-      sunbeams: currentReport?.groups.sunbeams,
-      girlGuards: currentReport?.groups.girlGuards,
-      ypl: currentReport?.groups.ypl,
-      otherGroup: currentReport?.groups.otherGroup,
+      sundaySchool: currentReport?.meeting.sundaySchool || 0,
+      holinessMeeting: currentReport?.meeting.holinessMeeting || 0,
+      salvationMeeting: currentReport?.meeting.salvationMeeting || 0,
+      midweekMeeting: currentReport?.meeting.midweekMeeting || 0,
+      otherMeeting: currentReport?.meeting.otherMeeting || 0,
+      adventureCorps: currentReport?.groups.adventureCorps || 0,
+      jrLegion: currentReport?.groups.jrLegion || 0,
+      sunbeams: currentReport?.groups.sunbeams || 0,
+      girlGuards: currentReport?.groups.girlGuards || 0,
+      ypl: currentReport?.groups.ypl || 0,
+      otherGroup: currentReport?.groups.otherGroup || 0,
+      counter1: capitalizeName(currentReport?.counter1),
+      counter2: capitalizeName(currentReport?.counter2),
     },
     meetingValues: {
       sundaySchool: +selector(state, "sundaySchool"),

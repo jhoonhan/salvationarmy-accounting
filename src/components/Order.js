@@ -114,9 +114,16 @@ export const Order = ({
             setSelectedUser={setSelectedUser}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
+            refUserSearch={refUserSearch}
           />
 
-          <OrderForm currentDate={currentDate} selectedUser={selectedUser} />
+          <OrderForm
+            currentDate={currentDate}
+            selectedUser={selectedUser}
+            setSelectedUser={setSelectedUser}
+            setSearchTerm={setSearchTerm}
+            refUserSearch={refUserSearch}
+          />
         </>
       );
     }
@@ -125,7 +132,11 @@ export const Order = ({
   const render = () => {
     return (
       <div className="order__container">
-        <div ref={refPrint} className="order__container__col print-area">
+        <div
+          ref={refPrint}
+          className="order__container__col order__container__col--1 print-area"
+        >
+          <h4 className="order__report-title">Kernersville Korean Corps</h4>
           <OrderChart
             orders={selectedOrders}
             totals={totals}

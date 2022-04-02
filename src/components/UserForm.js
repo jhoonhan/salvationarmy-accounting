@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import { createUser, createOrder, deleteUser } from "../actions";
 import renderField from "./renderField";
-import { splitCapitalizeName, combineFirstLast } from "./helpers/nameHelper";
+import { combineFirstLast, capitalizeName } from "./helpers/nameHelper";
 import useUserErrorController from "./useUserErrorController";
 
 import { connect } from "react-redux";
@@ -19,7 +19,6 @@ const UserForm = ({
   handleSubmit,
   refUserSearch,
 }) => {
-  const refNameSearch = useRef(null);
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
@@ -50,7 +49,7 @@ const UserForm = ({
 
           if (el.nameK && el.name) {
             results =
-              el.nameK[0].match(searchTerm) ||
+              el.nameK.match(searchTerm) ||
               el.name.toLowerCase().match(searchTerm.toLowerCase());
           }
           return results;
@@ -118,7 +117,7 @@ const UserForm = ({
           autoComplete="off"
           className="order__form"
         >
-          <div className="order__user-info">
+          <div className="order__user-create">
             <Field
               name="lastname"
               component={renderField}
@@ -154,7 +153,7 @@ const UserForm = ({
           style={type === "noUserName" ? { border: "1px solid red" } : {}}
         >
           <input
-            ref={refNameSearch}
+            ref={refUserSearch}
             type="text"
             value={searchTerm}
             onChange={onUserFormChange}
@@ -165,24 +164,27 @@ const UserForm = ({
           <div className="name-search__results">
             {searchResults.map((el, i) => {
               return (
-                <div key={i} className="name-search__result">
+                <div
+                  key={i}
+                  className="name-search__result"
+                  style={
+                    el.name === selectedUser?.name &&
+                    el.nameK === selectedUser?.nameK
+                      ? { color: "white", backgroundColor: "#4064ff" }
+                      : {}
+                  }
+                >
                   <div
                     onClick={() => onSelectUser(el)}
                     className="name-search__name"
-                    style={
-                      el.name === selectedUser.name &&
-                      el.nameK === selectedUser.nameK
-                        ? { color: "red" }
-                        : {}
-                    }
                   >
-                    {el.nameK} / {splitCapitalizeName(el.name)}
+                    {el.nameK} / {capitalizeName(el.name)}
                   </div>
                   <div
                     onClick={() => onClickDeleteUser(el)}
                     className="name--search__delete"
                   >
-                    DELETE
+                    X
                   </div>
                 </div>
               );
