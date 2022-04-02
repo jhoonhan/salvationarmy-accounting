@@ -10,7 +10,7 @@ const reducer = (state = initialValues, action) => {
     case CREATE_REPORT:
       return { ...state, reports: [...state.reports, action.payload] };
     case FETCH_REPORTS:
-      return { ...state, reports: action.payload };
+      return { ...state, fetched: true, reports: action.payload };
     case PUT_REPORT:
       return { ...state, reports: action.payload };
     default:

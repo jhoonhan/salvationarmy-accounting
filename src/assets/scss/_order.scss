@@ -143,19 +143,32 @@
   &:focus {
     border: $border--default;
   }
-
-  // &::placeholder {
-  //   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  //   color: white;
-  //   opacity: 1; /* Firefox */
-  // }
-  // &::-ms-input-placeholder {
-  //   color: white;
-  // }
-  // &::-ms-input-placeholder {
-  //   /* Microsoft Edge */
-  //   color: white;
-  // }
+  &::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 1; /* Firefox */
+  }
+  &::-ms-input-placeholder {
+    color: black;
+  }
+  &::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: black;
+  }
+}
+.order__order-type--check--placeholder {
+  &::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+  }
+  &::-ms-input-placeholder {
+    color: white;
+  }
+  &::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: white;
+  }
 }
 .order__order-type {
   width: 100%;

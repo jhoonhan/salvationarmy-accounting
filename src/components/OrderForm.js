@@ -130,7 +130,11 @@ const OrderForm = ({
                         }
                       : {}
                   }
-                  className="order__order-type--check"
+                  className={`order__order-type--check ${
+                    orderType === "check"
+                      ? "order__order-type--check--placeholder"
+                      : ""
+                  }`}
                   required={orderType === "check" ? true : false}
                 />
               </div>
@@ -167,7 +171,7 @@ const OrderForm = ({
                 />
               </div>
               <div className="order__amounts__item">
-                <div>Self Denial</div>
+                <div>Self & World</div>
                 <Field
                   name="amountSelfDenial"
                   component={renderField}

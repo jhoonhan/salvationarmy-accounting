@@ -27,6 +27,8 @@ export const Order = ({
   fetchReports,
   resetForms,
 }) => {
+  const [fetched, setFetched] = useState(false);
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const [currentDate, setCurrentDate] = useState(null);
@@ -63,6 +65,12 @@ export const Order = ({
   }, []);
 
   useEffect(() => {
+    if (!order.fetched) return;
+    if (!report.fetched) return;
+    setFetched(true);
+  }, [order, report, fetched]);
+
+  useEffect(() => {
     resetForms();
   }, [currentDate]);
 
@@ -89,6 +97,7 @@ export const Order = ({
   }, [currentDate]);
 
   useEffect(() => {
+    if (!fetched) return null;
     setShowForm(currentReport ? false : true);
     refPrint.current.scrollTo(0, 0);
   }, [currentReport]);
@@ -130,6 +139,7 @@ export const Order = ({
   };
 
   const render = () => {
+    if (!fetched) return null;
     return (
       <div className="order__container">
         <div
