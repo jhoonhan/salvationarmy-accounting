@@ -164,7 +164,75 @@ const Report = ({
                 </div>
               </div>
             </div>
+          </div>
 
+          <div className="addform__column">
+            <div className="addform__row">
+              <label>Recapitulation</label>
+              <div className="addform__list">
+                <div>(4003) Offering + Thanksgiving</div>
+                <div className="addform__input">
+                  <div className="addform__inputarea disabled">
+                    {(
+                      +totals.offering.total + +totals.thanksGiving.total
+                    ).toFixed(2)}
+                  </div>
+                </div>
+              </div>
+
+              <div className="addform__list">
+                <div>(4004) Cartridges</div>
+                <div className="addform__input">
+                  <div className="addform__inputarea disabled">
+                    {totals.cartridge.total.toFixed(2)}
+                  </div>
+                </div>
+              </div>
+
+              <div className="addform__list">
+                <div>(4601) Corps Groups</div>
+                <div className="addform__input">
+                  <div className="addform__inputarea disabled">
+                    {currentReport?.groups.total.toFixed(2) || "0.00"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="addform__list">
+                <div>(6901) Self Denial + World Services</div>
+                <div className="addform__input">
+                  <div className="addform__inputarea disabled">
+                    {totals.selfDenial.total.toFixed(2)}
+                  </div>
+                </div>
+              </div>
+
+              <div className="addform__list">
+                <div>Building Fund</div>
+                <div className="addform__input">
+                  <div className="addform__inputarea disabled">
+                    {totals.buildingFund.total.toFixed(2)}
+                  </div>
+                </div>
+              </div>
+
+              <div className="addform__list">
+                <div>Grand Total</div>
+                <div className="addform__input">
+                  <div className="addform__inputarea disabled">
+                    {(
+                      totals.total +
+                      currentReport?.meeting.total +
+                      currentReport?.groups.total
+                    ).toFixed(2)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="addform__section">
+          <div className="addform__column">
             <div className="addform__row">
               <label>(4601) Corps Groups</label>
               <div className="addform__list">
@@ -250,75 +318,7 @@ const Report = ({
               </div>
             </div>
           </div>
-
           <div className="addform__column">
-            <div className="addform__row">
-              <label>Recapitulation</label>
-              <div className="addform__list">
-                <div>(4003) Offering + Thanksgiving</div>
-                <div className="addform__input">
-                  <div className="addform__inputarea disabled">
-                    {(
-                      +totals.offering.total + +totals.thanksGiving.total
-                    ).toFixed(2)}
-                  </div>
-                </div>
-              </div>
-
-              <div className="addform__list">
-                <div>(4004) Cartridges</div>
-                <div className="addform__input">
-                  <div className="addform__inputarea disabled">
-                    {totals.cartridge.total.toFixed(2)}
-                  </div>
-                </div>
-              </div>
-
-              <div className="addform__list">
-                <div>(4601) Corps Groups</div>
-                <div className="addform__input">
-                  <div className="addform__inputarea disabled">
-                    {currentReport?.groups.total.toFixed(2) || "0.00"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="addform__list">
-                <div>(6901) Self Denial +</div>
-              </div>
-
-              <div className="addform__list">
-                <div>World Services</div>
-                <div className="addform__input">
-                  <div className="addform__inputarea disabled">
-                    {totals.selfDenial.total.toFixed(2)}
-                  </div>
-                </div>
-              </div>
-
-              <div className="addform__list">
-                <div>Building Fund</div>
-                <div className="addform__input">
-                  <div className="addform__inputarea disabled">
-                    {totals.buildingFund.total.toFixed(2)}
-                  </div>
-                </div>
-              </div>
-
-              <div className="addform__list">
-                <div>Grand Total</div>
-                <div className="addform__input">
-                  <div className="addform__inputarea disabled">
-                    {(
-                      totals.total +
-                      currentReport?.meeting.total +
-                      currentReport?.groups.total
-                    ).toFixed(2)}
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div className="addform__row">
               <label style={{ border: "none" }}>Cartrdige Report</label>
               <div
@@ -382,9 +382,10 @@ const Report = ({
             </div>
           </div>
         </div>
+
         <div
           className="addform__section"
-          style={{ marginTop: "4rem", marginBottom: "4rem" }}
+          style={{ marginTop: "2rem", marginBottom: "3rem" }}
         >
           <div className="addform__column">
             <div className="addform__list-combined">
@@ -415,6 +416,7 @@ const Report = ({
             </div>
           </div>
         </div>
+
         <div>
           <button
             type="submit"

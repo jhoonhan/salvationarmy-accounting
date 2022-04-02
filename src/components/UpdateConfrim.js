@@ -3,8 +3,8 @@ import { capitalizeName } from "./helpers/nameHelper";
 
 const UpdateConfrim = ({ setShowForm, currentReport, refPrint }) => {
   const onClickPrint = () => {
-    window.print();
     refPrint.current.scrollTo(0, 0);
+    window.print();
   };
   return (
     <div className="order__update-confirm">
