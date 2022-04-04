@@ -44,7 +44,8 @@
 }
 .order__report-title {
   align-self: center;
-  display: none;
+  // display: none;
+  margin-top: 2rem;
 }
 .order__form {
   display: flex;
@@ -56,6 +57,8 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  // grid-template-columns: repeat(5, auto);
+  // grid-auto-columns: min-content;
   gap: 1rem;
 }
 .order__amounts__item {
@@ -315,7 +318,7 @@
     align-items: flex-start;
     gap: 1rem;
 
-    padding: 3rem;
+    padding: 4rem 3rem;
 
     border-top: 5px solid $color--primary--hover;
     background-color: $color--background--overlay;

@@ -1,0 +1,27 @@
+header {
+  color: white;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color--primary--hover;
+  box-sizing: border-box;
+  box-shadow: $ui--box-shaodw;
+
+  // padding: 1rem 0rem 1rem 0;
+
+  & nav {
+    // width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+
+    box-sizing: border-box;
+  }
+}

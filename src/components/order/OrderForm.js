@@ -162,7 +162,7 @@ const OrderForm = ({
                 />
               </div>
               <div className="order__amounts__item">
-                <div>Thanksgiving</div>
+                <div>Thksgiving</div>
                 <Field
                   name="amountThanksgiving"
                   component={renderField}
@@ -171,7 +171,7 @@ const OrderForm = ({
                 />
               </div>
               <div className="order__amounts__item">
-                <div>Self & World</div>
+                <div>Self & Wrd</div>
                 <Field
                   name="amountSelfDenial"
                   component={renderField}

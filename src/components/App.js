@@ -16,7 +16,7 @@ const App = ({ user }) => {
     return (
       <Switch location={location} key={location.pathname}>
         <Route path="/" exact component={Order} />
-        <Route path="/home" exact component={Order} />
+        <Route path="/home" exact component={Home} />
         <Route path="/order" exact component={Order} />
       </Switch>
     );
