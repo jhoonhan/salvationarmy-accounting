@@ -46,7 +46,7 @@ const SignIn = ({ signIn, createError, handleSubmit, submitting }) => {
             Log In
           </button>
         </form>
-        <p className="version">v1.0.1</p>
+        <p className="version">v.1.0.1</p>
       </div>
     </div>
   );
