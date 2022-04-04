@@ -142,14 +142,12 @@ label {
   grid-template-columns: 1fr auto;
   border-bottom: $border--default;
   cursor: pointer;
-  &:hover {
-    background-color: $color--primary;
-  }
 }
 .name-search__name {
   padding: 0.5rem 1rem;
   &:hover {
     color: white;
+    background-color: $color--primary;
   }
 }
 .name--search__delete {

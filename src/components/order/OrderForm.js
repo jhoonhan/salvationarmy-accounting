@@ -81,7 +81,7 @@ const OrderForm = ({
           className="order__form"
         >
           <div className="order__form__row">
-            <label>User Info</label>
+            <label>Offering Info</label>
             <div className="order__user-info">
               <div className="input-box">
                 {selectedUser?.nameK ? selectedUser.nameK : "이름"}
@@ -98,7 +98,6 @@ const OrderForm = ({
             </div>
           </div>
           <div className="order__form__row">
-            <label>Select Type</label>
             <div className="order__order-type">
               <div
                 style={
@@ -141,7 +140,6 @@ const OrderForm = ({
             </div>
           </div>
           <div className="order__form__row">
-            <label>Enter Amount</label>
             <div className="order__amounts">
               <div className="order__amounts__item">
                 <div>Cartridge</div>
