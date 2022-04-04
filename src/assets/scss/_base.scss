@@ -31,7 +31,8 @@ button,
 }
 
 .input-box {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: $default--font;
+
   font-weight: 400;
   line-height: 1.6;
   font-size: 1.6rem;
@@ -174,12 +175,16 @@ label {
 
   padding: 2rem;
 
-  background-color: $color--background;
+  background-color: $color--background--overlay;
 
-  border: $border--default;
-  border-radius: 1rem;
-  box-shadow: 2px 2px 3px $color--background;
+  // border: $border--default;
+  border-top: 5px solid $color--primary--hover;
+
+  // border-radius: 1rem;
+  box-shadow: 7px 7px 5px rgba($color: #000, $alpha: 0.3);
   box-sizing: border-box;
+
+  overflow: hidden;
 }
 .disabled {
   background-color: $color--background;

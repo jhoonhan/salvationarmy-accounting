@@ -8,6 +8,7 @@ import UpdateConfrim from "./UpdateConfrim";
 import ErrorSunday from "../errors/ErrorSunday";
 import Report from "./Report";
 import useGetTotal from "../hooks/useGetTotal";
+import Loader from "../Loader";
 
 import {
   createOrder,
@@ -144,7 +145,7 @@ export const Order = ({
   };
 
   const render = () => {
-    if (!fetched) return null;
+    if (!fetched) return <Loader show={true} />;
     return (
       <div className="order__container">
         <div
@@ -169,7 +170,7 @@ export const Order = ({
             setShowForm={setShowForm}
           />
         </div>
-        <div className="order__container__col print-hide-adea">
+        <div className="order__container__col order__container__col--2 print-hide-adea">
           <div className="order__col--conditional">
             <DateSelector
               currentDate={currentDate}
@@ -178,7 +179,6 @@ export const Order = ({
 
             {conditionalRender()}
           </div>
-          <p>v.1.0.0</p>
         </div>
       </div>
     );

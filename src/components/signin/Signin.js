@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { Field, reduxForm } from "redux-form";
@@ -8,10 +8,17 @@ import renderField from "../helpers/renderField";
 import { signIn, createError } from "../../actions";
 
 const SignIn = ({ signIn, createError, handleSubmit, submitting }) => {
+  const password = "leelee";
+  useEffect(() => {
+    if (localStorage.getItem("loggedIn")) {
+      signIn();
+    }
+  }, []);
+
   const onLoginSubmit = (e) => {
-    if (e.password === "leelee") {
-      console.log(`aaang`);
-      signIn(e.password);
+    if (e.password === password) {
+      signIn();
+      localStorage.setItem("loggedIn", true);
     } else {
       createError({
         name: "wrongPassword",

@@ -19,17 +19,17 @@ import {
   CLEAR_ERROR,
 } from "./types";
 
-export const signIn = (password) => {
+export const signIn = () => {
   return {
     type: SIGN_IN,
-    paylod: password,
+    payload: "admin",
   };
 };
 
 export const signOut = () => {
   return {
     type: SIGN_OUT,
-    paylod: "aaang",
+    payload: "aaang",
   };
 };
 

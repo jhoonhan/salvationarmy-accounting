@@ -22,6 +22,7 @@ const UserForm = ({
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
+    if (!user.users) return;
     const sortedUsers = user.users.sort((a, b) => {
       let results;
       if (!a.nameK || !b.nameK) {
