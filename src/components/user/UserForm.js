@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
-import { createUser, createOrder, deleteUser } from "../actions";
-import renderField from "./renderField";
-import { combineFirstLast, capitalizeName } from "./helpers/nameHelper";
+import { createUser, createOrder, deleteUser } from "../../actions";
+import renderField from "../helpers/renderField";
+import { combineFirstLast, capitalizeName } from "../helpers/nameHelper";
 import useUserErrorController from "./useUserErrorController";
 
 import { connect } from "react-redux";

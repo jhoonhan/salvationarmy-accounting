@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
-import renderField from "./renderField";
-import { createReport, putReport } from "../actions";
-import FixedField from "./FixedField";
-import { capitalizeName } from "./helpers/nameHelper";
+import renderField from "../helpers/renderField";
+import { createReport, putReport } from "../../actions";
+import FixedField from "../helpers/FixedField";
+import { capitalizeName } from "../helpers/nameHelper";
 
 const Report = ({
   totals,

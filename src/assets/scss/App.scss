@@ -3,15 +3,17 @@ $color--primary--tone: #8ea3ff;
 $color--primary--hover: #ff4040;
 $color--primary--hover--accent: black;
 
-$color--background: #e9e9f4;
+$color--background: rgba(233, 233, 244, 0.9);
 $color--background--shade: #ccc;
 $color--disabled: #efefef;
 
 $border--default: 1px solid #ccc;
+$default--box-shadow: 2px 2px 3px $color--background;
 
 @import "base";
 @import "home";
 @import "form";
 @import "order";
+@import "signin";
 @import "error";
 @import "print";

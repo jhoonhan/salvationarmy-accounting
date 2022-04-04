@@ -1,6 +1,7 @@
 import { reset } from "redux-form";
 import server from "../apis/server";
 import {
+  SIGN_IN,
   SIGN_OUT,
   CREATE_ORDER,
   FETCH_ORDER,
@@ -18,10 +19,28 @@ import {
   CLEAR_ERROR,
 } from "./types";
 
+export const signIn = (password) => {
+  return {
+    type: SIGN_IN,
+    paylod: password,
+  };
+};
+
 export const signOut = () => {
   return {
     type: SIGN_OUT,
     paylod: "aaang",
+  };
+};
+
+export const createError = (userError) => {
+  const { name, message } = userError;
+  return {
+    type: CREATE_ERROR,
+    payload: {
+      name,
+      message,
+    },
   };
 };
 

@@ -1,4 +1,5 @@
 import {
+  SIGN_IN,
   SIGN_OUT,
   CREATE_USER,
   FETCH_USERS,
@@ -13,6 +14,8 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case SIGN_IN:
+      return { fetched: false, currentUser: action.payload };
     case SIGN_OUT:
       return { fetched: false, currentUser: null };
     case CREATE_USER:

@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { Field, reduxForm, change, formValueSelector } from "redux-form";
-import renderField from "./renderField";
-import { capitalizeName } from "./helpers/nameHelper";
+import { Field, reduxForm, change } from "redux-form";
+import renderField from "../helpers/renderField";
+import { capitalizeName } from "../helpers/nameHelper";
 
-import { createOrder, deleteUser } from "../actions";
+import { createOrder, deleteUser } from "../../actions";
 
 const OrderForm = ({
   selectedUser,

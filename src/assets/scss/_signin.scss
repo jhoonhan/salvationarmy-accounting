@@ -1,0 +1,72 @@
+.signin__container {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-image: url(../../assets/images/bg.jpg);
+  background-position: center center;
+  background-size: cover;
+}
+
+.signin__wrapper {
+  width: 30rem;
+  height: 45rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  padding: 0 4rem;
+
+  border-top: 1rem solid red;
+  box-sizing: border-box;
+
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.4);
+
+  z-index: 1;
+  & .version {
+    font-size: 1.2rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    padding: 1rem;
+
+    background-color: white;
+  }
+}
+
+.img__logo {
+  height: 30%;
+  // max-width: 5rem;
+}
+.signin__box {
+  width: 100%;
+  display: flex;
+  justify-items: flex-end;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  & button {
+    width: 100%;
+  }
+  & label {
+    justify-self: center;
+  }
+  & input {
+    width: 100%;
+  }
+  & .merged-cell {
+    width: 100%;
+    grid-column: 1 / span 2;
+    text-align: center;
+  }
+}

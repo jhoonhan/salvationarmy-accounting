@@ -3,9 +3,10 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import "../assets/scss/App.scss";
 
 import Header from "./Header";
-import ErrorModal from "./ErrorModal";
-import Home from "./Home";
-import Order from "./Order";
+import ErrorModal from "./errors/ErrorModal";
+import Signin from "./signin/Signin";
+import Home from "./home/Home";
+import Order from "./order/Order";
 
 const App = () => {
   const location = useLocation();
@@ -16,8 +17,9 @@ const App = () => {
       <Route path="/" component={ErrorModal} />
 
       <Switch location={location} key={location.pathname}>
-        <Route path="/" exact component={Order} />
-        {/* <Route path="/order" exact component={Order} /> */}
+        <Route path="/" exact component={Signin} />
+        <Route path="/home" exact component={Home} />
+        <Route path="/order" exact component={Order} />
       </Switch>
     </div>
   );

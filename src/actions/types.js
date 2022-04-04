@@ -1,3 +1,4 @@
+export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
 export const CREATE_ORDER = "CREATE_ORDER";
 export const FETCH_ORDER = "FETCH_ORDER";

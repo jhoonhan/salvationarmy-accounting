@@ -1,5 +1,5 @@
 import React from "react";
-import { capitalizeName } from "./helpers/nameHelper";
+import { capitalizeName } from "../helpers/nameHelper";
 
 const UpdateConfrim = ({ setShowForm, currentReport, refPrint }) => {
   const onClickPrint = () => {

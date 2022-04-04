@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import ReactToPrint from "react-to-print";
 import { connect } from "react-redux";
 import OrderChart from "./OrderChart";
 import OrderForm from "./OrderForm";
-import UserForm from "./UserForm";
-import DateSelector from "./DateSelector";
+import UserForm from "../user/UserForm";
+import DateSelector from "../helpers/DateSelector";
 import UpdateConfrim from "./UpdateConfrim";
-import ErrorSunday from "./ErrorSunday";
+import ErrorSunday from "../errors/ErrorSunday";
 import Report from "./Report";
-import useGetTotal from "./useGetTotal";
+import useGetTotal from "../hooks/useGetTotal";
 
 import {
   createOrder,
@@ -16,7 +15,7 @@ import {
   fetchUsers,
   fetchReports,
   resetForms,
-} from "../actions";
+} from "../../actions";
 
 export const Order = ({
   order,
@@ -72,6 +71,12 @@ export const Order = ({
 
   useEffect(() => {
     resetForms();
+    console.log(new Date(currentDate).getDay());
+    if (new Date(currentDate).getDay() === 6) {
+      setShowForm(true);
+    } else {
+      setShowForm(false);
+    }
   }, [currentDate]);
 
   useEffect(() => {

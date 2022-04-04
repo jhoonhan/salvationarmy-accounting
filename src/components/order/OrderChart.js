@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { deleteOrder } from "../actions";
-import { capitalizeName, lastFirst } from "./helpers/nameHelper";
+import { deleteOrder } from "../../actions";
+import { capitalizeName } from "../helpers/nameHelper";
 
 const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
   const onClickDelete = (selectedOrder) => {

@@ -187,3 +187,15 @@ label {
 .error-message {
   color: $color--primary--hover;
 }
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba($color: #ffffff, $alpha: 0.3);
+  z-index: 0;
+}
+.flex__row {
+  display: flex;
+}
