@@ -72,7 +72,6 @@ export const Order = ({
 
   useEffect(() => {
     resetForms();
-    console.log(new Date(currentDate).getDay());
     if (new Date(currentDate).getDay() === 6) {
       setShowForm(true);
     } else {
