@@ -4,13 +4,16 @@ const Home = () => {
   return (
     <>
       <div className="home__container">
-        <button>Enter This Week</button>
-        <div className="home__user-panel">
-          <div className="home__user-input">
-            <input></input>
-            <button>Search User</button>
-          </div>
-          <button>Add User</button>
+        <div className="nav__side">
+          <div className="nav__side__profile">profile</div>
+          <nav>
+            <ul>
+              <li>aaang</li>
+              <li>aaang</li>
+              <li>aaang</li>
+              <li>aaang</li>
+            </ul>
+          </nav>
         </div>
         <div className="home__section">aang</div>
         <div className="home__section">aang</div>
