@@ -46,6 +46,10 @@ button,
   border: $border--default;
   background-color: transparent;
 }
+h1 {
+  font-size: 5rem;
+  color: #666;
+}
 input {
   @extend .input-box;
   background-color: white;

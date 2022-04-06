@@ -72,3 +72,11 @@
     padding-left: 2rem;
   }
 }
+.home__prev {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-items: center;
+
+  padding: 2rem 0;
+}
