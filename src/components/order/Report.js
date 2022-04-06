@@ -94,7 +94,7 @@ const Report = ({
         <div className="addform__section">
           <div className="addform__column">
             <div className="addform__row">
-              <label>(4003) Meeting Collections</label>
+              <h3>(4003) Meeting Collections</h3>
               <div className="addform__list">
                 <div>Sunday School</div>
                 <div className="addform__input">
@@ -168,7 +168,7 @@ const Report = ({
 
           <div className="addform__column">
             <div className="addform__row">
-              <label>Recapitulation</label>
+              <h3>Recapitulation</h3>
               <div className="addform__list">
                 <div>(4003) Offering + Thanksgiving</div>
                 <div className="addform__input">
@@ -234,7 +234,7 @@ const Report = ({
         <div className="addform__section">
           <div className="addform__column">
             <div className="addform__row">
-              <label>(4601) Corps Groups</label>
+              <h3>(4601) Corps Groups</h3>
               <div className="addform__list">
                 <div>Adventure Corps</div>
                 <div className="addform__input">
@@ -320,7 +320,7 @@ const Report = ({
           </div>
           <div className="addform__column">
             <div className="addform__row">
-              <label style={{ border: "none" }}>Cartrdige Report</label>
+              <h3 style={{ border: "none" }}>Cartrdige Report</h3>
               <div
                 className="addform__list-combined"
                 style={{ textAlign: "left" }}

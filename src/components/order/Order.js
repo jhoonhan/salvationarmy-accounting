@@ -9,7 +9,7 @@ import ErrorSunday from "../errors/ErrorSunday";
 import Report from "./Report";
 import useGetTotal from "../hooks/useGetTotal";
 import Loader from "../Loader";
-import useDateSetter from "../helpers/useDateSetter";
+import useDateSetter from "../hooks/useDateSetter";
 
 import {
   createOrder,
@@ -33,8 +33,6 @@ export const Order = ({
   const [searchTerm, setSearchTerm] = useState("");
 
   const [dates, setDates] = useDateSetter();
-  const [currentDate, setCurrentDate] = useState(null);
-  const [prevDate, setPrevDate] = useState(null);
 
   const [selectedUser, setSelectedUser] = useState({});
   const [selectedOrders, setSelectedOrders] = useState([]);
@@ -53,17 +51,6 @@ export const Order = ({
     fetchOrders();
     fetchUsers();
     fetchReports();
-
-    // const now = new Date();
-    // const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    // const lastSunday = new Date(
-    //   today.setDate(today.getDate() - today.getDay())
-    // );
-    // const prevSunday = new Date(
-    //   today.setDate(today.getDate() - today.getDay() - 7)
-    // );
-    // setCurrentDate(lastSunday.toISOString().split("T")[0]);
-    // setPrevDate(prevSunday.toISOString().split("T")[0]);
   }, []);
 
   useEffect(() => {
@@ -74,7 +61,7 @@ export const Order = ({
 
   useEffect(() => {
     resetForms();
-    if (new Date(dates[0]).getDay() === 6) {
+    if (new Date(dates.currentDate).getDay() === 6) {
       setShowForm(true);
     } else {
       setShowForm(false);
@@ -82,26 +69,19 @@ export const Order = ({
   }, [dates]);
 
   useEffect(() => {
-    setSelectedOrders(order.orders.filter((el) => el.date === dates[0]));
+    setSelectedOrders(
+      order.orders.filter((el) => el.date === dates.currentDate)
+    );
   }, [order, dates]);
 
   useEffect(() => {
     setCurrentReport(
-      report.reports.filter((report) => report.date === dates[0])[0]
+      report.reports.filter((report) => report.date === dates.currentDate)[0]
     );
     setPrevReport(
-      report.reports.filter((report) => report.date === dates[1])[0]
+      report.reports.filter((report) => report.date === dates.prevDate)[0]
     );
   }, [report, dates]);
-
-  // useEffect(() => {
-  //   const now = new Date(dates[0]);
-  //   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  //   const prevSunday = new Date(
-  //     today.setDate(today.getDate() - today.getDay())
-  //   );
-  //   setPrevDate(prevSunday.toISOString().split("T")[0]);
-  // }, [dates]);
 
   useEffect(() => {
     if (!fetched) return null;
@@ -134,7 +114,7 @@ export const Order = ({
           />
 
           <OrderForm
-            currentDate={dates[0]}
+            currentDate={dates.currentDate}
             selectedUser={selectedUser}
             setSelectedUser={setSelectedUser}
             setSearchTerm={setSearchTerm}
@@ -153,11 +133,11 @@ export const Order = ({
           ref={refPrint}
           className="order__container__col order__container__col--1 print-area"
         >
-          <h4 className="order__report-title">Kernersville Korean Corps</h4>
+          <h3 className="order__report-title">Kernersville Korean Corps</h3>
           <OrderChart
             orders={selectedOrders}
             totals={totals}
-            currentDate={dates[0]}
+            currentDate={dates.currentDate}
             showForm={showForm}
           />
           <Report
@@ -165,15 +145,15 @@ export const Order = ({
             orders={selectedOrders}
             currentReport={currentReport}
             prevReport={prevReport}
-            currentDate={dates[0]}
-            prevDate={dates[1]}
+            currentDate={dates.currentDate}
+            prevDate={dates.prevDate}
             showForm={showForm}
             setShowForm={setShowForm}
           />
         </div>
         <div className="order__container__col order__container__col--2 print-hide-adea">
           <div className="order__col--conditional">
-            <DateSelector currentDate={dates[0]} setDates={setDates} />
+            <DateSelector currentDate={dates.currentDate} setDates={setDates} />
 
             {conditionalRender()}
           </div>

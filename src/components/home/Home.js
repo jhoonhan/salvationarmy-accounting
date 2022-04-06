@@ -1,10 +1,48 @@
-import React from "react";
-import DateSelector from "../helpers/DateSelector";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
-const Home = () => {
-  return (
-    <>
-      <div className="home__container">
+import DateSelector from "../helpers/DateSelector";
+import useDateSetter from "../hooks/useDateSetter";
+import WeeklyReport from "./WeeklyReport";
+import HeroStats from "./HeroStats";
+import Stats from "./Stats";
+import Activity from "./Activity";
+import Loader from "../Loader";
+
+import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
+
+const Home = ({
+  user,
+  order,
+  report,
+  fetchOrders,
+  fetchUsers,
+  fetchReports,
+}) => {
+  const [dates, setDates] = useDateSetter();
+  const [fetched, setFetched] = useState(false);
+
+  useEffect(() => {
+    fetchUsers();
+    fetchOrders();
+    fetchReports();
+  }, []);
+
+  useEffect(() => {
+    console.log(dates);
+  }, [dates]);
+
+  useEffect(() => {
+    if (!user.fetched) return;
+    if (!order.fetched) return;
+    if (!report.fetched) return;
+    setFetched(true);
+  }, [user, order, report, fetched]);
+
+  const render = () => {
+    if (!fetched) return <Loader show={true} />;
+    return (
+      <main className="home__container">
         <div className="home__col home__col--1">
           <div className="nav__side__profile">profile</div>
           <nav className="nav__side">
@@ -17,285 +55,35 @@ const Home = () => {
           </nav>
         </div>
         <div className="home__col home__col--2">
-          <div className="flex__vertical">
-            <div className="ui__container">
-              <div className="home__prev">
-                <div>
-                  <label>From last week</label>
-                  <h1>-$100.00</h1>
-                </div>
-                <div>
-                  <label>Total</label>
-                  <h1>$920.00</h1>
-                </div>
-                <div>
-                  <label>Attendance</label>
-                  <h1>16</h1>
-                </div>
-              </div>
-            </div>
-            <div className="ui__container">
-              <label>Montly Report</label>
-              <div className="flex__vertical">
-                <div>
-                  <div className="chart">
-                    <div className="chart__vertical-label">
-                      <div>$1000</div>
-                      <div>$900</div>
-                      <div>$800</div>
-                      <div>$700</div>
-                      <div>$600</div>
-                      <div>$500</div>
-                      <div>$400</div>
-                      <div>$300</div>
-                      <div>$200</div>
-                      <div>$100</div>
-                      <div>$0</div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "90%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "20%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "30%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "40%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "50%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "60%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "70%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "80%" }}
-                      ></div>
-                    </div>
-                  </div>
-                  <div className="chart__horizontal-label">
-                    <div></div>
-                    <div>4/3</div>
-                    <div>4/10</div>
-                    <div>4/17</div>
-                    <div>4/24</div>
-                    <div>5/3</div>
-                    <div>5/10</div>
-                    <div>5/17</div>
-                    <div>5/24</div>
-                  </div>
-                </div>
-                <div className="table">
-                  <div></div>
-                  <div>4/3</div>
-                  <div>4/10</div>
-                  <div>4/17</div>
-                  <div>4/24</div>
-                  <div>5/3</div>
-                  <div>5/10</div>
-                  <div>5/17</div>
-                  <div>5/24</div>
+          <section className="flex__vertical">
+            <DateSelector currentDate={dates.currentDate} setDates={setDates} />
+            <WeeklyReport />
+          </section>
 
-                  <div>Cart.</div>
-                  <div>$ 1000.00</div>
-                  <div>$ 980.00</div>
-                  <div>$ 1140.00</div>
-                  <div>$ 1200.00</div>
-                  <div>$ 960.00</div>
-                  <div>$ 523.00</div>
-                  <div>$ 990.00</div>
-                  <div>$ 125.00</div>
-
-                  <div>Offer.</div>
-                  <div>$ 1000.00</div>
-                  <div>$ 980.00</div>
-                  <div>$ 1140.00</div>
-                  <div>$ 1200.00</div>
-                  <div>$ 960.00</div>
-                  <div>$ 523.00</div>
-                  <div>$ 990.00</div>
-                  <div>$ 125.00</div>
-
-                  <div>Thnks.</div>
-                  <div>$ 1000.00</div>
-                  <div>$ 980.00</div>
-                  <div>$ 1140.00</div>
-                  <div>$ 1200.00</div>
-                  <div>$ 960.00</div>
-                  <div>$ 523.00</div>
-                  <div>$ 990.00</div>
-                  <div>$ 125.00</div>
-
-                  <div>S & W</div>
-                  <div>$ 1000.00</div>
-                  <div>$ 980.00</div>
-                  <div>$ 1140.00</div>
-                  <div>$ 1200.00</div>
-                  <div>$ 960.00</div>
-                  <div>$ 523.00</div>
-                  <div>$ 990.00</div>
-                  <div>$ 125.00</div>
-
-                  <div>Build.</div>
-                  <div>$ 1000.00</div>
-                  <div>$ 980.00</div>
-                  <div>$ 1140.00</div>
-                  <div>$ 1200.00</div>
-                  <div>$ 960.00</div>
-                  <div>$ 523.00</div>
-                  <div>$ 990.00</div>
-                  <div>$ 125.00</div>
-
-                  <div>Total</div>
-                  <div>$ 1000.00</div>
-                  <div>$ 980.00</div>
-                  <div>$ 1140.00</div>
-                  <div>$ 1200.00</div>
-                  <div>$ 960.00</div>
-                  <div>$ 523.00</div>
-                  <div>$ 990.00</div>
-                  <div>$ 125.00</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex__vertical">
-            <DateSelector />
-
-            <div className="ui__container">
-              <label>Corps Stats</label>
-              <div className="home__stats">
-                <p>Members :</p>
-                <p>36 members</p>
-
-                <p>Weekly Attendance :</p>
-                <p>16 members</p>
-
-                <p>Monthly Avg :</p>
-                <p>$ 980.00</p>
-
-                <p>Weekly Avg :</p>
-                <p>$ 980.00</p>
-
-                <p>Total to date :</p>
-                <p>$ 52980.00</p>
-              </div>
-            </div>
-            <div className="ui__container">
-              <label>Weekly Attendance</label>
-              <div className="flex__vertical">
-                <div>
-                  <div className="chart">
-                    <div className="chart__vertical-label">
-                      <div>$1000</div>
-                      <div>$900</div>
-                      <div>$800</div>
-                      <div>$700</div>
-                      <div>$600</div>
-                      <div>$500</div>
-                      <div>$400</div>
-                      <div>$300</div>
-                      <div>$200</div>
-                      <div>$100</div>
-                      <div>$0</div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "90%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "20%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "30%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "40%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "50%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "60%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "70%" }}
-                      ></div>
-                    </div>
-                    <div className="chart__graph">
-                      <div
-                        className="chart__bar"
-                        style={{ height: "80%" }}
-                      ></div>
-                    </div>
-                  </div>
-                  <div className="chart__horizontal-label">
-                    <div></div>
-                    <div>4/3</div>
-                    <div>4/10</div>
-                    <div>4/17</div>
-                    <div>4/24</div>
-                    <div>5/3</div>
-                    <div>5/10</div>
-                    <div>5/17</div>
-                    <div>5/24</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <section className="flex__vertical">
+            <HeroStats />
+            <Stats />
+            <Activity />
+          </section>
         </div>
-      </div>
-    </>
-  );
+      </main>
+    );
+  };
+
+  return render();
 };
 
-export default Home;
+const mapStateToProps = ({ user, order, report, userError }) => {
+  return {
+    user,
+    order,
+    report,
+    userError,
+  };
+};
+
+export default connect(mapStateToProps, {
+  fetchOrders,
+  fetchUsers,
+  fetchReports,
+})(Home);

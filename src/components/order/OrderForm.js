@@ -81,7 +81,7 @@ const OrderForm = ({
           className="order__form"
         >
           <div className="order__form__row">
-            <label>Offering Info</label>
+            <h3>Offering Info</h3>
             <div className="order__user-info">
               <div className="input-box">
                 {selectedUser?.nameK ? selectedUser.nameK : "이름"}

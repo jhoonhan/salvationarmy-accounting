@@ -10,7 +10,7 @@ const Header = () => {
 
   const render = () => {
     return (
-      <header>
+      <section className="header__container">
         <div onClick={onClickExpandNav} className="btn__hamburger">
           <svg viewBox="0 0 50 50" className="icon__hamburger">
             <use href={`${icons}#hamburger`}></use>
@@ -21,7 +21,7 @@ const Header = () => {
           <div>USERS</div>
           <div>REPORTS</div>
         </nav>
-      </header>
+      </section>
     );
   };
   return render();

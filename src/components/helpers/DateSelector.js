@@ -20,7 +20,7 @@ const DateSelector = ({ setDates, dispatch }) => {
   };
 
   return (
-    <div className="ui__container">
+    <article className="ui__container">
       <div>
         <label>Select date</label>
         <Field
@@ -30,7 +30,7 @@ const DateSelector = ({ setDates, dispatch }) => {
           onChange={onDateChange}
         />
       </div>
-    </div>
+    </article>
   );
 };
 

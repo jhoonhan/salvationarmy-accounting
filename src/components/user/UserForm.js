@@ -112,7 +112,7 @@ const UserForm = ({
   const renderCreateUser = () => {
     return (
       <>
-        <label>Create New User</label>
+        <h3>Create New User</h3>
         <form
           onSubmit={handleSubmit(userSubmit)}
           autoComplete="off"
@@ -148,7 +148,7 @@ const UserForm = ({
   const renderUserForm = () => {
     return (
       <>
-        <label>Search user</label>
+        <h3>Search user</h3>
         <div
           className="name-search__subcontainer"
           style={type === "noUserName" ? { border: "1px solid red" } : {}}

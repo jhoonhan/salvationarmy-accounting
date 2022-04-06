@@ -47,7 +47,12 @@ button,
   background-color: transparent;
 }
 h1 {
-  font-size: 5rem;
+  font-size: 4rem;
+  color: #666;
+}
+.text--large {
+  font-size: 4rem;
+  font-weight: 600;
   color: #666;
 }
 input {
@@ -68,7 +73,10 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+h3,
 label {
+  font-size: 1.6rem;
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -213,7 +221,6 @@ label {
   height: auto;
 
   display: grid;
-  grid-template-columns: 7rem repeat(8, 1fr);
 
   border: $border--default;
   box-sizing: border-box;
@@ -223,20 +230,13 @@ label {
   width: 100%;
   // height: 20vh;
   display: grid;
-  grid-template-columns: 7rem repeat(8, 1fr);
   border: $border--default;
   box-sizing: border-box;
 
-  & div {
+  & span {
     padding: 0.5rem 1rem;
     border-right: $border--default;
     border-bottom: $border--default;
-  }
-  & div:nth-child(9n) {
-    border-right: none;
-  }
-  & div:nth-last-child(-n + 9) {
-    border-bottom: none;
   }
 }
 .chart__graph {
@@ -264,7 +264,7 @@ label {
   box-sizing: border-box;
   // padding-top: 1rem;
 
-  & div {
+  & span {
     padding: 0 1rem;
   }
 }
@@ -274,7 +274,6 @@ label {
 
   display: grid;
   justify-items: center;
-  grid-template-columns: 7rem repeat(8, 1fr);
 
   margin-top: 0.5rem;
 }
