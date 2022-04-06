@@ -9,6 +9,7 @@ import ErrorSunday from "../errors/ErrorSunday";
 import Report from "./Report";
 import useGetTotal from "../hooks/useGetTotal";
 import Loader from "../Loader";
+import useDateSetter from "../helpers/useDateSetter";
 
 import {
   createOrder,
@@ -31,6 +32,7 @@ export const Order = ({
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  const [dates, setDates] = useDateSetter();
   const [currentDate, setCurrentDate] = useState(null);
   const [prevDate, setPrevDate] = useState(null);
 
@@ -46,6 +48,10 @@ export const Order = ({
   const refUserSearch = useRef(null);
 
   const totals = useGetTotal(selectedOrders);
+
+  useEffect(() => {
+    console.log(dates);
+  }, [dates]);
 
   useEffect(() => {
     fetchOrders();
