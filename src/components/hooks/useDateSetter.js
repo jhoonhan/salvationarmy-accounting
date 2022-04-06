@@ -1,6 +1,27 @@
 import React, { useState } from "react";
 
 const useDateSetter = () => {
+  const _sundaysThisMonth = () => {
+    const daysInMonth = (month, year) => {
+      return new Date(year, month, 0).getDate();
+    };
+    const today = new Date();
+    const getTot = daysInMonth(today.getMonth(), today.getFullYear());
+
+    let sundays = []; //Declaring array for inserting Sundays
+    for (let i = 1; i <= getTot; i++) {
+      let newDate = new Date(today.getFullYear(), today.getMonth(), i);
+      if (newDate.getDay() === 0) {
+        sundays.push(
+          `${today.getFullYear()}-${(today.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${i.toString().padStart(2, "0")}`
+        );
+      }
+    }
+    return sundays;
+  };
+
   const _getDates = (inputDate) => {
     let now2;
 
@@ -19,7 +40,7 @@ const useDateSetter = () => {
     const prevSunday = new Date(
       today.setDate(today.getDate() - today.getDay() - 7)
     );
-    const sundayRange = [
+    const sundaysRange = [
       lastSunday.toISOString().split("T")[0],
       prevSunday.toISOString().split("T")[0],
     ];
@@ -27,13 +48,14 @@ const useDateSetter = () => {
       const sunday = new Date(
         today.setDate(today.getDate() - today.getDay() - 7)
       );
-      sundayRange.push(sunday.toISOString().split("T")[0]);
+      sundaysRange.push(sunday.toISOString().split("T")[0]);
     }
 
     return {
       currentDate: lastSunday.toISOString().split("T")[0],
       prevDate: prevSunday.toISOString().split("T")[0],
-      sundayRange,
+      sundaysRange,
+      sundaysThisMonth: _sundaysThisMonth(),
     };
   };
 
