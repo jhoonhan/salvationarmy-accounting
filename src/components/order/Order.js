@@ -50,24 +50,20 @@ export const Order = ({
   const totals = useGetTotal(selectedOrders);
 
   useEffect(() => {
-    console.log(dates);
-  }, [dates]);
-
-  useEffect(() => {
     fetchOrders();
     fetchUsers();
     fetchReports();
 
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const lastSunday = new Date(
-      today.setDate(today.getDate() - today.getDay())
-    );
-    const prevSunday = new Date(
-      today.setDate(today.getDate() - today.getDay() - 7)
-    );
-    setCurrentDate(lastSunday.toISOString().split("T")[0]);
-    setPrevDate(prevSunday.toISOString().split("T")[0]);
+    // const now = new Date();
+    // const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    // const lastSunday = new Date(
+    //   today.setDate(today.getDate() - today.getDay())
+    // );
+    // const prevSunday = new Date(
+    //   today.setDate(today.getDate() - today.getDay() - 7)
+    // );
+    // setCurrentDate(lastSunday.toISOString().split("T")[0]);
+    // setPrevDate(prevSunday.toISOString().split("T")[0]);
   }, []);
 
   useEffect(() => {
@@ -78,34 +74,34 @@ export const Order = ({
 
   useEffect(() => {
     resetForms();
-    if (new Date(currentDate).getDay() === 6) {
+    if (new Date(dates[0]).getDay() === 6) {
       setShowForm(true);
     } else {
       setShowForm(false);
     }
-  }, [currentDate]);
+  }, [dates]);
 
   useEffect(() => {
-    setSelectedOrders(order.orders.filter((el) => el.date === currentDate));
-  }, [order, currentDate]);
+    setSelectedOrders(order.orders.filter((el) => el.date === dates[0]));
+  }, [order, dates]);
 
   useEffect(() => {
     setCurrentReport(
-      report.reports.filter((report) => report.date === currentDate)[0]
+      report.reports.filter((report) => report.date === dates[0])[0]
     );
     setPrevReport(
-      report.reports.filter((report) => report.date === prevDate)[0]
+      report.reports.filter((report) => report.date === dates[1])[0]
     );
-  }, [report, currentDate, prevDate]);
+  }, [report, dates]);
 
-  useEffect(() => {
-    const now = new Date(currentDate);
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const prevSunday = new Date(
-      today.setDate(today.getDate() - today.getDay())
-    );
-    setPrevDate(prevSunday.toISOString().split("T")[0]);
-  }, [currentDate]);
+  // useEffect(() => {
+  //   const now = new Date(dates[0]);
+  //   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  //   const prevSunday = new Date(
+  //     today.setDate(today.getDate() - today.getDay())
+  //   );
+  //   setPrevDate(prevSunday.toISOString().split("T")[0]);
+  // }, [dates]);
 
   useEffect(() => {
     if (!fetched) return null;
@@ -117,7 +113,7 @@ export const Order = ({
     if (userError?.name === "selectSunday") {
       return <ErrorSunday userError={userError} />;
     }
-    if (!showForm && currentDate) {
+    if (!showForm && dates) {
       return (
         <UpdateConfrim
           setShowForm={setShowForm}
@@ -126,7 +122,7 @@ export const Order = ({
         />
       );
     }
-    if (showForm && currentDate) {
+    if (showForm && dates) {
       return (
         <>
           <UserForm
@@ -138,7 +134,7 @@ export const Order = ({
           />
 
           <OrderForm
-            currentDate={currentDate}
+            currentDate={dates[0]}
             selectedUser={selectedUser}
             setSelectedUser={setSelectedUser}
             setSearchTerm={setSearchTerm}
@@ -161,7 +157,7 @@ export const Order = ({
           <OrderChart
             orders={selectedOrders}
             totals={totals}
-            currentDate={currentDate}
+            currentDate={dates[0]}
             showForm={showForm}
           />
           <Report
@@ -169,18 +165,15 @@ export const Order = ({
             orders={selectedOrders}
             currentReport={currentReport}
             prevReport={prevReport}
-            currentDate={currentDate}
-            prevDate={prevDate}
+            currentDate={dates[0]}
+            prevDate={dates[1]}
             showForm={showForm}
             setShowForm={setShowForm}
           />
         </div>
         <div className="order__container__col order__container__col--2 print-hide-adea">
           <div className="order__col--conditional">
-            <DateSelector
-              currentDate={currentDate}
-              setCurrentDate={setCurrentDate}
-            />
+            <DateSelector currentDate={dates[0]} setDates={setDates} />
 
             {conditionalRender()}
           </div>
