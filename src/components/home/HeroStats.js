@@ -11,29 +11,26 @@ const HeroStats = ({ reports }) => {
       report.date === dates.currentDate || report.date === dates.prevtDate
   );
 
-  ///
-
-  const getSundays = () => {
+  const sundaysThisMonth = () => {
     const daysInMonth = (month, year) => {
-      return new Date(year, month, 0);
+      return new Date(year, month, 0).getDate();
     };
     const today = new Date();
-    const getTot = daysInMonth(today.getMonth(), today.getFullYear()); //Get total days in a month
-    var sundays = []; //Declaring array for inserting Sundays
+    const getTot = daysInMonth(today.getMonth(), today.getFullYear());
 
-    for (var i = 1; i <= getTot; i++) {
-      //looping through days in month
-      var newDate = new Date(today.getFullYear(), today.getMonth(), i);
+    let sundays = []; //Declaring array for inserting Sundays
+    for (let i = 1; i <= getTot; i++) {
+      let newDate = new Date(today.getFullYear(), today.getMonth(), i);
       if (newDate.getDay() === 0) {
-        //if Sunday
-        sundays.push(i);
+        sundays.push(
+          `${today.getFullYear()}-${(today.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${i.toString().padStart(2, "0")}`
+        );
       }
     }
     return sundays;
   };
-  console.log(getSundays());
-
-  ///
 
   const render = () => {
     return (
