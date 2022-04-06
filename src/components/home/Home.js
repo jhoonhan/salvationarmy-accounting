@@ -57,13 +57,13 @@ const Home = ({
         <div className="home__col home__col--2">
           <section className="flex__vertical">
             <DateSelector currentDate={dates.currentDate} setDates={setDates} />
-            <WeeklyReport />
+            <WeeklyReport reports={report.reports} />
           </section>
 
           <section className="flex__vertical">
-            <HeroStats />
-            <Stats />
-            <Activity />
+            <HeroStats reports={report.reports} />
+            <Stats reports={report.reports} />
+            <Activity orders={order.orders} />
           </section>
         </div>
       </main>
