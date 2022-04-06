@@ -166,6 +166,7 @@ label {
   }
 }
 .ui__container {
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -201,4 +202,93 @@ label {
 }
 .flex__row {
   display: flex;
+}
+
+.chart {
+  width: 100%;
+  height: auto;
+
+  display: grid;
+  grid-template-columns: 7rem repeat(8, 1fr);
+
+  border: $border--default;
+  box-sizing: border-box;
+}
+.table {
+  font-size: 1.4rem;
+  width: 100%;
+  // height: 20vh;
+  display: grid;
+  grid-template-columns: 7rem repeat(8, 1fr);
+  border: $border--default;
+  box-sizing: border-box;
+
+  & div {
+    padding: 0.5rem 1rem;
+    border-right: $border--default;
+    border-bottom: $border--default;
+  }
+  & div:nth-child(9n) {
+    border-right: none;
+  }
+  & div:nth-last-child(-n + 9) {
+    border-bottom: none;
+  }
+}
+.chart__graph {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.chart__bar {
+  width: 50%;
+  height: 100%;
+  background-color: blue;
+}
+
+.chart__vertical-label {
+  display: grid;
+  justify-items: flex-end;
+  align-items: flex-end;
+  row-gap: 0.3rem;
+
+  border-right: $border--default;
+  box-sizing: border-box;
+  // padding-top: 1rem;
+
+  & div {
+    padding: 0 1rem;
+  }
+}
+.chart__horizontal-label {
+  width: 100%;
+  height: auto;
+
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 7rem repeat(8, 1fr);
+
+  margin-top: 0.5rem;
+}
+.chart-table {
+  width: 100%;
+  height: 30vh;
+
+  display: grid;
+  grid-template-columns: auto repeat(8, 1fr);
+
+  border: $border--default;
+}
+.flex__vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.flex__horizontal {
+  display: flex;
+  gap: 2rem;
 }
