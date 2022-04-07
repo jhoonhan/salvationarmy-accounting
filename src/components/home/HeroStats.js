@@ -15,7 +15,7 @@ const HeroStats = ({ homeData }) => {
             <p className="text--large">${monthTotal.toFixed(2)}</p>
           </div>
           <div>
-            <h3>Last Attendance</h3>
+            <h3>Attendance</h3>
             <p className="text--large">{attendance}</p>
           </div>
         </div>

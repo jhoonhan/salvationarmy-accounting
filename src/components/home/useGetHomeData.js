@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 const useGetHomeData = (reports, dates) => {
-  console.log(`aaaang ! ${dates}`);
   const [filteredReports, setFilteredReports] = useState({
     monthTotal: 0,
     reportsThisMonth: [],
@@ -11,11 +10,16 @@ const useGetHomeData = (reports, dates) => {
   });
 
   useEffect(() => {
-    if (!reports) return;
-    const reportsThisLastWeek = reports.filter(
-      (report) =>
-        report.date === dates.currentDate || report.date === dates.prevDate
-    );
+    if (!reports[0]) return;
+    const reportsThisLastWeek = () => {
+      const thisWeek = reports.filter(
+        (report) => report.date === dates.currentDate
+      );
+      const lastWeek = reports.filter(
+        (report) => report.date === dates.prevDate
+      );
+      return [thisWeek[0] || [], lastWeek[0] || []];
+    };
 
     let reportsThisMonth = [];
     reports.forEach((report) => {
@@ -25,25 +29,32 @@ const useGetHomeData = (reports, dates) => {
       if (filtered[0]) reportsThisMonth.push(report);
     });
 
-    const thisLastDiff = reportsThisLastWeek
-      .map((report) => report.total)
-      .reduce((a, b) => a - b, 0);
+    const thisLastDiff = () => {
+      const totals = reportsThisLastWeek().map((report) => {
+        return report.total;
+      });
+      return (totals[1] || 0) - (totals[0] || 0);
+    };
 
     const monthTotal = reportsThisMonth
       .map((report) => report.total)
       .reduce((a, b) => a + b, 0);
 
-    const attendance = reports.filter(
-      (report) => report.date === dates.prevDate
-    )[0]?.orders.length;
+    const attendance = () => {
+      const filtered = reports.filter(
+        (report) => report.date === dates.currentDate
+      );
+      if (!filtered[0]) return 0;
+      if (filtered[0]) return filtered[0].orders.length;
+    };
 
     setFilteredReports({
       ...filteredReports,
-      thisLastDiff,
-      reportsThisLastWeek,
+      thisLastDiff: thisLastDiff(),
+      reportsThisLastWeek: reportsThisLastWeek(),
       reportsThisMonth,
       monthTotal,
-      attendance,
+      attendance: attendance(),
     });
   }, [reports, dates]);
 
