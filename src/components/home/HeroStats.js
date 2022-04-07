@@ -1,65 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { render } from "react-dom";
-import useDateSetter from "../hooks/useDateSetter";
+import React from "react";
 
-const HeroStats = ({ reports }) => {
-  const [dates, setDates] = useDateSetter();
-  const [filteredReports, setFilteredReports] = useState({
-    monthTotal: 0,
-    reportsThisMonth: [],
-    thisLastDiff: 0,
-    reportsThisLastWeek: [],
-    attendance: 0,
-  });
-
-  useEffect(() => {
-    const reportsThisLastWeek = reports.filter(
-      (report) =>
-        report.date === dates.currentDate || report.date === dates.prevDate
-    );
-
-    let reportsThisMonth = [];
-    reports.forEach((report) => {
-      const filtered = dates.sundaysThisMonth.filter(
-        (date) => date === report.date
-      );
-      if (filtered[0]) reportsThisMonth.push(report);
-    });
-
-    const thisLastDiff = reportsThisLastWeek
-      .map((report) => report.total)
-      .reduce((a, b) => a - b, 0);
-
-    const monthTotal = reportsThisMonth
-      .map((report) => report.total)
-      .reduce((a, b) => a + b, 0);
-
-    const attendance = reports.filter(
-      (report) => report.date === dates.prevDate
-    )[0].orders.length;
-
-    setFilteredReports({
-      ...filteredReports,
-      thisLastDiff,
-      reportsThisLastWeek,
-      reportsThisMonth,
-      monthTotal,
-      attendance,
-    });
-  }, [reports]);
-
-  useEffect(() => {
-    console.log(filteredReports);
-  }, [filteredReports]);
-
+const HeroStats = ({ homeData }) => {
   const render = () => {
-    const {
-      monthTotal,
-      reportsThisMonth,
-      thisLastDiff,
-      reportsThisLastWeek,
-      attendance,
-    } = filteredReports;
+    const { monthTotal, thisLastDiff, attendance } = homeData;
     return (
       <article className="ui__container">
         <div className="home__prev">

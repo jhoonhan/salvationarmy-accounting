@@ -8,6 +8,7 @@ import HeroStats from "./HeroStats";
 import Stats from "./Stats";
 import Activity from "./Activity";
 import Loader from "../Loader";
+import useGetHomeData from "./useGetHomeData";
 
 import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
 
@@ -21,6 +22,7 @@ const Home = ({
 }) => {
   const [dates, setDates] = useDateSetter();
   const [fetched, setFetched] = useState(false);
+  const homeData = useGetHomeData(report.reports, dates);
 
   useEffect(() => {
     fetchUsers();
@@ -61,7 +63,7 @@ const Home = ({
           </section>
 
           <section className="flex__vertical">
-            <HeroStats reports={report.reports} />
+            <HeroStats homeData={homeData} dates={dates} />
             <Stats reports={report.reports} />
             <Activity orders={order.orders} />
           </section>
