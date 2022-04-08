@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const useGetHomeData = (reports, dates) => {
-  const [filteredReports, setFilteredReports] = useState({
+  const [homeData, setHomeData] = useState({
     monthTotal: 0,
     reportsThisMonth: [],
     thisLastDiff: 0,
@@ -33,7 +33,7 @@ const useGetHomeData = (reports, dates) => {
       const totals = reportsThisLastWeek().map((report) => {
         return report.total;
       });
-      return (totals[1] || 0) - (totals[0] || 0);
+      return (totals[0] || 0) - (totals[1] || 0);
     };
 
     const monthTotal = reportsThisMonth
@@ -48,8 +48,8 @@ const useGetHomeData = (reports, dates) => {
       if (filtered[0]) return filtered[0].orders.length;
     };
 
-    setFilteredReports({
-      ...filteredReports,
+    setHomeData({
+      ...homeData,
       thisLastDiff: thisLastDiff(),
       reportsThisLastWeek: reportsThisLastWeek(),
       reportsThisMonth,
@@ -58,7 +58,7 @@ const useGetHomeData = (reports, dates) => {
     });
   }, [reports, dates]);
 
-  return filteredReports;
+  return homeData;
 };
 
 export default useGetHomeData;

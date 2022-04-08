@@ -1,10 +1,10 @@
 import React from "react";
 
-const WeeklyReport = () => {
+const WeeklyReport = ({ reports }) => {
   return (
     <article className="ui__container home__weekly-report">
       <header>
-        <h3>Montly Report</h3>
+        <h3>Weekly Report</h3>
       </header>
       <div className="flex__vertical">
         <div>
