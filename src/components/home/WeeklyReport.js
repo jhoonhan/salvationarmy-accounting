@@ -30,11 +30,10 @@ const WeeklyReport = ({ reports, dates }) => {
 
   const renderGraph = filteredReports.map((report, i) => {
     const total = report?.total || 0;
-    const height = `${total / 20}%`;
-    console.log(height);
+    const height = report?.total > 2000 ? "100%" : `${total / 20}%`;
     return (
       <div className="chart__graph" key={i}>
-        <div className="chart__bar" style={{ height: height }}></div>
+        <div className="chart__bar" style={{ height }}></div>
       </div>
     );
   });
@@ -62,27 +61,6 @@ const WeeklyReport = ({ reports, dates }) => {
                 <span>$0</span>
               </div>
               {renderGraph}
-              {/* <div className="chart__graph">
-                <div className="chart__bar" style={{ height: "90%" }}></div>
-              </div>
-              <div className="chart__graph">
-                <div className="chart__bar" style={{ height: "20%" }}></div>
-              </div>
-              <div className="chart__graph">
-                <div className="chart__bar" style={{ height: "30%" }}></div>
-              </div>
-              <div className="chart__graph">
-                <div className="chart__bar" style={{ height: "40%" }}></div>
-              </div>
-              <div className="chart__graph">
-                <div className="chart__bar" style={{ height: "50%" }}></div>
-              </div>
-              <div className="chart__graph">
-                <div className="chart__bar" style={{ height: "60%" }}></div>
-              </div>
-              <div className="chart__graph">
-                <div className="chart__bar" style={{ height: "80.6%" }}></div>
-              </div> */}
             </div>
             <div className="chart__horizontal-label">
               <span></span>
