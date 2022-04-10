@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 const useDateSetter = () => {
-  const _sundaysThisMonth = () => {
+  const _sundaysThisMonth = (inputDate) => {
     const daysInMonth = (month, year) => {
       return new Date(year, month, 0).getDate();
     };
-    const today = new Date();
+    const today = !inputDate ? new Date() : new Date(inputDate);
     const getTot = daysInMonth(today.getMonth(), today.getFullYear());
 
     let sundays = []; //Declaring array for inserting Sundays

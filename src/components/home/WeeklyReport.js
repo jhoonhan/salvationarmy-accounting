@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 
 const WeeklyReport = ({ reports, dates }) => {
-  const [filteredReports, setFilteredReports] = useState(() => {
-    const filteredReports = dates.sundaysRange.map((date) => {
-      const filteredReports = reports.filter((report) => report.date === date);
-      return filteredReports[0];
-    });
-    return filteredReports.reverse();
-  });
+  const [filteredReports, setFilteredReports] = useState([]);
 
   useEffect(() => {
     console.log(reports);
     // console.log(filteredReports);
   }, []);
 
-  const renderWeekRows = dates.sundaysRange.reverse().map((date, i) => {
-    return <span key={i}>{date.slice(5)}</span>;
-  });
+  useEffect(() => {
+    const filteredReports = dates.sundaysRange.map((date) => {
+      const filteredReports = reports.filter((report) => report.date === date);
+      return filteredReports[0];
+    });
+    setFilteredReports(filteredReports.reverse());
+  }, [reports, dates]);
+
+  const renderWeekRows = dates.sundaysRange
+    .map((date, i) => {
+      return <span key={i}>{date.slice(5)}</span>;
+    })
+    .reverse();
 
   const renderTableRow = (value) => {
     const rows = filteredReports.map((report, i) => {

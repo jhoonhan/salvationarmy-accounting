@@ -21,13 +21,16 @@ const Stats = ({ reports, users }) => {
           <h3>Corps Stats</h3>
         </header>
         <div className="home__stats">
+          <span>Officers :</span>
+          <span>Major Peter & Nakyung Kim</span>
+
           <span>Total Members :</span>
           <span>{users.length} members</span>
 
           <span>Weekly Attendance :</span>
           <span>{weeklyAttendance()} members</span>
 
-          <span>Weekly Avg :</span>
+          <span>Weekly Average :</span>
           <span>$ {monthlyAverage().toFixed(2)}</span>
 
           <span>Total to date :</span>
