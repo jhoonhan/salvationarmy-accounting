@@ -1,29 +1,43 @@
 import React from "react";
 
-const Stats = () => {
-  return (
-    <article className="ui__container">
-      <header>
-        <h3>Corps Stats</h3>
-      </header>
-      <div className="home__stats">
-        <span>Members :</span>
-        <span>36 members</span>
+const Stats = ({ reports, users }) => {
+  const weeklyAttendance = () => {
+    const total = reports.reduce((a, b) => a + b.orders.length, 0);
+    return Math.floor(total / reports.length);
+  };
+  const monthlyAverage = () => {
+    const total = reports.reduce((a, b) => a + b.total, 0);
+    return Math.floor(total / reports.length);
+  };
 
-        <span>Weekly Attendance :</span>
-        <span>16 members</span>
+  const totalToDate = () => {
+    return reports.reduce((a, b) => a + b.total, 0);
+  };
 
-        <span>Monthly Avg :</span>
-        <span>$ 980.00</span>
+  const render = () => {
+    return (
+      <article className="ui__container">
+        <header>
+          <h3>Corps Stats</h3>
+        </header>
+        <div className="home__stats">
+          <span>Total Members :</span>
+          <span>{users.length} members</span>
 
-        <span>Weekly Avg :</span>
-        <span>$ 980.00</span>
+          <span>Weekly Attendance :</span>
+          <span>{weeklyAttendance()} members</span>
 
-        <span>Total to date :</span>
-        <span>$ 52980.00</span>
-      </div>
-    </article>
-  );
+          <span>Weekly Avg :</span>
+          <span>$ {monthlyAverage().toFixed(2)}</span>
+
+          <span>Total to date :</span>
+          <span>$ {totalToDate().toFixed(2)}</span>
+        </div>
+      </article>
+    );
+  };
+
+  return render();
 };
 
 export default Stats;

@@ -21,7 +21,11 @@ const WeeklyReport = ({ reports, dates }) => {
   const renderTableRow = (value) => {
     const rows = filteredReports.map((report, i) => {
       if (value === "total")
-        return <span key={i}>$ {(report?.total || 0).toFixed(2)}</span>;
+        return (
+          <span className="bold" key={i}>
+            $ {(report?.total || 0).toFixed(2)}
+          </span>
+        );
       if (value !== "total")
         return <span key={i}>$ {(report?.[value].total || 0).toFixed(2)}</span>;
     });
@@ -86,7 +90,7 @@ const WeeklyReport = ({ reports, dates }) => {
             <span>Build.</span>
             {renderTableRow("buildingFund")}
 
-            <span>Total</span>
+            <span className="bold">Total</span>
             {renderTableRow("total")}
           </div>
         </div>
