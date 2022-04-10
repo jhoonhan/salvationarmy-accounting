@@ -52,6 +52,7 @@ const OrderForm = ({
       firstname: selectedUser.firstname,
       name: selectedUser.name,
       nameK: selectedUser.nameK,
+      userId: selectedUser._id,
       type: orderType,
       date: currentDate,
       total:

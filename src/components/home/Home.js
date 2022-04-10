@@ -61,7 +61,7 @@ const Home = ({
           <section className="flex__vertical">
             <HeroStats homeData={homeData} dates={dates} />
             <Stats reports={report.reports} users={user.users} />
-            <Activity orders={order.orders} />
+            <Activity orders={order.orders} users={user.users} />
           </section>
         </div>
       </main>

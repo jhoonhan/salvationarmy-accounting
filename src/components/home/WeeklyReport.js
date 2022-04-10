@@ -4,11 +4,6 @@ const WeeklyReport = ({ reports, dates }) => {
   const [filteredReports, setFilteredReports] = useState([]);
 
   useEffect(() => {
-    console.log(reports);
-    // console.log(filteredReports);
-  }, []);
-
-  useEffect(() => {
     const filteredReports = dates.sundaysRange.map((date) => {
       const filteredReports = reports.filter((report) => report.date === date);
       return filteredReports[0];
