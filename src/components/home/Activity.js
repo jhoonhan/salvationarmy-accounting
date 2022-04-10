@@ -1,128 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
+import cvtArr from "../helpers/cvtArr";
+import { capitalizeName, lastFirstInitial } from "../helpers/nameHelper";
 
 const Activity = ({ orders, users }) => {
-  console.log(orders);
-  const calculateTotals = () => {
-    let results = {};
-    orders.forEach((order, i) => {
-      if (!results[order.userId]) {
-        results = {
-          ...results,
-          [order.userId]: {
-            ...results[order.userId],
-            [order._id]: {
-              amountThanksgiving: order.amountThanksgiving,
-              amountCartridge: order.amountCartridge,
-              amountOffering: order.amountOffering,
-              amountSelfDenial: order.amountSelfDenial,
-              amountBuildingFund: order.amountBuildingFund,
-              total: order.total,
-            },
-          },
-        };
-      }
-      if (results[order.userId]) {
-        console.log(`exists for ${order.nameK}`);
-      }
-
-      results = {
-        ...results,
-        [order.userId]: {
-          ...results[order.userId],
-          [order._id]: {
-            amountThanksgiving: order.amountThanksgiving,
-            amountCartridge: order.amountCartridge,
-            amountOffering: order.amountOffering,
-            amountSelfDenial: order.amountSelfDenial,
-            amountBuildingFund: order.amountBuildingFund,
-            total: order.total,
-          },
-        },
-      };
+  const initActs = () => {
+    let userObj = {};
+    users.forEach((user) => {
+      userObj = { ...userObj, [user._id]: { name: user.name, orders: [] } };
     });
-    // console.log(results);
+
+    orders.forEach((order) => {
+      userObj[order.userId].orders.push(order);
+    });
+
+    const result = cvtArr(userObj)
+      .filter((el) => el.data.orders.length > 0)
+      .map((el) => {
+        return {
+          id: el.id,
+          name: el.data.name,
+          total: el.data.orders.reduce((a, b) => a + b.total, 0),
+          totalThanksgiving: el.data.orders.reduce(
+            (a, b) => a + b.amountThanksgiving,
+            0
+          ),
+          totalCartridge: el.data.orders.reduce(
+            (a, b) => a + b.amountCartridge,
+            0
+          ),
+          totalOffering: el.data.orders.reduce(
+            (a, b) => a + b.amountOffering,
+            0
+          ),
+          totalSelfDenial: el.data.orders.reduce(
+            (a, b) => a + b.amountSelfDenial,
+            0
+          ),
+          totalBuildingFund: el.data.orders.reduce(
+            (a, b) => a + b.amountBuildingFund,
+            0
+          ),
+        };
+      })
+      .sort((a, b) => b.total - a.total);
+
+    return result.slice(0, 8);
+  };
+
+  const [acts, setActs] = useState(initActs());
+
+  const renderTable = () => {
+    const renderRows = acts.map((act) => {
+      return (
+        <React.Fragment key={act.id}>
+          <span>{capitalizeName(lastFirstInitial(act.name))}</span>
+          <span>${act.totalCartridge}</span>
+          <span>${act.totalOffering}</span>
+          <span>${act.totalThanksgiving}</span>
+          <span>${act.totalSelfDenial}</span>
+          <span>${act.totalBuildingFund}</span>
+          <span>${act.total}</span>
+        </React.Fragment>
+      );
+    });
+    return (
+      <div className="table home__user-activity">
+        <span></span>
+        <span>Cart</span>
+        <span>Offer.</span>
+        <span>Thnks.</span>
+        <span>S&W</span>
+        <span>Build.</span>
+        <span>Total</span>
+
+        {renderRows}
+      </div>
+    );
   };
 
   const render = () => {
-    calculateTotals();
+    console.log(acts);
     return (
       <article className="ui__container">
         <header>
           <h3>Highest Activity</h3>
         </header>
-        <div className="table home__user-activity">
-          <span></span>
-          <span>Cart</span>
-          <span>Offer.</span>
-          <span>Thnks.</span>
-          <span>S&W</span>
-          <span>Build.</span>
-          <span>Total</span>
-
-          <span>Kang, M</span>
-          <span>$3000.00</span>
-          <span>$200.00</span>
-          <span>$100.00</span>
-          <span>$0.00</span>
-          <span>$200.00</span>
-          <span>$5000.00</span>
-
-          <span>Han, H</span>
-          <span>$3000.00</span>
-          <span>$200.00</span>
-          <span>$100.00</span>
-          <span>$0.00</span>
-          <span>$200.00</span>
-          <span>$5000.00</span>
-
-          <span>Kim, K</span>
-          <span>$3000.00</span>
-          <span>$200.00</span>
-          <span>$100.00</span>
-          <span>$0.00</span>
-          <span>$200.00</span>
-          <span>$5000.00</span>
-
-          <span>Kim, O</span>
-          <span>$3000.00</span>
-          <span>$200.00</span>
-          <span>$100.00</span>
-          <span>$0.00</span>
-          <span>$200.00</span>
-          <span>$5000.00</span>
-
-          <span>Lee, M</span>
-          <span>$3000.00</span>
-          <span>$200.00</span>
-          <span>$100.00</span>
-          <span>$0.00</span>
-          <span>$200.00</span>
-          <span>$5000.00</span>
-
-          <span>Kang, M</span>
-          <span>$3000.00</span>
-          <span>$200.00</span>
-          <span>$100.00</span>
-          <span>$0.00</span>
-          <span>$200.00</span>
-          <span>$5000.00</span>
-
-          <span>Jeong, G</span>
-          <span>$3000.00</span>
-          <span>$200.00</span>
-          <span>$100.00</span>
-          <span>$0.00</span>
-          <span>$200.00</span>
-          <span>$5000.00</span>
-
-          <span>Roh, B</span>
-          <span>$3000.00</span>
-          <span>$200.00</span>
-          <span>$100.00</span>
-          <span>$0.00</span>
-          <span>$200.00</span>
-          <span>$5000.00</span>
-        </div>
+        {renderTable()}
       </article>
     );
   };

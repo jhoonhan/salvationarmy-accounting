@@ -16,10 +16,24 @@ export const capitalizeName = (name) => {
 export const lastFirst = (name) => {
   if (!name) return;
   const splitted = name.split(" ");
-  const converted = `${splitted[1]}, ${splitted[0]}`;
+  const converted = `${splitted.slice(-1)[0]}, ${splitted[0]}`;
   return converted;
 };
 
 export const combineFirstLast = (firstname, lastname) => {
   return `${firstname} ${lastname}`;
+};
+
+export const lastFirstInitial = (name) => {
+  if (!name) return;
+  const splitted = name.split(" ");
+  const converted = `${splitted.slice(-1)[0]}, ${splitted[0][0]}`;
+  return converted;
+};
+
+export const firstLastInitial = (name) => {
+  if (!name) return;
+  const splitted = name.split(" ");
+  const converted = `${splitted[0]}, ${splitted.slice(-1)[0][0]}`;
+  return converted;
 };
