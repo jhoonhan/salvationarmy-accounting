@@ -55,7 +55,7 @@ const useDateSetter = () => {
       currentDate: lastSunday.toISOString().split("T")[0],
       prevDate: prevSunday.toISOString().split("T")[0],
       sundaysRange,
-      sundaysThisMonth: _sundaysThisMonth(),
+      sundaysThisMonth: _sundaysThisMonth(lastSunday),
     };
   };
 
