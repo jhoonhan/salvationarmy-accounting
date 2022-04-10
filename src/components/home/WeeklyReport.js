@@ -1,26 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const WeeklyReport = ({ reports, dates }) => {
+  const [filteredReports, setFilteredReports] = useState(() => {
+    const filteredReports = dates.sundaysRange.map((date) => {
+      const filteredReports = reports.filter((report) => report.date === date);
+      return filteredReports[0];
+    });
+    return filteredReports.reverse();
+  });
+
   useEffect(() => {
     console.log(reports);
+    // console.log(filteredReports);
   }, []);
+
   const renderWeekRows = dates.sundaysRange.reverse().map((date, i) => {
     return <span key={i}>{date.slice(5)}</span>;
   });
 
   const renderTableRow = (value) => {
-    dates.sundaysRange.reverse().map((date, i) => {
-      const filteredReports = reports.filter((report) => report === date);
-      console.log(filteredReports);
-      const aang = filteredReports.map((report, i) => {
-        console.log(report.total);
-        return <span key={i}>{report[value]}</span>;
-      });
+    const rows = filteredReports.map((report, i) => {
+      if (value === "total")
+        return <span key={i}>$ {(report?.total || 0).toFixed(2)}</span>;
+      if (value !== "total")
+        return <span key={i}>$ {(report?.[value].total || 0).toFixed(2)}</span>;
     });
+    return rows;
   };
 
+  const renderGraph = filteredReports.map((report, i) => {
+    const total = report?.total || 0;
+    const height = `${total / 20}%`;
+    console.log(height);
+    return (
+      <div className="chart__graph" key={i}>
+        <div className="chart__bar" style={{ height: height }}></div>
+      </div>
+    );
+  });
+
   const render = () => {
-    console.log(dates);
     return (
       <article className="ui__container home__weekly-report">
         <header>
@@ -30,19 +49,20 @@ const WeeklyReport = ({ reports, dates }) => {
           <div>
             <div className="chart home__weekly-report__chart">
               <div className="chart__vertical-label">
+                <span>$2000</span>
+                <span>$1800</span>
+                <span>$1600</span>
+                <span>$1400</span>
+                <span>$1200</span>
                 <span>$1000</span>
-                <span>$900</span>
                 <span>$800</span>
-                <span>$700</span>
                 <span>$600</span>
-                <span>$500</span>
                 <span>$400</span>
-                <span>$300</span>
                 <span>$200</span>
-                <span>$100</span>
                 <span>$0</span>
               </div>
-              <div className="chart__graph">
+              {renderGraph}
+              {/* <div className="chart__graph">
                 <div className="chart__bar" style={{ height: "90%" }}></div>
               </div>
               <div className="chart__graph">
@@ -61,8 +81,8 @@ const WeeklyReport = ({ reports, dates }) => {
                 <div className="chart__bar" style={{ height: "60%" }}></div>
               </div>
               <div className="chart__graph">
-                <div className="chart__bar" style={{ height: "70%" }}></div>
-              </div>
+                <div className="chart__bar" style={{ height: "80.6%" }}></div>
+              </div> */}
             </div>
             <div className="chart__horizontal-label">
               <span></span>
@@ -74,49 +94,19 @@ const WeeklyReport = ({ reports, dates }) => {
             {renderWeekRows}
 
             <span>Cart.</span>
-            <span>$ 1000.00</span>
-            <span>$ 980.00</span>
-            <span>$ 1140.00</span>
-            <span>$ 1200.00</span>
-            <span>$ 960.00</span>
-            <span>$ 523.00</span>
-            <span>$ 990.00</span>
+            {renderTableRow("cartridge")}
 
             <span>Offer.</span>
-            <span>$ 1000.00</span>
-            <span>$ 980.00</span>
-            <span>$ 1140.00</span>
-            <span>$ 1200.00</span>
-            <span>$ 960.00</span>
-            <span>$ 523.00</span>
-            <span>$ 990.00</span>
+            {renderTableRow("offering")}
 
             <span>Thnks.</span>
-            <span>$ 1000.00</span>
-            <span>$ 980.00</span>
-            <span>$ 1140.00</span>
-            <span>$ 1200.00</span>
-            <span>$ 960.00</span>
-            <span>$ 523.00</span>
-            <span>$ 990.00</span>
+            {renderTableRow("thanksGiving")}
 
             <span>S & W</span>
-            <span>$ 1000.00</span>
-            <span>$ 980.00</span>
-            <span>$ 1140.00</span>
-            <span>$ 1200.00</span>
-            <span>$ 960.00</span>
-            <span>$ 523.00</span>
-            <span>$ 990.00</span>
+            {renderTableRow("selfDenial")}
 
             <span>Build.</span>
-            <span>$ 1000.00</span>
-            <span>$ 980.00</span>
-            <span>$ 1140.00</span>
-            <span>$ 1200.00</span>
-            <span>$ 960.00</span>
-            <span>$ 523.00</span>
-            <span>$ 990.00</span>
+            {renderTableRow("buildingFund")}
 
             <span>Total</span>
             {renderTableRow("total")}
