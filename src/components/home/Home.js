@@ -31,10 +31,6 @@ const Home = ({
   }, []);
 
   useEffect(() => {
-    console.log(dates);
-  }, [dates]);
-
-  useEffect(() => {
     if (!user.fetched) return;
     if (!order.fetched) return;
     if (!report.fetched) return;
@@ -59,7 +55,7 @@ const Home = ({
         <div className="home__col home__col--2">
           <section className="flex__vertical">
             <DateSelector currentDate={dates.currentDate} setDates={setDates} />
-            <WeeklyReport reports={report.reports} />
+            <WeeklyReport reports={report.reports} dates={dates} />
           </section>
 
           <section className="flex__vertical">

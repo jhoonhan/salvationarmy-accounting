@@ -1,10 +1,26 @@
 import React, { useEffect } from "react";
 
-const WeeklyReport = ({ reports }) => {
+const WeeklyReport = ({ reports, dates }) => {
   useEffect(() => {
     console.log(reports);
   }, []);
+  const renderWeekRows = dates.sundaysRange.reverse().map((date, i) => {
+    return <span key={i}>{date.slice(5)}</span>;
+  });
+
+  const renderTableRow = (value) => {
+    dates.sundaysRange.reverse().map((date, i) => {
+      const filteredReports = reports.filter((report) => report === date);
+      console.log(filteredReports);
+      const aang = filteredReports.map((report, i) => {
+        console.log(report.total);
+        return <span key={i}>{report[value]}</span>;
+      });
+    });
+  };
+
   const render = () => {
+    console.log(dates);
     return (
       <article className="ui__container home__weekly-report">
         <header>
@@ -50,24 +66,12 @@ const WeeklyReport = ({ reports }) => {
             </div>
             <div className="chart__horizontal-label">
               <span></span>
-              <span>4/3</span>
-              <span>4/10</span>
-              <span>4/17</span>
-              <span>4/24</span>
-              <span>5/3</span>
-              <span>5/10</span>
-              <span>5/17</span>
+              {renderWeekRows}
             </div>
           </div>
           <div className="table home__weekly-report__table">
             <span></span>
-            <span>4/3</span>
-            <span>4/10</span>
-            <span>4/17</span>
-            <span>4/24</span>
-            <span>5/3</span>
-            <span>5/10</span>
-            <span>5/17</span>
+            {renderWeekRows}
 
             <span>Cart.</span>
             <span>$ 1000.00</span>
@@ -115,13 +119,7 @@ const WeeklyReport = ({ reports }) => {
             <span>$ 990.00</span>
 
             <span>Total</span>
-            <span>$ 1000.00</span>
-            <span>$ 980.00</span>
-            <span>$ 1140.00</span>
-            <span>$ 1200.00</span>
-            <span>$ 960.00</span>
-            <span>$ 523.00</span>
-            <span>$ 990.00</span>
+            {renderTableRow("total")}
           </div>
         </div>
       </article>
