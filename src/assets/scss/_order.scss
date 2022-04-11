@@ -252,6 +252,7 @@
   box-sizing: border-box;
 
   & div {
+    align-items: center;
     border-bottom: $border--default;
     border-right: $border--default;
     padding: 0.5rem 1rem;
@@ -259,6 +260,9 @@
     box-sizing: border-box;
   }
   & div:nth-child(-n + 4) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
   }
   & div:nth-child(4n - 3) {

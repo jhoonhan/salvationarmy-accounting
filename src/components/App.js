@@ -15,7 +15,7 @@ const App = ({ user }) => {
   const loggedIn = () => {
     return (
       <Switch location={location} key={location.pathname}>
-        <Route path="/" exact component={Order} />
+        <Route path="/" exact component={Home} />
         <Route path="/home" exact component={Home} />
         <Route path="/order" exact component={Order} />
       </Switch>
@@ -28,7 +28,7 @@ const App = ({ user }) => {
   const render = () => {
     return (
       <div className="app-container">
-        <Header />
+        <Route path="/" component={Header} />
         <ErrorModal />
 
         {!user.currentUser ? loggedOut() : loggedIn()}

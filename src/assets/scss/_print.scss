@@ -4,14 +4,22 @@
   }
   body {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem !important;
+    font-size: 1em !important;
     color: black !important;
+  }
+  .order__container__col--1 {
+    font-size: 1em !important;
   }
   input {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem !important;
+    font-size: 1em !important;
     color: black !important;
     border: none;
+  }
+  h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em !important;
+    color: black !important;
   }
   .print-area {
     padding: 0;
@@ -39,11 +47,15 @@
   }
   .addform__inputarea {
     border: none;
+    font-size: 1em !important;
   }
   .order__report-title {
     margin-top: 0;
   }
   .chart__empty-row {
     display: block !important;
+  }
+  .header__container {
+    display: none;
   }
 }

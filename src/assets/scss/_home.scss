@@ -33,11 +33,18 @@
   height: 100%;
   display: grid;
   grid-template-columns: 4fr 3fr;
+  grid-template-rows: auto 1fr;
   align-items: flex-start;
-  gap: 2rem;
-  padding: 2rem 2rem;
+  column-gap: 2rem;
+  row-gap: 0;
+  padding: 0rem 2rem 2rem 2rem;
   background-color: $color--background;
   overflow-y: scroll;
+  & .merged-cell {
+    width: 100%;
+    grid-column: 1 / span 2;
+    text-align: center;
+  }
 }
 .home__row {
   width: 100%;

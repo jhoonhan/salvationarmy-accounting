@@ -298,3 +298,29 @@ label {
 .bold {
   font-weight: 600;
 }
+.page-title {
+  width: auto;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+
+  // padding: 1rem 0 0.7rem 0;
+  margin: 3rem 0 2rem 2rem;
+  box-sizing: border-box;
+
+  & h2 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    line-height: 3rem;
+
+    padding: 0;
+    margin: 0;
+  }
+}
+nav {
+  & .link {
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+}

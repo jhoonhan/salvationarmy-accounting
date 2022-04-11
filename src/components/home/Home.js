@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import DateSelector from "../helpers/DateSelector";
 import useDateSetter from "../hooks/useDateSetter";
@@ -45,14 +46,26 @@ const Home = ({
           <div className="nav__side__profile">profile</div>
           <nav className="nav__side">
             <ul>
-              <li>Home</li>
-              <li>Reports</li>
-              <li>Users</li>
-              <li>Orders</li>
+              <Link to="/" className="link">
+                home
+              </Link>
+              <Link to="/order" className="link">
+                reports
+              </Link>
+              <Link to="/" className="link">
+                user
+              </Link>
+              <Link to="/" className="link">
+                orders
+              </Link>
             </ul>
           </nav>
         </div>
         <div className="home__col home__col--2">
+          <header className="page-title merged-cell">
+            <h2>Home</h2>
+            <p>Kernersville Korean Corps</p>
+          </header>
           <section className="flex__vertical">
             <DateSelector currentDate={dates.currentDate} setDates={setDates} />
             <WeeklyReport reports={report.reports} dates={dates} />

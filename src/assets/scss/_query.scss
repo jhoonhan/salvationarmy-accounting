@@ -1,0 +1,35 @@
+@media (max-width: 1500px) {
+  .order__container__col--1 {
+    font-size: $font-size--s;
+    & input {
+      font-size: $font-size--s;
+    }
+    & h3 {
+      font-size: $font-size--s;
+    }
+    & button {
+      font-size: $font-size--s;
+    }
+  }
+  .order__container__col--2 {
+    font-size: $font-size--m;
+    padding: 1rem;
+    & input {
+      font-size: $font-size--m;
+    }
+    & h3 {
+      font-size: $font-size--m;
+    }
+    & button {
+      font-size: $font-size--m;
+    }
+  }
+
+  .order__amounts {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr;
+  }
+  .order__col--conditional {
+    gap: 1rem;
+  }
+}

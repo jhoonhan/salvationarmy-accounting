@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import icons from "../assets/images/icons.svg";
+import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ location }) => {
   const [show, setShow] = useState(false);
+  const [showBtn, setShowBtn] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === "/order") {
+      setShowBtn(true);
+    } else {
+      setShowBtn(false);
+    }
+  }, [location]);
 
   const onClickExpandNav = () => {
     setShow(!show);
   };
 
   const render = () => {
+    if (!showBtn) return null;
     return (
       <section className="header__container">
         <div onClick={onClickExpandNav} className="btn__hamburger">
@@ -19,7 +30,10 @@ const Header = () => {
         <nav style={show ? { display: "grid" } : {}}>
           <div>HOME</div>
           <div>USERS</div>
-          <div>REPORTS</div>
+
+          <Link to="/order" className="circular-progess">
+            <div>REPORTS</div>
+          </Link>
         </nav>
       </section>
     );
