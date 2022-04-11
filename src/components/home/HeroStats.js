@@ -8,11 +8,11 @@ const HeroStats = ({ homeData }) => {
         <div className="home__prev">
           <div>
             <h3>From last week</h3>
-            <p className="text--large">${thisLastDiff.toFixed(2)}</p>
+            <p className="text--large">${thisLastDiff}</p>
           </div>
           <div>
-            <h3>Total This Month</h3>
-            <p className="text--large">${monthTotal.toFixed(2)}</p>
+            <h3>This Month</h3>
+            <p className="text--large">${monthTotal}</p>
           </div>
           <div>
             <h3>Attendance</h3>

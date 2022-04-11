@@ -22,11 +22,11 @@ const WeeklyReport = ({ reports, dates }) => {
       if (value === "total")
         return (
           <span className="bold" key={i}>
-            $ {(report?.total || 0).toFixed(2)}
+            $ {report?.total || 0}
           </span>
         );
       if (value !== "total")
-        return <span key={i}>$ {(report?.[value].total || 0).toFixed(2)}</span>;
+        return <span key={i}>$ {report?.[value].total || 0}</span>;
     });
     return rows;
   };

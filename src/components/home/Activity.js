@@ -57,8 +57,7 @@ const Activity = ({ orders, users }) => {
           <span>${act.totalCartridge}</span>
           <span>${act.totalOffering}</span>
           <span>${act.totalThanksgiving}</span>
-          <span>${act.totalSelfDenial}</span>
-          <span>${act.totalBuildingFund}</span>
+          <span>${act.totalSelfDenial + act.totalBuildingFund}</span>
           <span>${act.total}</span>
         </React.Fragment>
       );
@@ -69,8 +68,7 @@ const Activity = ({ orders, users }) => {
         <span>Cart</span>
         <span>Offer.</span>
         <span>Thnks.</span>
-        <span>S&W</span>
-        <span>Build.</span>
+        <span>Special</span>
         <span>Total</span>
 
         {renderRows}

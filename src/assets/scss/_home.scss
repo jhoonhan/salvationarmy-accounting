@@ -3,7 +3,7 @@
   height: 100vh;
 
   display: grid;
-  grid-template-columns: 25rem 1fr;
+  grid-template-columns: 12vw 1fr;
   // column-gap: 2rem;
   row-gap: 2rem;
   align-items: flex-start;
@@ -89,29 +89,33 @@
 .home__user-activity {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(7, auto);
+  grid-template-columns: repeat(6, auto);
   border: $border--default;
-  & span:nth-last-child(-n + 7) {
+  & span:nth-last-child(-n + 6) {
     border-bottom: none;
   }
 }
 
 .home__weekly-report__table {
-  grid-template-columns: 7rem repeat(7, 1fr);
+  grid-template-columns: 7rem repeat(5, 1fr);
 
-  & span:nth-child(8n) {
+  & span {
+    display: flex;
+    align-items: flex-end;
+  }
+  & span:nth-child(6n) {
     border-right: none;
   }
-  & span:nth-last-child(-n + 8) {
+  & span:nth-last-child(-n + 6) {
     border-bottom: none;
   }
 }
 
 .home__weekly-report__chart {
-  grid-template-columns: 7rem repeat(7, 1fr);
+  grid-template-columns: 7rem repeat(5, 1fr);
 }
 .home__weekly-report {
   & .chart__horizontal-label {
-    grid-template-columns: 7rem repeat(7, 1fr);
+    grid-template-columns: 7rem repeat(5, 1fr);
   }
 }
