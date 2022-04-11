@@ -98,3 +98,4 @@ export default connect(mapStateToProps, {
   fetchUsers,
   fetchReports,
 })(Home);
+//
