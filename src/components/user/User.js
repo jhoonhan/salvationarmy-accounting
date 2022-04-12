@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Loader from "../Loader";
-import UserList from "./UserList";
+import UserForm from "./UserForm";
 
 import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
-import UserSearch from "./UserSearch";
 
 const User = ({
   user,
@@ -16,6 +15,7 @@ const User = ({
   fetchUsers,
 }) => {
   const [fetched, setFetched] = useState(false);
+  const [selectedUser, setSelectedUser] = useState({});
 
   useEffect(() => {
     fetchUsers();
@@ -52,14 +52,17 @@ const User = ({
           </nav>
         </div>
         <div className="default__col default__col--2">
+          <header className="page-title merged-cell">
+            <h2>Users</h2>
+          </header>
           <section className="flex__vertical" style={{ height: "100vh" }}>
-            {/* <UserSearch users={user.users} /> */}
+            <UserForm
+              selectedUser={selectedUser}
+              setSelectedUser={setSelectedUser}
+            />
           </section>
 
           <section className="flex__vertical" style={{ paddingRight: "2rem" }}>
-            <header className="page-title" style={{ paddingBottom: 0 }}>
-              <h2>Users</h2>
-            </header>
             <div className="ui__container">aaang</div>
           </section>
         </div>

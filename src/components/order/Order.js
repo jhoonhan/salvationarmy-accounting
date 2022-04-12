@@ -30,8 +30,6 @@ export const Order = ({
 }) => {
   const [fetched, setFetched] = useState(false);
 
-  const [searchTerm, setSearchTerm] = useState("");
-
   const [dates, setDates] = useDateSetter();
 
   const [selectedUser, setSelectedUser] = useState({});
@@ -43,7 +41,6 @@ export const Order = ({
   const [showForm, setShowForm] = useState(false);
 
   const refPrint = useRef(null);
-  const refUserSearch = useRef(null);
 
   const totals = useGetTotal(selectedOrders);
 
@@ -108,17 +105,17 @@ export const Order = ({
           <UserForm
             selectedUser={selectedUser}
             setSelectedUser={setSelectedUser}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            refUserSearch={refUserSearch}
+            // searchTerm={searchTerm}
+            // setSearchTerm={setSearchTerm}
+            // refUserSearch={refUserSearch}
           />
 
           <OrderForm
             currentDate={dates.currentDate}
             selectedUser={selectedUser}
             setSelectedUser={setSelectedUser}
-            setSearchTerm={setSearchTerm}
-            refUserSearch={refUserSearch}
+            // setSearchTerm={setSearchTerm}
+            // refUserSearch={refUserSearch}
           />
         </>
       );

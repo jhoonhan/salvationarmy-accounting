@@ -10,6 +10,11 @@
   box-sizing: border-box;
 
   overflow: hidden;
+
+  & .name-search__results {
+    max-height: 20vh;
+    min-height: 20vh;
+  }
 }
 .order__container__col {
   height: 100%;

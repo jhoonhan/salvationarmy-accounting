@@ -10,16 +10,15 @@ import { connect } from "react-redux";
 const UserForm = ({
   user,
   userError,
-  searchTerm,
-  setSearchTerm,
   deleteUser,
   selectedUser,
   setSelectedUser,
   createUser,
   handleSubmit,
-  refUserSearch,
 }) => {
   const [searchResults, setSearchResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const refUserSearch = useRef(null);
 
   useEffect(() => {
     if (!user.users) return;

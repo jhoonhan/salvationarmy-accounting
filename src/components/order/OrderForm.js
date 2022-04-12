@@ -10,9 +10,9 @@ import { createOrder, deleteUser } from "../../actions";
 const OrderForm = ({
   selectedUser,
   setSelectedUser,
-  setSearchTerm,
+  // setSearchTerm,
+  // refUserSearch,
   currentDate,
-  refUserSearch,
   userError,
   handleSubmit,
   createOrder,
@@ -64,8 +64,8 @@ const OrderForm = ({
     };
     createOrder(combinedData);
     setSelectedUser(null);
-    refUserSearch.current.focus();
-    setSearchTerm("");
+    // refUserSearch.current.focus();
+    // setSearchTerm("");
   };
 
   const orderSubmitError = () => {

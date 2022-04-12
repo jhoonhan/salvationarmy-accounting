@@ -1,17 +1,23 @@
 .user__container {
   & .default__col--2 {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr;
     align-items: flex-start;
     column-gap: 2rem;
     row-gap: 0;
+
+    padding: 0rem 2rem 2rem 2rem;
 
     & .merged-cell {
       width: 100%;
       grid-column: 1 / span 2;
       text-align: center;
     }
+  }
+  & .name-search__results {
+    max-height: calc(100vh - 30rem);
+    min-height: 20vh;
   }
 }
 
