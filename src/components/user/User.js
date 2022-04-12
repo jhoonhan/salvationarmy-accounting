@@ -53,7 +53,7 @@ const User = ({
         </div>
         <div className="default__col default__col--2">
           <section className="flex__vertical" style={{ height: "100vh" }}>
-            <UserSearch users={user.users} />
+            {/* <UserSearch users={user.users} /> */}
           </section>
 
           <section className="flex__vertical" style={{ paddingRight: "2rem" }}>
