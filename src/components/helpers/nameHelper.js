@@ -20,6 +20,15 @@ export const lastFirst = (name) => {
   return converted;
 };
 
+export const lastFirstExt = (name) => {
+  if (!name) return;
+  const splitted = name.split(" ");
+  const converted = `${splitted.slice(-1)[0]}, ${splitted
+    .slice(0, -1)
+    .join(" ")}`;
+  return converted;
+};
+
 export const combineFirstLast = (firstname, lastname) => {
   return `${firstname} ${lastname}`;
 };
