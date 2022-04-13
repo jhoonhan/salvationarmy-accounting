@@ -54,7 +54,7 @@
   grid-template-columns: repeat(3, auto);
   justify-items: center;
 
-  padding: 2rem 0;
+  padding: 1.8rem 0;
 
   text-align: center;
 }
@@ -69,25 +69,25 @@
 }
 
 .home__weekly-report__table {
-  grid-template-columns: 7rem repeat(5, 1fr);
+  grid-template-columns: 7rem repeat(6, 1fr);
 
   & span {
     display: flex;
     align-items: flex-end;
   }
-  & span:nth-child(6n) {
+  & span:nth-child(7n) {
     border-right: none;
   }
-  & span:nth-last-child(-n + 6) {
+  & span:nth-last-child(-n + 7) {
     border-bottom: none;
   }
 }
 
 .home__weekly-report__chart {
-  grid-template-columns: 7rem repeat(5, 1fr);
+  grid-template-columns: 7rem repeat(6, 1fr);
 }
 .home__weekly-report {
   & .chart__horizontal-label {
-    grid-template-columns: 7rem repeat(5, 1fr);
+    grid-template-columns: 7rem repeat(6, 1fr);
   }
 }

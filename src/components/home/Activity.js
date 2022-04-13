@@ -43,7 +43,7 @@ const Activity = ({ orders, users }) => {
       })
       .sort((a, b) => b.total - a.total);
 
-    return result.slice(0, 8);
+    return result.slice(0, 9);
   };
 
   const [acts, setActs] = useState(initActs());
@@ -78,7 +78,7 @@ const Activity = ({ orders, users }) => {
   const render = () => {
     console.log(acts);
     return (
-      <article className="ui__container">
+      <article className="ui__container" style={{ gap: 0 }}>
         <header>
           <h3>Highest Activity</h3>
         </header>

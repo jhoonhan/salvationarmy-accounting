@@ -44,11 +44,11 @@ const WeeklyReport = ({ reports, dates }) => {
   const render = () => {
     return (
       <article className="ui__container home__weekly-report">
-        <header>
-          <h3>Weekly Report</h3>
-        </header>
         <div className="flex__vertical">
           <div>
+            <header>
+              <h3>Weekly Report</h3>
+            </header>
             <div className="chart home__weekly-report__chart">
               <div className="chart__vertical-label">
                 <span>$2000</span>

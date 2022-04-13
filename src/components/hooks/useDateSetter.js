@@ -44,7 +44,7 @@ const useDateSetter = () => {
       lastSunday.toISOString().split("T")[0],
       prevSunday.toISOString().split("T")[0],
     ];
-    for (let i = 0; i <= 2; i++) {
+    for (let i = 0; i <= 3; i++) {
       const sunday = new Date(
         today.setDate(today.getDate() - today.getDay() - 7)
       );

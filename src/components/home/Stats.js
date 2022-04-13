@@ -17,10 +17,11 @@ const Stats = ({ reports, users }) => {
   const render = () => {
     return (
       <article className="ui__container">
-        <header>
-          <h3>Corps Stats</h3>
-        </header>
         <div className="home__stats">
+          <header>
+            <h3>Corps Stats</h3>
+          </header>
+          <div></div>
           <span>Officers :</span>
           <span>Major Peter & Nakyung Kim</span>
 
