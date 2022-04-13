@@ -74,15 +74,6 @@ export const deleteOrder = (orderId, orders) => async (dispatch) => {
   }
 };
 
-export const fetchUsers = () => async (dispatch) => {
-  try {
-    const res = await server.get("/user/getall");
-    dispatch({ type: FETCH_USERS, payload: res.data.data });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const createUser = (formValues) => async (dispatch) => {
   try {
     const res = await server.post("/user", formValues);
@@ -92,6 +83,32 @@ export const createUser = (formValues) => async (dispatch) => {
     console.error(error);
   }
 };
+export const fetchUsers = () => async (dispatch) => {
+  try {
+    const res = await server.get("/user/getall");
+    dispatch({ type: FETCH_USERS, payload: res.data.data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const editUser = (userId, formValues) => async (dispatch, getState) => {
+  try {
+    const users = [...getState().user.users];
+    let selectedUserIndex = getState().user.users.findIndex(
+      (el) => el._id === userId
+    );
+    users[selectedUserIndex] = { ...users[selectedUserIndex], ...formValues };
+
+    const res = await server.patch(`/user/${userId}`, formValues);
+    console.log(res.data);
+    if (res.data.status === "success") {
+      dispatch({ type: EDIT_USER, payload: users });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const deleteUser = (userId, users) => async (dispatch) => {
   try {
     await server.delete(`/user/${userId}`);

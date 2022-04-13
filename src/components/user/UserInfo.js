@@ -3,23 +3,44 @@ import { connect } from "react-redux";
 import { Field, reduxForm, change } from "redux-form";
 import renderField from "../helpers/renderField";
 
-import { capitalizeName } from "../helpers/nameHelper";
+import { capitalizeName, combineFirstLast } from "../helpers/nameHelper";
+import { editUser } from "../../actions";
 
-const UserInfo = ({ selectedUser, change }) => {
+const UserInfo = ({ selectedUser, change, handleSubmit, editUser }) => {
   useEffect(() => {
     if (!selectedUser.name) return;
-    // setInputUser({ name: selectedUser.name, nameK: selectedUser.nameK });
     change("firstname", capitalizeName(selectedUser.firstname));
     change("lastname", capitalizeName(selectedUser.lastname));
     change("nameK", capitalizeName(selectedUser.nameK));
     change("position", capitalizeName(selectedUser.position));
     change("positionK", capitalizeName(selectedUser.positionK));
-  }, [selectedUser, change]);
+  }, [selectedUser]);
+
+  const userEditSubmit = (formValues) => {
+    let firstname;
+    if (!formValues.firstname) {
+      firstname = "";
+    } else {
+      firstname = formValues.firstname.trim().toLowerCase();
+    }
+
+    const lastname = formValues.lastname.trim().toLowerCase();
+    const names = {
+      name: combineFirstLast(firstname, lastname).toLowerCase(),
+      firstname,
+      lastname,
+    };
+
+    editUser(selectedUser._id, { ...formValues, ...names });
+  };
 
   const render = () => {
     return (
       <div className="ui__container">
-        <form className="userInfo__container flex--column">
+        <form
+          onSubmit={handleSubmit(userEditSubmit)}
+          className="userInfo__container flex--column"
+        >
           <div
             className="flex--column"
             style={{ alignItems: "flex-start", gap: "2rem" }}
@@ -68,7 +89,6 @@ const UserInfo = ({ selectedUser, change }) => {
                   component={renderField}
                   type="text"
                   label="Position"
-                  required="required"
                 />
               </div>
               <div>
@@ -78,11 +98,12 @@ const UserInfo = ({ selectedUser, change }) => {
                   component={renderField}
                   type="text"
                   label="직함"
-                  required="required"
                 />
               </div>
               <div style={{ alignSelf: "flex-end" }}>
-                <button style={{ width: "100%" }}>Edit User</button>
+                <button type="submit" style={{ width: "100%" }}>
+                  Edit User
+                </button>
               </div>
             </div>
           </div>
@@ -110,4 +131,5 @@ const mapStateToProps = ({ userError }) => {
 
 export default connect(mapStateToProps, {
   change,
+  editUser,
 })(wrappedForm);

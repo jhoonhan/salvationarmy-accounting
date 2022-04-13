@@ -12,14 +12,6 @@ const OrderList = ({ orders, selectedUser }) => {
     setFilteredOrders(filtered);
   }, [selectedUser, orders]);
 
-  useEffect(() => {
-    console.log(filteredOrders);
-  }, [filteredOrders]);
-
-  useEffect(() => {
-    console.log(selectedUser);
-  }, [selectedUser]);
-
   const getTotal = () => {
     const total = filteredOrders.reduce((a, b) => a + b.total, 0);
     return total.toFixed(2);

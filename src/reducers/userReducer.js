@@ -2,6 +2,7 @@ import {
   SIGN_IN,
   SIGN_OUT,
   CREATE_USER,
+  EDIT_USER,
   FETCH_USERS,
   DELETE_USER,
 } from "../actions/types";
@@ -22,6 +23,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, users: [...state.users, action.payload] };
     case FETCH_USERS:
       return { ...state, fetched: true, users: action.payload };
+    case EDIT_USER:
+      return { ...state, users: action.payload };
     case DELETE_USER:
       return { ...state, users: action.payload };
     default:
