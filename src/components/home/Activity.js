@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import cvtArr from "../helpers/cvtArr";
 import { capitalizeName, lastFirstInitial } from "../helpers/nameHelper";
 
@@ -8,9 +8,8 @@ const Activity = ({ orders, users }) => {
     users.forEach((user) => {
       userObj = { ...userObj, [user._id]: { name: user.name, orders: [] } };
     });
-
     orders.forEach((order) => {
-      userObj[order.userId].orders.push(order);
+      userObj[order.userId]?.orders.push(order);
     });
 
     const result = cvtArr(userObj)
