@@ -353,8 +353,8 @@
   text-align: left;
 }
 .order-list__table {
-  min-height: calc(100vh - 50.4rem);
-  max-height: calc(100vh - 50.4rem);
+  min-height: calc(100vh - 44.4rem);
+  max-height: calc(100vh - 44.4rem);
   grid-auto-rows: minmax(min-content, max-content);
 
   overflow-y: scroll;
