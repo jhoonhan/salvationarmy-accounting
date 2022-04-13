@@ -192,8 +192,10 @@
   grid-template-columns: 1fr 1fr;
   column-gap: 1.5rem;
 }
-.order__chart__delete {
+.row__delete {
   color: white;
+  padding: 0 1rem;
+
   background-color: $color--primary--hover;
   box-sizing: border-box;
   cursor: pointer;
@@ -349,4 +351,31 @@
 }
 .report__counter {
   text-align: left;
+}
+.order-list__table {
+  min-height: calc(100vh - 50.4rem);
+  max-height: calc(100vh - 50.4rem);
+  grid-auto-rows: minmax(min-content, max-content);
+
+  overflow-y: scroll;
+  & .row {
+    border-bottom: $border--default;
+  }
+}
+.order-list__table--row {
+  font-size: 1.6rem;
+  grid-template-columns: 1fr 1.7fr 1fr auto;
+  cursor: pointer;
+  & span {
+    border-bottom: none;
+  }
+  & span:nth-child(3n) {
+    border-right: none;
+  }
+  &:hover {
+    & span {
+      color: white;
+    }
+    background-color: $color--primary;
+  }
 }

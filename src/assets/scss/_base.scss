@@ -1,5 +1,6 @@
 body {
   font-size: 1.6rem;
+  line-height: 2.5rem;
   height: 100vh;
   overflow: hidden;
 }
@@ -34,7 +35,7 @@ button,
   font-family: $default--font;
 
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.6rem;
   font-size: 1.6rem;
 
   display: flex;
@@ -77,6 +78,7 @@ input::-webkit-inner-spin-button {
 h3,
 label {
   font-size: 1.6rem;
+  padding-bottom: 1rem;
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -143,6 +145,9 @@ label {
   box-sizing: border-box;
 
   overflow-y: scroll;
+}
+
+.scroll-list--hover {
   &:hover {
     box-shadow: inset 0px 10px 10px -10px #ccc, inset 0px -10px 10px -10px #ccc;
   }
@@ -160,7 +165,7 @@ label {
     background-color: $color--primary;
   }
 }
-.name--search__delete {
+.row__delete {
   color: white;
   display: flex;
   padding: 0 1rem;
@@ -210,8 +215,20 @@ label {
   background-color: rgba($color: #ffffff, $alpha: 0.3);
   z-index: 0;
 }
-.flex__row {
+.flex--row {
   display: flex;
+}
+.flex--column {
+  display: flex;
+  flex-direction: column;
+}
+.grid--column--2--eq {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.grid--column--3--eq {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .chart {
@@ -235,6 +252,10 @@ label {
     padding: 0.5rem 1rem;
     border-right: $border--default;
     border-bottom: $border--default;
+  }
+
+  & .row {
+    display: grid;
   }
 }
 .chart__graph {

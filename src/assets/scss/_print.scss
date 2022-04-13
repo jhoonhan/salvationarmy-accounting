@@ -6,6 +6,7 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em !important;
     color: black !important;
+    line-height: 1.5rem;
   }
   .order__container__col--1 {
     font-size: 1em !important;
@@ -33,7 +34,7 @@
   .addform__cartridge-report div {
     padding: 1px 3px !important;
   }
-  .order__chart__delete {
+  .row__delete {
     color: transparent !important;
     border-bottom: $border--default;
     border-right: $border--default;

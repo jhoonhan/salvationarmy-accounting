@@ -65,7 +65,7 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
           <div>{convertOutput(el.amountBuildingFund)}</div>
           <div>$ {el.total.toFixed(2)}</div>
 
-          <div className="order__chart__delete">
+          <div className="row__delete">
             <span
               onClick={() => onClickDelete(el)}
               style={!showForm ? { display: "none" } : {}}

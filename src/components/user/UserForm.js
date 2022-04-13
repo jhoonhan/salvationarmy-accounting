@@ -161,7 +161,7 @@ const UserForm = ({
             // style={{ borderBottom: "none" }}
             placeholder="Search for Users"
           />
-          <div className="name-search__results">
+          <div className="name-search__results scroll-list--hover">
             {searchResults.map((el, i) => {
               return (
                 <div
@@ -182,7 +182,7 @@ const UserForm = ({
                   </div>
                   <div
                     onClick={() => onClickDeleteUser(el)}
-                    className="name--search__delete"
+                    className="row__delete"
                   >
                     X
                   </div>

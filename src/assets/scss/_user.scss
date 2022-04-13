@@ -16,9 +16,11 @@
     }
   }
   & .name-search__results {
-    max-height: calc(100vh - 30rem);
-    min-height: 20vh;
+    max-height: calc(100vh - 32rem);
+    min-height: calc(100vh - 32rem);
   }
+}
+.userInfo__container {
 }
 
 .user__list {

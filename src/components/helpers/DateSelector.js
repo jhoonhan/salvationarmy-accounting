@@ -22,7 +22,7 @@ const DateSelector = ({ setDates, dispatch }) => {
   return (
     <article className="ui__container">
       <div>
-        <label>Select date</label>
+        <h3>Select date</h3>
         <Field
           name="date"
           type="date"

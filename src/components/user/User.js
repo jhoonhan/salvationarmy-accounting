@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Loader from "../Loader";
 import UserForm from "./UserForm";
 import UserInfo from "./UserInfo";
+import OrderList from "../order/OrderList";
 
 import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
 
@@ -65,6 +66,8 @@ const User = ({
 
           <section className="flex__vertical" style={{ paddingRight: "2rem" }}>
             <UserInfo selectedUser={selectedUser} />
+
+            <OrderList orders={order.orders} selectedUser={selectedUser} />
           </section>
         </div>
       </main>
