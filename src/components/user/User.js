@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Loader from "../Loader";
 import UserForm from "./UserForm";
+import UserInfo from "./UserInfo";
 
 import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
 
@@ -55,7 +56,7 @@ const User = ({
           <header className="page-title merged-cell">
             <h2>Users</h2>
           </header>
-          <section className="flex__vertical" style={{ height: "100vh" }}>
+          <section className="flex__vertical">
             <UserForm
               selectedUser={selectedUser}
               setSelectedUser={setSelectedUser}
@@ -63,7 +64,7 @@ const User = ({
           </section>
 
           <section className="flex__vertical" style={{ paddingRight: "2rem" }}>
-            <div className="ui__container">aaang</div>
+            <UserInfo selectedUser={selectedUser} />
           </section>
         </div>
       </main>
