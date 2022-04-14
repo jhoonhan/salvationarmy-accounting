@@ -1,5 +1,6 @@
 import { reset } from "redux-form";
 import server from "../apis/server";
+import history from "../history";
 import {
   SIGN_IN,
   SIGN_OUT,
@@ -27,6 +28,7 @@ export const signIn = () => {
 
 export const signOut = () => {
   localStorage.removeItem("loggedIn");
+  history.push("/");
   return {
     type: SIGN_OUT,
     payload: null,
