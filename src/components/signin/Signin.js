@@ -5,13 +5,16 @@ import { Field, reduxForm } from "redux-form";
 import logo from "../../assets/images/logo.svg";
 import logoFooter from "../../assets/images/logo_footer.png";
 import renderField from "../helpers/renderField";
-import { signIn, createError } from "../../actions";
+import { signIn, signOut, createError } from "../../actions";
 
 const SignIn = ({ signIn, createError, handleSubmit, submitting }) => {
   const password = "leelee";
   useEffect(() => {
     if (localStorage.getItem("loggedIn")) {
       signIn();
+    }
+    if (!localStorage.getItem("loggedIn")) {
+      signOut();
     }
   }, []);
 

@@ -26,9 +26,10 @@ export const signIn = () => {
 };
 
 export const signOut = () => {
+  localStorage.removeItem("loggedIn");
   return {
     type: SIGN_OUT,
-    payload: "aaang",
+    payload: null,
   };
 };
 
@@ -66,7 +67,6 @@ export const fetchOrders = () => async (dispatch) => {
 
 export const deleteOrder = (orderId, orders) => async (dispatch) => {
   try {
-    console.log(`delete fired`);
     await server.delete(`/order/${orderId}`);
     dispatch({ type: DELETE_ORDER, payload: orders });
     dispatch({ type: MARK_DELETE_ORDER, payload: orderId });
@@ -89,7 +89,7 @@ export const fetchUsers = () => async (dispatch) => {
     const res = await server.get("/user/getall");
     dispatch({ type: FETCH_USERS, payload: res.data.data });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 export const editUser = (userId, formValues) => async (dispatch, getState) => {
@@ -101,7 +101,6 @@ export const editUser = (userId, formValues) => async (dispatch, getState) => {
     users[selectedUserIndex] = { ...users[selectedUserIndex], ...formValues };
 
     const res = await server.patch(`/user/${userId}`, formValues);
-    console.log(res.data);
     if (res.data.status === "success") {
       dispatch({ type: EDIT_USER, payload: users });
     }

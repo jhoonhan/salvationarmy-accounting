@@ -67,10 +67,6 @@ const UserForm = ({
     }
   }, [searchTerm, user.users]);
 
-  // useEffect(() => {
-  //   console.log(userError);
-  // }, [userError]);
-
   const { type } = useUserErrorController(userError);
 
   const userSubmit = (formValues) => {
@@ -87,7 +83,6 @@ const UserForm = ({
       firstname,
       lastname,
     };
-    // console.log({ ...formValues, ...names });
     createUser({ ...formValues, ...names });
   };
 

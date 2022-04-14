@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+
 import icons from "../assets/images/icons.svg";
 import { Link } from "react-router-dom";
+import { signOut } from "../actions";
 
-const Header = ({ location }) => {
+const Header = ({ location, signOut }) => {
   const [show, setShow] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
 
@@ -17,13 +20,15 @@ const Header = ({ location }) => {
   }, [location]);
 
   const onClickExpandNav = () => {
-    console.log(`aaang`);
     setShow(!show);
   };
   const renderExpandButton = () => {
     if (!showBtn) return null;
     return (
-      <div onClick={onClickExpandNav} className="btn__hamburger">
+      <div
+        onClick={onClickExpandNav}
+        className="btn__hamburger print-hide-adea"
+      >
         <svg
           viewBox="0 0 50 50"
           className="icon__hamburger"
@@ -53,6 +58,7 @@ const Header = ({ location }) => {
         <Link to="/user" className="link">
           user
         </Link>
+        <button onClick={signOut}>Sign out</button>
       </nav>
     );
   };
@@ -73,4 +79,12 @@ const Header = ({ location }) => {
   return render();
 };
 
-export default Header;
+const mapStateToProps = ({ userError }) => {
+  return {
+    userError,
+  };
+};
+
+export default connect(mapStateToProps, {
+  signOut,
+})(Header);

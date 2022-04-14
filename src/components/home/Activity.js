@@ -76,7 +76,6 @@ const Activity = ({ orders, users }) => {
   };
 
   const render = () => {
-    console.log(acts);
     return (
       <article className="ui__container" style={{ gap: 0 }}>
         <header>

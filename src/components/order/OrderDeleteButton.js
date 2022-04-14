@@ -5,7 +5,6 @@ import { deleteOrder } from "../../actions";
 
 const OrderDeleteButton = ({ order, orders, deleteOrder }) => {
   const onClickDelete = () => {
-    console.log(order);
     const filteredOrders = orders.filter((el) => el._id !== order._id);
     deleteOrder(order._id, filteredOrders);
   };
