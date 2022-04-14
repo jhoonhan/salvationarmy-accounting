@@ -10,9 +10,12 @@
   background-image: url(../../assets/images/bg.jpg);
   background-position: center center;
   background-size: cover;
+
+  z-index: 10;
 }
 
 .signin__wrapper {
+  width: 35rem;
   display: flex;
   flex-direction: column;
   align-items: center;
