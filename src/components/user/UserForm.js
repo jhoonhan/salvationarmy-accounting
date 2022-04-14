@@ -184,7 +184,7 @@ const UserForm = ({
                     onClick={() => onClickDeleteUser(el)}
                     className="row__delete"
                   >
-                    X
+                    <span>X</span>
                   </div>
                 </div>
               );

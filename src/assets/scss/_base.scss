@@ -165,21 +165,7 @@ label {
     background-color: $color--primary;
   }
 }
-.row__delete {
-  color: white;
-  display: flex;
-  padding: 0 1rem;
 
-  align-items: center;
-
-  background-color: $color--primary--hover;
-
-  cursor: pointer;
-  &:hover {
-    color: white;
-    background-color: $color--primary;
-  }
-}
 .ui__container {
   width: 100%;
   height: auto;

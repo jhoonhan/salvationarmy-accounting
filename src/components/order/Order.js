@@ -20,6 +20,7 @@ import {
 } from "../../actions";
 
 export const Order = ({
+  user,
   order,
   report,
   userError,
@@ -132,6 +133,7 @@ export const Order = ({
         >
           <h3 className="order__report-title">Kernersville Korean Corps</h3>
           <OrderChart
+            users={user.users}
             orders={selectedOrders}
             totals={totals}
             currentDate={dates.currentDate}

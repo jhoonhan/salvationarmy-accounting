@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { capitalizeName, firstExtendLastInitial } from "../helpers/nameHelper";
+import OrderDeleteButton from "./OrderDeleteButton";
+import {
+  capitalizeName,
+  firstExtendLastInitial,
+  getName,
+} from "../helpers/nameHelper";
 
-const OrderList = ({ orders, selectedUser }) => {
+const OrderList = ({ users, orders, selectedUser }) => {
   const [filteredOrders, setFilteredOrders] = useState(orders.reverse());
 
   useEffect(() => {
@@ -22,9 +27,13 @@ const OrderList = ({ orders, selectedUser }) => {
       return (
         <div key={order._id} className="order-list__table--row row">
           <span>{order.date}</span>
-          <span>{capitalizeName(firstExtendLastInitial(order.name))}</span>
+          <span>
+            {capitalizeName(firstExtendLastInitial(getName(users, order).name))}
+          </span>
           <span>$ {order.total.toFixed(2)}</span>
-          <span className="row__delete">X</span>
+          <div className="row__delete">
+            <OrderDeleteButton order={order} orders={orders} />
+          </div>
         </div>
       );
     });

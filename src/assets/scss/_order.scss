@@ -194,10 +194,9 @@
 }
 .row__delete {
   color: white;
-  padding: 0 1rem;
-
-  background-color: $color--primary--hover;
   box-sizing: border-box;
+  background-color: $color--primary--hover;
+
   cursor: pointer;
 
   & span {
@@ -205,6 +204,8 @@
     align-items: center;
     height: 100%;
     padding: 0 1rem;
+    background-color: $color--primary--hover;
+
     &:hover {
       color: white;
       background-color: $color--primary;
@@ -365,11 +366,10 @@
 .order-list__table--row {
   font-size: 1.6rem;
   grid-template-columns: 1fr 1.7fr 1fr auto;
-  cursor: pointer;
   & span {
     border-bottom: none;
   }
-  & span:nth-child(3n) {
+  & span:nth-child(4n) {
     border-right: none;
   }
   &:hover {

@@ -1,15 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteOrder } from "../../actions";
-import { capitalizeName } from "../helpers/nameHelper";
+import { capitalizeName, lastFirstExt, getName } from "../helpers/nameHelper";
+import OrderDeleteButton from "./OrderDeleteButton";
 
-const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
-  const onClickDelete = (selectedOrder) => {
-    if (!showForm) return;
-    const filteredOrders = orders.filter((el) => el._id !== selectedOrder._id);
-    deleteOrder(selectedOrder._id, filteredOrders);
-  };
-
+const OrderChart = ({ users, orders, currentDate, totals, showForm }) => {
   const convertOutput = (str) => {
     let output;
     if (str === 0 || str === "0") {
@@ -48,30 +42,25 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
     // .sort((a, b) => {
     //   return lastFirst(a.name).localeCompare(lastFirst(b.name));
     // })
-    .map((el, i) => {
+    .map((order, i) => {
       return (
         <React.Fragment key={i}>
           <div>{i + 1}</div>
-          <div>
-            {`${capitalizeName(el.lastname)}${
-              el.firstname ? `, ${capitalizeName(el.firstname)}` : ""
-            }`}
-          </div>
-          <div>{el.checkNumber}</div>
-          <div>{convertOutput(el.amountCartridge)}</div>
-          <div>{convertOutput(el.amountOffering)}</div>
-          <div>{convertOutput(el.amountThanksgiving)}</div>
-          <div>{convertOutput(el.amountSelfDenial)}</div>
-          <div>{convertOutput(el.amountBuildingFund)}</div>
-          <div>$ {el.total.toFixed(2)}</div>
+          <div>{capitalizeName(lastFirstExt(getName(users, order).name))}</div>
+          <div>{order.checkNumber}</div>
+          <div>{convertOutput(order.amountCartridge)}</div>
+          <div>{convertOutput(order.amountOffering)}</div>
+          <div>{convertOutput(order.amountThanksgiving)}</div>
+          <div>{convertOutput(order.amountSelfDenial)}</div>
+          <div>{convertOutput(order.amountBuildingFund)}</div>
+          <div>$ {order.total.toFixed(2)}</div>
 
           <div className="row__delete">
-            <span
-              onClick={() => onClickDelete(el)}
-              style={!showForm ? { display: "none" } : {}}
-            >
-              X
-            </span>
+            {showForm ? (
+              <OrderDeleteButton order={order} orders={orders} />
+            ) : (
+              ""
+            )}
           </div>
         </React.Fragment>
       );
@@ -139,10 +128,4 @@ const OrderChart = ({ orders, deleteOrder, currentDate, totals, showForm }) => {
   return render();
 };
 
-const mapStateToProps = () => {
-  return {};
-};
-
-export default connect(mapStateToProps, {
-  deleteOrder,
-})(OrderChart);
+export default OrderChart;

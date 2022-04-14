@@ -67,7 +67,11 @@ const User = ({
           <section className="flex__vertical" style={{ paddingRight: "2rem" }}>
             <UserInfo selectedUser={selectedUser} />
 
-            <OrderList orders={order.orders} selectedUser={selectedUser} />
+            <OrderList
+              users={user.users}
+              orders={order.orders}
+              selectedUser={selectedUser}
+            />
           </section>
         </div>
       </main>

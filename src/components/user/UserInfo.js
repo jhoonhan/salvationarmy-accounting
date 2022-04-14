@@ -45,7 +45,10 @@ const UserInfo = ({ selectedUser, change, handleSubmit, editUser }) => {
             className="flex--column"
             style={{ alignItems: "flex-start", gap: "2rem" }}
           >
-            <div className="flex--row" style={{ gap: "1rem" }}>
+            <div
+              className="grid--column--3--eq"
+              style={{ gap: "2rem", width: "100%" }}
+            >
               <div>
                 <h3>이름</h3>
                 <Field

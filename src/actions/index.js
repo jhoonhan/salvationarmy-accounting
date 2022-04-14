@@ -66,7 +66,8 @@ export const fetchOrders = () => async (dispatch) => {
 
 export const deleteOrder = (orderId, orders) => async (dispatch) => {
   try {
-    // await server.delete(`/order/${orderId}`);
+    console.log(`delete fired`);
+    await server.delete(`/order/${orderId}`);
     dispatch({ type: DELETE_ORDER, payload: orders });
     dispatch({ type: MARK_DELETE_ORDER, payload: orderId });
   } catch (error) {

@@ -55,3 +55,12 @@ export const firstExtendLastInitial = (name) => {
   }`;
   return converted;
 };
+
+export const getName = (users, order) => {
+  const userFound = users.find((user) => user._id === order.userId);
+  return {
+    lastname: userFound.lastname,
+    firstname: userFound.firstname,
+    name: userFound.name,
+  };
+};
