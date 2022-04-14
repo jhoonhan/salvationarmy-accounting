@@ -35,12 +35,6 @@
   grid-template-columns: 1fr auto;
 }
 
-.nav__side {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2rem;
-}
 .home__stats {
   display: grid;
   grid-template-columns: auto 1fr;

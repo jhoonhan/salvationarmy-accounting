@@ -8,39 +8,66 @@ const Header = ({ location }) => {
 
   useEffect(() => {
     if (location.pathname === "/order") {
+      setShow(false);
       setShowBtn(true);
     } else {
+      setShow(true);
       setShowBtn(false);
     }
   }, [location]);
 
   const onClickExpandNav = () => {
+    console.log(`aaang`);
     setShow(!show);
   };
-  const renderExpandButton = () => {};
-
-  const render = () => {
+  const renderExpandButton = () => {
     if (!showBtn) return null;
     return (
-      <section className="header__container">
-        <div onClick={onClickExpandNav} className="btn__hamburger">
-          <svg viewBox="0 0 50 50" className="icon__hamburger">
-            <use href={`${icons}#hamburger`}></use>
-          </svg>
+      <div onClick={onClickExpandNav} className="btn__hamburger">
+        <svg
+          viewBox="0 0 50 50"
+          className="icon__hamburger"
+          style={
+            show
+              ? { transform: "rotate(360deg)", backgroundColor: "#4064ff" }
+              : null
+          }
+        >
+          <use href={`${icons}#hamburger`}></use>
+        </svg>
+      </div>
+    );
+  };
+  const renderNav = () => {
+    return (
+      <nav className="nav__side">
+        <div className="nav__side__profile">
+          <h3>Admin</h3>
         </div>
-        <nav className="nav__side">
-          <div className="nav__side__profile">profile</div>
-          <Link to="/" className="link">
-            home
-          </Link>
-          <Link to="/order" className="link">
-            reports
-          </Link>
-          <Link to="/user" className="link">
-            user
-          </Link>
-        </nav>
-      </section>
+        <Link to="/" className="link">
+          home
+        </Link>
+        <Link to="/order" className="link">
+          reports
+        </Link>
+        <Link to="/user" className="link">
+          user
+        </Link>
+      </nav>
+    );
+  };
+
+  const render = () => {
+    return (
+      <>
+        {renderExpandButton()}
+        <section
+          className="header__container"
+          style={!show ? { transform: "translateX(-20vw)" } : null}
+        >
+          {renderNav()}
+        </section>
+      </>
     );
   };
   return render();

@@ -1,44 +1,33 @@
 .header__container {
   color: white;
 
-  width: 100%;
+  width: 12vw;
+  height: 100%;
 
-  background-color: $color--primary--hover;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  padding: 2rem;
+
+  background-color: $color--background--dark;
   box-sizing: border-box;
   box-shadow: $ui--box-shaodw;
 
   z-index: 9;
+}
 
-  & nav {
-    position: fixed;
-    top: 0;
-    left: 0;
+.nav__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2rem;
 
-    width: 100vw;
-    min-height: 100vh;
-
-    display: none;
-    grid-template-columns: 1fr 1fr 1fr;
-
-    gap: 0rem;
-
-    background-color: red;
-    box-sizing: border-box;
-
-    & div {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    & div:hover {
-      font-size: 5rem;
-      width: 100%;
-      height: 100%;
-      background-color: blue;
-    }
-  }
+  margin-top: 20vh;
 }
 
 .btn__hamburger {
@@ -46,14 +35,14 @@
   height: 5rem;
 
   position: fixed;
-  top: 0rem;
-  left: 0rem;
+  top: 1rem;
+  left: 1rem;
   display: flex;
 
-  background-color: $color--primary--hover;
+  border-radius: 100%;
 
-  box-shadow: $ui--box-shaodw;
   box-sizing: border-box;
+  box-shadow: $ui--box-shaodw;
 
   z-index: 11;
 }
@@ -62,10 +51,10 @@
   right: 0rem;
   bottom: 0rem;
   width: 100%;
+  background-color: $color--primary--hover;
+  border-radius: 100%;
+
   &:hover {
-    transform: rotate(360deg);
-  }
-  &:active {
-    transform: rotate(360deg);
+    background-color: $color--primary;
   }
 }

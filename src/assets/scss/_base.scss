@@ -342,8 +342,8 @@ nav {
   box-sizing: border-box;
 }
 .default__col {
-  // height: 100%;
   box-sizing: border-box;
+  background-color: rgba(233, 233, 244, 0.9);
 }
 
 .default__col--1 {
@@ -357,8 +357,6 @@ nav {
   gap: 4rem;
 
   padding: 10rem 4rem;
-
-  background-color: #555;
 }
 .default__col--2 {
   height: 100%;

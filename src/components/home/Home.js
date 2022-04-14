@@ -42,20 +42,7 @@ const Home = ({
     if (!fetched) return <Loader show={true} />;
     return (
       <main className="default__container home__container">
-        <div className="default__col default__col--1">
-          {/* <nav className="nav__side">
-            <div className="nav__side__profile">profile</div>
-            <Link to="/" className="link">
-              home
-            </Link>
-            <Link to="/order" className="link">
-              reports
-            </Link>
-            <Link to="/user" className="link">
-              user
-            </Link>
-          </nav> */}
-        </div>
+        <div className="default__col default__col--1"></div>
         <div className="default__col default__col--2">
           <header className="page-title merged-cell">
             <h2>Home</h2>
