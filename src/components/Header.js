@@ -17,6 +17,7 @@ const Header = ({ location }) => {
   const onClickExpandNav = () => {
     setShow(!show);
   };
+  const renderExpandButton = () => {};
 
   const render = () => {
     if (!showBtn) return null;
@@ -27,12 +28,16 @@ const Header = ({ location }) => {
             <use href={`${icons}#hamburger`}></use>
           </svg>
         </div>
-        <nav style={show ? { display: "grid" } : {}}>
-          <div>HOME</div>
-          <div>USERS</div>
-
-          <Link to="/order" className="circular-progess">
-            <div>REPORTS</div>
+        <nav className="nav__side">
+          <div className="nav__side__profile">profile</div>
+          <Link to="/" className="link">
+            home
+          </Link>
+          <Link to="/order" className="link">
+            reports
+          </Link>
+          <Link to="/user" className="link">
+            user
           </Link>
         </nav>
       </section>

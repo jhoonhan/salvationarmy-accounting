@@ -43,8 +43,8 @@ const Home = ({
     return (
       <main className="default__container home__container">
         <div className="default__col default__col--1">
-          <div className="nav__side__profile">profile</div>
-          <nav className="nav__side">
+          {/* <nav className="nav__side">
+            <div className="nav__side__profile">profile</div>
             <Link to="/" className="link">
               home
             </Link>
@@ -54,10 +54,7 @@ const Home = ({
             <Link to="/user" className="link">
               user
             </Link>
-            <Link to="/" className="link">
-              orders
-            </Link>
-          </nav>
+          </nav> */}
         </div>
         <div className="default__col default__col--2">
           <header className="page-title merged-cell">
