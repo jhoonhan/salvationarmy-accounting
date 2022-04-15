@@ -9,7 +9,6 @@ import uiIcons from "../assets/images/ui-icons.svg";
 const Header = ({ location, signOut }) => {
   const [show, setShow] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
-  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     console.log(location.pathname);
@@ -61,7 +60,6 @@ const Header = ({ location, signOut }) => {
         <Link
           to="/"
           className="link"
-          onClick={() => setSelected("home")}
           style={
             location.pathname === "/" ? { backgroundColor: "#ff4040" } : {}
           }
@@ -74,7 +72,6 @@ const Header = ({ location, signOut }) => {
         <Link
           to="/order"
           className="link"
-          onClick={() => setSelected("reports")}
           style={
             location.pathname === "/order" ? { backgroundColor: "#ff4040" } : {}
           }
@@ -87,7 +84,6 @@ const Header = ({ location, signOut }) => {
         <Link
           to="/user"
           className="link"
-          onClick={() => setSelected("users")}
           style={
             location.pathname === "/user" ? { backgroundColor: "#ff4040" } : {}
           }
