@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
     case SIGN_IN:
       return { fetched: false, currentUser: action.payload };
     case SIGN_OUT:
-      return { ...state, fetched: false, currentUser: false };
+      return { ...state, fetched: false, currentUser: null };
     case CREATE_USER:
       return { ...state, users: [...state.users, action.payload] };
     case FETCH_USERS:

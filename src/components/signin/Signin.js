@@ -21,7 +21,6 @@ const SignIn = ({ signIn, createError, handleSubmit, submitting }) => {
   const onLoginSubmit = (e) => {
     if (e.password === password) {
       signIn();
-      localStorage.setItem("loggedIn", true);
     } else {
       createError({
         name: "wrongPassword",

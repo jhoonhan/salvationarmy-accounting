@@ -6,12 +6,11 @@ import { Link } from "react-router-dom";
 import { signOut } from "../actions";
 import uiIcons from "../assets/images/ui-icons.svg";
 
-const Header = ({ location, signOut }) => {
+const Header = ({ user, location, signOut }) => {
   const [show, setShow] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
 
   useEffect(() => {
-    console.log(location.pathname);
     if (location.pathname === "/order") {
       setShow(false);
       setShowBtn(true);
@@ -114,8 +113,9 @@ const Header = ({ location, signOut }) => {
   return render();
 };
 
-const mapStateToProps = ({ userError }) => {
+const mapStateToProps = ({ user, userError }) => {
   return {
+    user,
     userError,
   };
 };

@@ -20,6 +20,7 @@ import {
 } from "./types";
 
 export const signIn = () => {
+  localStorage.setItem("loggedIn", true);
   return {
     type: SIGN_IN,
     payload: "admin",
