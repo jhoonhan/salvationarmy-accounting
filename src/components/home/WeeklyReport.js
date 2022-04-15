@@ -70,27 +70,41 @@ const WeeklyReport = ({ reports, dates }) => {
               {renderWeekRows}
             </div>
           </div>
-          <div className="table home__weekly-report__table">
-            <span></span>
-            {renderWeekRows}
+          <div className="table flex--column home__weekly-report__table">
+            <div className="home__weekly-report__row table--header-row table--row">
+              <span></span>
+              {renderWeekRows}
+            </div>
 
-            <span>Cart.</span>
-            {renderTableRow("cartridge")}
+            <div className="home__weekly-report__row table--row">
+              <span style={{ fontWeight: 600 }}>Cart.</span>
+              {renderTableRow("cartridge")}
+            </div>
 
-            <span>Offer.</span>
-            {renderTableRow("offering")}
+            <div className="home__weekly-report__row table--row">
+              <span style={{ fontWeight: 600 }}>Offer.</span>
+              {renderTableRow("offering")}
+            </div>
 
-            <span>Thnks.</span>
-            {renderTableRow("thanksGiving")}
+            <div className="home__weekly-report__row table--row">
+              <span style={{ fontWeight: 600 }}>Thnks.</span>
+              {renderTableRow("thanksGiving")}
+            </div>
 
-            <span>S & W</span>
-            {renderTableRow("selfDenial")}
+            <div className="home__weekly-report__row table--row">
+              <span style={{ fontWeight: 600 }}>S & W</span>
+              {renderTableRow("selfDenial")}
+            </div>
 
-            <span>Build.</span>
-            {renderTableRow("buildingFund")}
+            <div className="home__weekly-report__row table--row">
+              <span style={{ fontWeight: 600 }}>Build.</span>
+              {renderTableRow("buildingFund")}
+            </div>
 
-            <span className="bold">Total</span>
-            {renderTableRow("total")}
+            <div className="home__weekly-report__row table--row">
+              <span className="bold">Total</span>
+              {renderTableRow("total")}
+            </div>
           </div>
         </div>
       </article>

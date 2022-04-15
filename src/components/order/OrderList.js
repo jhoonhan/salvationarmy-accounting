@@ -31,9 +31,6 @@ const OrderList = ({ users, orders, selectedUser }) => {
             {capitalizeName(firstExtendLastInitial(getName(users, order).name))}
           </span>
           <span>$ {order.total.toFixed(2)}</span>
-          <div className="row__delete">
-            <OrderDeleteButton order={order} orders={orders} />
-          </div>
         </div>
       );
     });

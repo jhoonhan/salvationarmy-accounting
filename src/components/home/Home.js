@@ -10,6 +10,7 @@ import Stats from "./Stats";
 import Activity from "./Activity";
 import Loader from "../Loader";
 import useGetHomeData from "./useGetHomeData";
+import uiIcons from "../../assets/images/ui-icons.svg";
 
 import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
 
@@ -45,7 +46,12 @@ const Home = ({
         <div className="default__col default__col--1"></div>
         <div className="default__col default__col--2">
           <header className="page-title merged-cell">
-            <h2>Home</h2>
+            <div className="flex--row" style={{ gap: "2rem" }}>
+              <svg viewBox="0 0 25 25" className="ui-icon">
+                <use href={`${uiIcons}#home-dark`} className="ui-icon"></use>
+              </svg>
+              <h2>Home</h2>
+            </div>
             <p>Kernersville Korean Corps</p>
           </header>
           <section className="flex__vertical">

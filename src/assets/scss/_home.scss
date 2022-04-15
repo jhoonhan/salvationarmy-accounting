@@ -54,16 +54,25 @@
 }
 .home__user-activity {
   width: 100%;
+  & .home__user-activity--row:nth-child(2n) {
+    background-color: white;
+  }
+}
+.home__user-activity--row {
   display: grid;
-  grid-template-columns: repeat(6, auto);
-  border: $border--default;
-  & span:nth-last-child(-n + 6) {
-    border-bottom: none;
+  grid-template-columns: 12rem repeat(5, auto);
+  background-color: $color--background;
+}
+.home__weekly-report__table {
+  & .home__weekly-report__row:nth-child(2n) {
+    background-color: white;
   }
 }
 
-.home__weekly-report__table {
-  grid-template-columns: 7rem repeat(6, 1fr);
+.home__weekly-report__row {
+  display: grid;
+  grid-template-columns: 10rem repeat(6, 1fr);
+  background-color: $color--background;
 
   & span {
     display: flex;

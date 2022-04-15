@@ -12,8 +12,6 @@
   flex-direction: column;
   justify-content: flex-start;
 
-  padding: 2rem;
-
   background-color: $color--background--dark;
   box-sizing: border-box;
   box-shadow: $ui--box-shaodw;
@@ -22,12 +20,43 @@
 }
 
 .nav__side {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 2rem;
+  align-items: center;
 
   margin-top: 20vh;
+
+  & .link {
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-items: flex-end;
+    column-gap: 2rem;
+
+    padding: 2rem 12%;
+
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: $color--primary--hover;
+    }
+  }
+  & button {
+    width: 78%;
+    margin-top: 2rem;
+  }
+}
+.nav__side__profile {
+  width: 100%;
+  align-self: flex-end;
+  justify-content: center;
+  margin-bottom: 3rem;
 }
 
 .btn__hamburger {

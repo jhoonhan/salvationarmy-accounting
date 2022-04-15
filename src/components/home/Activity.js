@@ -51,24 +51,26 @@ const Activity = ({ orders, users }) => {
   const renderTable = () => {
     const renderRows = acts.map((act) => {
       return (
-        <React.Fragment key={act.id}>
+        <div key={act.id} className="home__user-activity--row table--row">
           <span>{capitalizeName(lastFirstInitial(act.name))}</span>
           <span>${act.totalCartridge}</span>
           <span>${act.totalOffering}</span>
           <span>${act.totalThanksgiving}</span>
           <span>${act.totalSelfDenial + act.totalBuildingFund}</span>
           <span>${act.total}</span>
-        </React.Fragment>
+        </div>
       );
     });
     return (
       <div className="table home__user-activity">
-        <span></span>
-        <span>Cart</span>
-        <span>Offer.</span>
-        <span>Thnks.</span>
-        <span>Special</span>
-        <span>Total</span>
+        <div className="home__user-activity--row table--header-row table--row">
+          <span>Name</span>
+          <span>Cart</span>
+          <span>Offer.</span>
+          <span>Thnks.</span>
+          <span>Special</span>
+          <span>Total</span>
+        </div>
 
         {renderRows}
       </div>

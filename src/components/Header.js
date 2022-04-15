@@ -4,12 +4,15 @@ import { connect } from "react-redux";
 import icons from "../assets/images/icons.svg";
 import { Link } from "react-router-dom";
 import { signOut } from "../actions";
+import uiIcons from "../assets/images/ui-icons.svg";
 
 const Header = ({ location, signOut }) => {
   const [show, setShow] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
+    console.log(location.pathname);
     if (location.pathname === "/order") {
       setShow(false);
       setShowBtn(true);
@@ -46,17 +49,53 @@ const Header = ({ location, signOut }) => {
   const renderNav = () => {
     return (
       <nav className="nav__side">
-        <div className="nav__side__profile">
-          <h3>Admin</h3>
+        <div
+          className="nav__side__profile flex--row "
+          style={{ alignItems: "center", gap: "1rem" }}
+        >
+          <svg viewBox="0 0 25 25" style={{ width: "50px", height: "50px" }}>
+            <use href={`${uiIcons}#logo`}></use>
+          </svg>
+          <h3 style={{ padding: 0 }}>Admin</h3>
         </div>
-        <Link to="/" className="link">
-          home
+        <Link
+          to="/"
+          className="link"
+          onClick={() => setSelected("home")}
+          style={
+            location.pathname === "/" ? { backgroundColor: "#ff4040" } : {}
+          }
+        >
+          <svg viewBox="0 0 25 25" className="ui-icon">
+            <use href={`${uiIcons}#home`} className="ui-icon"></use>
+          </svg>
+          <span>home</span>
         </Link>
-        <Link to="/order" className="link">
-          reports
+        <Link
+          to="/order"
+          className="link"
+          onClick={() => setSelected("reports")}
+          style={
+            location.pathname === "/order" ? { backgroundColor: "#ff4040" } : {}
+          }
+        >
+          <svg viewBox="0 0 25 25" className="ui-icon">
+            <use href={`${uiIcons}#pickup`} className="ui-icon"></use>
+          </svg>
+          <span>reports</span>
         </Link>
-        <Link to="/user" className="link">
-          user
+        <Link
+          to="/user"
+          className="link"
+          onClick={() => setSelected("users")}
+          style={
+            location.pathname === "/user" ? { backgroundColor: "#ff4040" } : {}
+          }
+        >
+          <svg viewBox="0 0 25 25" className="ui-icon">
+            <use href={`${uiIcons}#account`} className="ui-icon"></use>
+          </svg>
+          <span>users</span>
         </Link>
         <button onClick={signOut}>Sign out</button>
       </nav>
