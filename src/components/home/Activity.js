@@ -51,26 +51,24 @@ const Activity = ({ orders, users }) => {
   const renderTable = () => {
     const renderRows = acts.map((act) => {
       return (
-        <div key={act.id} className="home__user-activity--row table--row">
+        <>
           <span>{capitalizeName(lastFirstInitial(act.name))}</span>
           <span>${act.totalCartridge}</span>
           <span>${act.totalOffering}</span>
           <span>${act.totalThanksgiving}</span>
           <span>${act.totalSelfDenial + act.totalBuildingFund}</span>
           <span>${act.total}</span>
-        </div>
+        </>
       );
     });
     return (
       <div className="table home__user-activity">
-        <div className="home__user-activity--row table--header-row table--row">
-          <span>Name</span>
-          <span>Cart</span>
-          <span>Offer.</span>
-          <span>Thnks.</span>
-          <span>Special</span>
-          <span>Total</span>
-        </div>
+        <span>Name</span>
+        <span>Cart</span>
+        <span>Offer.</span>
+        <span>Thnks.</span>
+        <span>Special</span>
+        <span>Total</span>
 
         {renderRows}
       </div>

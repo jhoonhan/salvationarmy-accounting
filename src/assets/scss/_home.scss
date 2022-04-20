@@ -54,8 +54,13 @@
 }
 .home__user-activity {
   width: 100%;
-  & .home__user-activity--row:nth-child(2n) {
-    background-color: white;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  & span:nth-child(6n) {
+    background-color: $color--background;
+  }
+  & span {
+    border-bottom: $border--default;
   }
 }
 .home__user-activity--row {
