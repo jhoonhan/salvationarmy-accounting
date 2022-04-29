@@ -160,8 +160,7 @@ label {
 .name-search__name {
   padding: 0.5rem 1rem;
   &:hover {
-    color: white;
-    background-color: $color--primary;
+    background-color: $color--disabled;
   }
 }
 
