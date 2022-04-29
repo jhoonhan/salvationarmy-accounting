@@ -11,7 +11,7 @@ const OrderForm = ({
   selectedUser,
   setSelectedUser,
   // setSearchTerm,
-  // refUserSearch,
+  refUserSearch,
   currentDate,
   userError,
   handleSubmit,
@@ -64,8 +64,8 @@ const OrderForm = ({
     };
     createOrder(combinedData);
     setSelectedUser(null);
-    // refUserSearch.current.focus();
-    // setSearchTerm("");
+    setOrderType("cash");
+    refUserSearch.current.focus();
   };
 
   const orderSubmitError = () => {
@@ -76,6 +76,12 @@ const OrderForm = ({
   const render = () => {
     return (
       <div className="ui__container">
+        <div
+          className="overlay--block"
+          style={selectedUser?.name ? { display: "none" } : {}}
+        >
+          <h3>Select an User</h3>
+        </div>
         <form
           onSubmit={handleSubmit(orderSubmit)}
           autoComplete="off"

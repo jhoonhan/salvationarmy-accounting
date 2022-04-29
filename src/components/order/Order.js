@@ -42,6 +42,7 @@ export const Order = ({
   const [showForm, setShowForm] = useState(false);
 
   const refPrint = useRef(null);
+  const refUserSearch = useRef(null);
 
   const totals = useGetTotal(selectedOrders);
 
@@ -108,15 +109,14 @@ export const Order = ({
             setSelectedUser={setSelectedUser}
             // searchTerm={searchTerm}
             // setSearchTerm={setSearchTerm}
-            // refUserSearch={refUserSearch}
+            refUserSearch={refUserSearch}
           />
 
           <OrderForm
             currentDate={dates.currentDate}
             selectedUser={selectedUser}
             setSelectedUser={setSelectedUser}
-            // setSearchTerm={setSearchTerm}
-            // refUserSearch={refUserSearch}
+            refUserSearch={refUserSearch}
           />
         </>
       );

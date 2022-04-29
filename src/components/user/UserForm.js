@@ -15,10 +15,10 @@ const UserForm = ({
   setSelectedUser,
   createUser,
   handleSubmit,
+  refUserSearch,
 }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const refUserSearch = useRef(null);
 
   useEffect(() => {
     if (!user.users) return;
@@ -152,6 +152,7 @@ const UserForm = ({
             type="text"
             value={searchTerm}
             onChange={onUserFormChange}
+            onFocus={() => setSearchTerm("")}
             onClick={() => setSearchTerm("")}
             // style={{ borderBottom: "none" }}
             placeholder="Search for Users"
@@ -165,7 +166,7 @@ const UserForm = ({
                   style={
                     el.name === selectedUser?.name &&
                     el.nameK === selectedUser?.nameK
-                      ? { color: "white", backgroundColor: "#4064ff" }
+                      ? { color: "white", backgroundColor: "#ff4040" }
                       : {}
                   }
                 >
