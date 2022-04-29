@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 import icons from "../assets/images/icons.svg";
@@ -9,6 +9,10 @@ import uiIcons from "../assets/images/ui-icons.svg";
 const Header = ({ user, location, signOut }) => {
   const [show, setShow] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
+  const [timeleft, setTimeLeft] = useState(10);
+
+  const refTimer = useRef(null);
+  const refCounter = useRef(null);
 
   useEffect(() => {
     if (location.pathname === "/order") {
@@ -97,10 +101,47 @@ const Header = ({ user, location, signOut }) => {
     );
   };
 
+  useEffect(() => {
+    if (user.currentUser) {
+      console.log(`timer staatt!`);
+      const timeOutId = window.setTimeout(signOut, 5000);
+      refTimer.current = timeOutId;
+    } else {
+      window.clearTimeout(refTimer.current);
+    }
+
+    if (user.currentUser) {
+      const counterId = setInterval(() => {
+        if (timeleft <= 0) clearInterval(counterId);
+        console.log(timeleft);
+        let time;
+        time -= 1;
+        setTimeLeft(time);
+      }, 1000);
+      refCounter.current = counterId;
+    } else {
+      clearInterval(refCounter.current);
+    }
+  }, [user.currentUser]);
+
+  useEffect(() => {
+    console.log(timeleft);
+  }, [timeleft]);
+
+  // useEffect(() => {
+  //   let timeleft = 10;
+  //   const timer = setInterval(() => {
+  //     if (timeleft <= 0) clearInterval(timer);
+  //     console.log(timeleft);
+  //     timeleft -= 1;
+  //   }, 1000);
+  // }, []);
+
   const render = () => {
     return (
       <>
         {renderExpandButton()}
+        <div className="signout-timer">Sign out in 11:59</div>
         <section
           className="header__container"
           style={!show ? { transform: "translateX(-20vw)" } : null}
