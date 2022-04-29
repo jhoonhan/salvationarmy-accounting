@@ -9,7 +9,7 @@ import uiIcons from "../assets/images/ui-icons.svg";
 const Header = ({ user, location, signOut }) => {
   const [show, setShow] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
-  const [timeleft, setTimeLeft] = useState(10);
+  const [timeleft, setTimeLeft] = useState(1800);
 
   const refTimer = useRef(null);
   const refCounter = useRef(null);
@@ -104,27 +104,28 @@ const Header = ({ user, location, signOut }) => {
   useEffect(() => {
     if (user.currentUser) {
       console.log(`timer staatt!`);
-      const timeOutId = window.setTimeout(signOut, 5000);
+      const timeOutId = window.setTimeout(signOut, 10000);
       refTimer.current = timeOutId;
     } else {
       window.clearTimeout(refTimer.current);
     }
 
     if (user.currentUser) {
+      let tm = timeleft;
       const counterId = setInterval(() => {
-        if (timeleft <= 0) clearInterval(counterId);
-        console.log(timeleft);
-        let time;
-        time -= 1;
-        setTimeLeft(time);
+        if (tm <= 0) clearInterval(counterId);
+        tm -= 1;
+        setTimeLeft(tm);
       }, 1000);
       refCounter.current = counterId;
     } else {
+      setTimeLeft(1800);
       clearInterval(refCounter.current);
     }
   }, [user.currentUser]);
 
   useEffect(() => {
+    console.log(`time changed`);
     console.log(timeleft);
   }, [timeleft]);
 
@@ -141,7 +142,9 @@ const Header = ({ user, location, signOut }) => {
     return (
       <>
         {renderExpandButton()}
-        <div className="signout-timer">Sign out in 11:59</div>
+        <div className="signout-timer">
+          <p>Logging out in {timeleft} seconds</p>
+        </div>
         <section
           className="header__container"
           style={!show ? { transform: "translateX(-20vw)" } : null}
