@@ -52,7 +52,7 @@ const Header = ({ user, order, report, location, signOut }) => {
         const mn = Math.floor(tm / 60);
         const sec = Math.floor(tm % 60);
         setDisplayTimeLeft(
-          `${String(mn).padStart(0, 2)}:${String(sec).padStart(0, 2)}`
+          `${String(mn).padStart(2, 0)}:${String(sec).padStart(2, 0)}`
         );
       }, 1000);
       refCounter.current = counterId;
