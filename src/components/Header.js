@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { signOut } from "../actions";
 import uiIcons from "../assets/images/ui-icons.svg";
 
-const Header = ({ user, location, signOut }) => {
+const Header = ({ user, order, report, location, signOut }) => {
+  const [fetched, setFetched] = useState(false);
   const [show, setShow] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
   const [timeleft, setTimeLeft] = useState(1800);
@@ -23,6 +24,37 @@ const Header = ({ user, location, signOut }) => {
       setShowBtn(false);
     }
   }, [location]);
+
+  useEffect(() => {
+    if (!user.fetched) return;
+    if (!order.fetched) return;
+    if (!report.fetched) return;
+    setFetched(true);
+  }, [user, order, report]);
+
+  useEffect(() => {
+    if (!fetched) return;
+    if (user.currentUser) {
+      console.log(`timer staatt!`);
+      const timeOutId = window.setTimeout(signOut, 18 * 1000);
+      refTimer.current = timeOutId;
+    } else {
+      window.clearTimeout(refTimer.current);
+    }
+
+    if (user.currentUser) {
+      let tm = timeleft;
+      const counterId = setInterval(() => {
+        if (tm <= 0) clearInterval(counterId);
+        tm -= 1;
+        setTimeLeft(tm);
+      }, 1000);
+      refCounter.current = counterId;
+    } else {
+      setTimeLeft(18);
+      clearInterval(refCounter.current);
+    }
+  }, [user.currentUser, fetched]);
 
   const onClickExpandNav = () => {
     setShow(!show);
@@ -101,34 +133,6 @@ const Header = ({ user, location, signOut }) => {
     );
   };
 
-  useEffect(() => {
-    if (user.currentUser) {
-      console.log(`timer staatt!`);
-      const timeOutId = window.setTimeout(signOut, 10000);
-      refTimer.current = timeOutId;
-    } else {
-      window.clearTimeout(refTimer.current);
-    }
-
-    if (user.currentUser) {
-      let tm = timeleft;
-      const counterId = setInterval(() => {
-        if (tm <= 0) clearInterval(counterId);
-        tm -= 1;
-        setTimeLeft(tm);
-      }, 1000);
-      refCounter.current = counterId;
-    } else {
-      setTimeLeft(1800);
-      clearInterval(refCounter.current);
-    }
-  }, [user.currentUser]);
-
-  useEffect(() => {
-    console.log(`time changed`);
-    console.log(timeleft);
-  }, [timeleft]);
-
   // useEffect(() => {
   //   let timeleft = 10;
   //   const timer = setInterval(() => {
@@ -143,7 +147,9 @@ const Header = ({ user, location, signOut }) => {
       <>
         {renderExpandButton()}
         <div className="signout-timer">
-          <p>Logging out in {timeleft} seconds</p>
+          <p style={{ fontSize: "1.2rem" }}>
+            Logging out in {timeleft} seconds
+          </p>
         </div>
         <section
           className="header__container"
@@ -157,9 +163,11 @@ const Header = ({ user, location, signOut }) => {
   return render();
 };
 
-const mapStateToProps = ({ user, userError }) => {
+const mapStateToProps = ({ user, order, report, userError }) => {
   return {
     user,
+    order,
+    report,
     userError,
   };
 };
