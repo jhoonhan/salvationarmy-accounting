@@ -11,6 +11,7 @@ const Header = ({ user, order, report, location, signOut }) => {
   const [show, setShow] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
   const [timeleft, setTimeLeft] = useState(1800);
+  const [displayTimeLeft, setDisplayTimeLeft] = useState("00:00");
 
   const refTimer = useRef(null);
   const refCounter = useRef(null);
@@ -36,7 +37,7 @@ const Header = ({ user, order, report, location, signOut }) => {
     if (!fetched) return;
     if (user.currentUser) {
       console.log(`timer staatt!`);
-      const timeOutId = window.setTimeout(signOut, 18 * 1000);
+      const timeOutId = window.setTimeout(signOut, 1800 * 1000);
       refTimer.current = timeOutId;
     } else {
       window.clearTimeout(refTimer.current);
@@ -48,11 +49,17 @@ const Header = ({ user, order, report, location, signOut }) => {
         if (tm <= 0) clearInterval(counterId);
         tm -= 1;
         setTimeLeft(tm);
+        const mn = Math.floor(tm / 60);
+        const sec = Math.floor(tm % 60);
+        setDisplayTimeLeft(
+          `${String(mn).padStart(0, 2)}:${String(sec).padStart(0, 2)}`
+        );
       }, 1000);
       refCounter.current = counterId;
     } else {
-      setTimeLeft(18);
+      setTimeLeft(1800);
       clearInterval(refCounter.current);
+      setDisplayTimeLeft("00:00");
     }
   }, [user.currentUser, fetched]);
 
@@ -147,9 +154,7 @@ const Header = ({ user, order, report, location, signOut }) => {
       <>
         {renderExpandButton()}
         <div className="signout-timer">
-          <p style={{ fontSize: "1.2rem" }}>
-            Logging out in {timeleft} seconds
-          </p>
+          <p style={{ fontSize: "1.2rem" }}>Logging out in {displayTimeLeft}</p>
         </div>
         <section
           className="header__container"
