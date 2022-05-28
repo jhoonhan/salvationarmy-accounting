@@ -56,7 +56,6 @@ const UserInfo = ({ selectedUser, change, handleSubmit, editUser }) => {
                   component={renderField}
                   type="text"
                   label="이름"
-                  required="required"
                 />
               </div>
               <div>
