@@ -15,10 +15,10 @@ const UserForm = ({
   setSelectedUser,
   createUser,
   handleSubmit,
+  refUserSearch,
 }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const refUserSearch = useRef(null);
 
   useEffect(() => {
     if (!user.users) return;
@@ -139,6 +139,10 @@ const UserForm = ({
       </>
     );
   };
+  const handleSearchTerm = () => {
+    setSelectedUser(null);
+    setSearchTerm("");
+  };
   const renderUserForm = () => {
     return (
       <>
@@ -152,26 +156,24 @@ const UserForm = ({
             type="text"
             value={searchTerm}
             onChange={onUserFormChange}
-            onClick={() => setSearchTerm("")}
+            onFocus={handleSearchTerm}
+            // onClick={() => setSearchTerm("")}
             // style={{ borderBottom: "none" }}
             placeholder="Search for Users"
           />
           <div className="name-search__results scroll-list--hover">
             {searchResults.map((el, i) => {
               return (
-                <div
-                  key={i}
-                  className="name-search__result"
-                  style={
-                    el.name === selectedUser?.name &&
-                    el.nameK === selectedUser?.nameK
-                      ? { color: "white", backgroundColor: "#4064ff" }
-                      : {}
-                  }
-                >
+                <div key={i} className="name-search__result">
                   <div
                     onClick={() => onSelectUser(el)}
                     className="name-search__name"
+                    style={
+                      el.name === selectedUser?.name &&
+                      el.nameK === selectedUser?.nameK
+                        ? { color: "white", backgroundColor: "#4064ff" }
+                        : {}
+                    }
                   >
                     {el.nameK} / {capitalizeName(el.name)}
                   </div>

@@ -160,12 +160,12 @@ label {
 .name-search__name {
   padding: 0.5rem 1rem;
   &:hover {
-    color: white;
-    background-color: $color--primary;
+    background-color: $color--disabled;
   }
 }
 
 .ui__container {
+  position: relative;
   width: 100%;
   height: auto;
   display: flex;
@@ -370,4 +370,18 @@ label {
 .ui-icon {
   width: 2.5rem;
   height: 2.5rem;
+}
+
+.overlay--block {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: $color--disabled;
 }

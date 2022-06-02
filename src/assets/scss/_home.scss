@@ -65,7 +65,7 @@
 }
 .home__user-activity--row {
   display: grid;
-  grid-template-columns: 12rem repeat(5, auto);
+  grid-template-columns: 12rem repeat(5, 1fr);
   background-color: $color--background;
 }
 .home__weekly-report__table {
@@ -99,3 +99,4 @@
     grid-template-columns: 7rem repeat(6, 1fr);
   }
 }
+//

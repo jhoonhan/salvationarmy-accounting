@@ -15,7 +15,8 @@ $color--primary--hover--accent: #212121;
 
 $color--background: rgba(233, 233, 244, 0.9);
 $color--background--shade: #ccc;
-$color--disabled: #efefef;
+// $color--disabled: #efefef;
+$color--disabled: rgba(230, 230, 230, 0.9);
 $color--background--dark: rgba(70, 70, 70, 0.95);
 $color--background--overlay: rgba(
   $color: #ffffff,
