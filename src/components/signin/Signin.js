@@ -35,7 +35,6 @@ const SignIn = ({ signIn, createError, handleSubmit, submitting }) => {
         <svg viewBox="0 0 50 60" className="img__logo">
           <use href={`${logo}#logo`}></use>
         </svg>
-        <img src={logoFooter} alt="logoFooter" />
         <form onSubmit={handleSubmit(onLoginSubmit)} className="signin__box">
           <Field
             name="password"
