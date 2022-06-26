@@ -88,6 +88,10 @@ const UserForm = ({
 
   const onSelectUser = (el) => {
     setSelectedUser(el);
+    refUserSearch.current.value = el.name;
+    // setSearchTerm(el.name);
+    console.log(refUserSearch.current.value);
+    change("dafuk", "wtf");
     change("name", el.name);
     change("nameK", el.nameK);
   };
