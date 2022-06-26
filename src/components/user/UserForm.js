@@ -88,7 +88,6 @@ const UserForm = ({
 
   const onSelectUser = (el) => {
     setSelectedUser(el);
-    // refUserSearch.current.value = el.name;
     setSearchTerm(capitalizeName(el.name));
 
     change("dafuk", "wtf");
