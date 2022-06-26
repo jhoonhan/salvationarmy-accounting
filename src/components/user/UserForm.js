@@ -180,12 +180,12 @@ const UserForm = ({
                   >
                     {el.nameK} / {capitalizeName(el.name)}
                   </div>
-                  <div
+                  {/* <div
                     onClick={() => onClickDeleteUser(el)}
                     className="row__delete"
                   >
                     <span>X</span>
-                  </div>
+                  </div> */}
                 </div>
               );
             })}
