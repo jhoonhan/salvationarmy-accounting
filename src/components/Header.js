@@ -36,7 +36,6 @@ const Header = ({ user, order, report, location, signOut }) => {
   useEffect(() => {
     if (!fetched) return;
     if (user.currentUser) {
-      console.log(`timer staatt!`);
       const timeOutId = window.setTimeout(signOut, 1800 * 1000);
       refTimer.current = timeOutId;
     } else {
