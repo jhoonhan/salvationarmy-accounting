@@ -48,6 +48,11 @@ const Report = ({
               setSelectedUser={setSelectedUser}
             />
           </section>
+          <section className="flex__vertical">
+            <div className="ui__container">
+              <h3>Generated Reports</h3>
+            </div>
+          </section>
         </div>
       </main>
     );
