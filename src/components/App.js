@@ -10,6 +10,7 @@ import Signin from "./signin/Signin";
 import Home from "./home/Home";
 import Order from "./order/Order";
 import User from "./user/User";
+import Report from "./report/Report";
 
 const App = ({ user }) => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const App = ({ user }) => {
         <Route path="/home" exact component={Home} />
         <Route path="/order" exact component={Order} />
         <Route path="/user" exact component={User} />
+        <Route path="/report" exact component={Report} />
       </Switch>
     );
   };

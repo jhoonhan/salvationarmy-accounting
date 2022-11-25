@@ -120,7 +120,7 @@ const Header = ({ user, order, report, location, signOut }) => {
           <svg viewBox="0 0 25 25" className="ui-icon">
             <use href={`${uiIcons}#pickup`} className="ui-icon"></use>
           </svg>
-          <span>reports</span>
+          <span>Submit</span>
         </Link>
         <Link
           to="/user"
@@ -133,6 +133,21 @@ const Header = ({ user, order, report, location, signOut }) => {
             <use href={`${uiIcons}#account`} className="ui-icon"></use>
           </svg>
           <span>users</span>
+        </Link>
+
+        <Link
+          to="/report"
+          className="link"
+          style={
+            location.pathname === "/report"
+              ? { backgroundColor: "#ff4040" }
+              : {}
+          }
+        >
+          <svg viewBox="0 0 25 25" className="ui-icon">
+            <use href={`${uiIcons}#account`} className="ui-icon"></use>
+          </svg>
+          <span>report</span>
         </Link>
         <button onClick={signOut}>Sign out</button>
       </nav>
