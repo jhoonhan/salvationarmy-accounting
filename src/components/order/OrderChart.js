@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { capitalizeName, lastFirstExt, getName } from "../helpers/nameHelper";
 import OrderDeleteButton from "./OrderDeleteButton";
 
