@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import UserForm from "../user/UserForm";
 import uiIcons from "../../assets/images/ui-icons.svg";
+import OrderList from "../order/OrderList";
+import Loader from "../Loader";
 
 import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
 
@@ -32,6 +34,8 @@ const Report = ({
   }, [user, order, report, fetched]);
 
   const render = () => {
+    if (!fetched) return <Loader show={true} />;
+
     return (
       <main className="default__container user__container">
         <div className="default__col default__col--1"></div>
@@ -50,8 +54,23 @@ const Report = ({
           </section>
           <section className="flex__vertical">
             <div className="ui__container">
-              <h3>Generated Reports</h3>
+              <h3>Generate Reports</h3>
+              <select name="year" style={{ height: "4rem" }}>
+                <option value={"all"}>All Years</option>
+                <option value={2022}>2022</option>
+                <option value={2021}>2021</option>
+              </select>
+              <div className="flex__horizontal">
+                <button>For Selected User</button>
+                <button>For Every User</button>
+              </div>
             </div>
+
+            <OrderList
+              users={user.users}
+              orders={order.orders}
+              selectedUser={selectedUser}
+            />
           </section>
         </div>
       </main>
