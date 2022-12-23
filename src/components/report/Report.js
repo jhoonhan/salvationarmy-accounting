@@ -7,6 +7,8 @@ import uiIcons from "../../assets/images/ui-icons.svg";
 import OrderList from "../order/OrderList";
 import Loader from "../Loader";
 
+import { capitalizeName } from "../helpers/nameHelper";
+
 import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
 
 const Report = ({
@@ -44,7 +46,7 @@ const Report = ({
             <svg viewBox="0 0 25 25" className="ui-icon">
               <use href={`${uiIcons}#account-dark`} className="ui-icon"></use>
             </svg>
-            <h2>Users</h2>
+            <h2>Reports</h2>
           </header>
           <section className="flex__vertical">
             <UserForm
@@ -53,16 +55,40 @@ const Report = ({
             />
           </section>
           <section className="flex__vertical">
-            <div className="ui__container">
-              <h3>Generate Reports</h3>
-              <select name="year" style={{ height: "4rem" }}>
-                <option value={"all"}>All Years</option>
-                <option value={2022}>2022</option>
-                <option value={2021}>2021</option>
-              </select>
-              <div className="flex__horizontal">
-                <button>For Selected User</button>
-                <button>For Every User</button>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "2rem",
+              }}
+            >
+              <div className="ui__container">
+                <div className="flex__vertical--nogap">
+                  <label>Select a Year</label>
+                  <select name="year" style={{ height: "4rem" }}>
+                    <option value={"all"}>All Years</option>
+                    <option value={2022}>2022</option>
+                    <option value={2021}>2021</option>
+                  </select>
+                </div>
+              </div>
+              <div className="ui__container">
+                <div className="flex__vertical--nogap">
+                  <label>Selected User</label>
+                  <p
+                    style={{
+                      height: "4rem",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    {selectedUser.name
+                      ? `${
+                          selectedUser.nameK && selectedUser.nameK
+                        } / ${capitalizeName(selectedUser.name)}`
+                      : "Everyone"}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -71,6 +97,8 @@ const Report = ({
               orders={order.orders}
               selectedUser={selectedUser}
             />
+
+            <button>Generate Report</button>
           </section>
         </div>
       </main>

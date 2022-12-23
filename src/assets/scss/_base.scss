@@ -306,9 +306,16 @@ label {
   flex-direction: column;
   gap: 2rem;
 }
+.flex__vertical--nogap {
+  display: flex;
+  flex-direction: column;
+}
 .flex__horizontal {
   display: flex;
   gap: 2rem;
+}
+.grid {
+  display: grid;
 }
 .bold {
   font-weight: 600;
