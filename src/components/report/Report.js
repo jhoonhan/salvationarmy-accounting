@@ -29,6 +29,7 @@ const Report = ({
     if (!order.fetched) return;
     if (!report.fetched) return;
     setFetched(true);
+    console.log(test);
   }, [user, order, report, fetched]);
 
   const render = () => {
