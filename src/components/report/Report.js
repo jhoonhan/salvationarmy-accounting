@@ -30,6 +30,7 @@ const Report = ({
     if (!report.fetched) return;
     setFetched(true);
     console.log(test);
+    console.log(test2);
   }, [user, order, report, fetched]);
 
   const render = () => {
