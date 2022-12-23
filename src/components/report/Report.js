@@ -22,6 +22,10 @@ const Report = ({
   const [fetched, setFetched] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
 
+  const [selectedYear, setSelectedYear] = useState(0);
+  const [filteredOrders, setFilteredOrders] = useState([]);
+
+  // Init fecthe validate
   useEffect(() => {
     fetchUsers();
     fetchOrders();
@@ -34,6 +38,23 @@ const Report = ({
     if (!report.fetched) return;
     setFetched(true);
   }, [user, order, report, fetched]);
+
+  // When year is changed
+  useEffect(() => {
+    if (!order.fetched) return;
+
+    const filtered = order.orders.filter((order) => {
+      return order.date.split("-")[0] === `${selectedYear}`;
+    });
+
+    selectedYear === 0
+      ? setFilteredOrders(order.orders)
+      : setFilteredOrders(filtered);
+  }, [selectedYear, order]);
+
+  useEffect(() => {
+    console.log(filteredOrders);
+  }, [filteredOrders]);
 
   const render = () => {
     if (!fetched) return <Loader show={true} />;
@@ -62,16 +83,24 @@ const Report = ({
                 gap: "2rem",
               }}
             >
+              {/* Year Selector */}
               <div className="ui__container">
                 <div className="flex__vertical--nogap">
                   <label>Select a Year</label>
-                  <select name="year" style={{ height: "4rem" }}>
-                    <option value={"all"}>All Years</option>
+                  <select
+                    value={selectedYear}
+                    onChange={(e) => setSelectedYear(e.target.value)}
+                    name="year"
+                    style={{ height: "4rem" }}
+                  >
+                    <option value={0}>All Years</option>
                     <option value={2022}>2022</option>
                     <option value={2021}>2021</option>
                   </select>
                 </div>
               </div>
+
+              {/* Selected User */}
               <div className="ui__container">
                 <div className="flex__vertical--nogap">
                   <label>Selected User</label>
@@ -94,7 +123,7 @@ const Report = ({
 
             <OrderList
               users={user.users}
-              orders={order.orders}
+              orders={filteredOrders}
               selectedUser={selectedUser}
             />
 
