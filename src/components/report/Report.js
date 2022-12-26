@@ -6,8 +6,10 @@ import UserForm from "../user/UserForm";
 import uiIcons from "../../assets/images/ui-icons.svg";
 import OrderList from "../order/OrderList";
 import Loader from "../Loader";
+import GeneratedReport from "./GeneratedReport";
 
 import { capitalizeName } from "../helpers/nameHelper";
+import useFilterOrders from "../hooks/useFilterOrders";
 
 import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
 
@@ -22,7 +24,13 @@ const Report = ({
   const [fetched, setFetched] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
 
-  const [selectedYear, setSelectedYear] = useState(0);
+  const [selectedYear, setSelectedYear] = useState(false);
+
+  const filteredOrders = useFilterOrders({
+    orders: order.orders,
+    selectedUser,
+    selectedYear,
+  });
 
   // Init fecthe validate
   useEffect(() => {
@@ -108,7 +116,7 @@ const Report = ({
 
             <OrderList
               users={user.users}
-              orders={order.orders}
+              orders={filteredOrders}
               selectedUser={selectedUser}
               selectedYear={selectedYear}
             />
@@ -117,12 +125,10 @@ const Report = ({
           </section>
           <section
             className="flex__vertical merged-cell"
-            style={{ minHeight: "500px" }}
+            style={{ minHeight: "500px", backgroundColor: "white" }}
           >
-            <UserForm
-              selectedUser={selectedUser}
-              setSelectedUser={setSelectedUser}
-            />
+            <label>Generated Report</label>
+            <GeneratedReport user={selectedUser} orders={filteredOrders} />
           </section>
         </div>
       </main>

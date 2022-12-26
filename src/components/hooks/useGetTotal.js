@@ -1,6 +1,7 @@
 import React from "react";
 
 const useGetTotal = (orders) => {
+  if (!orders) return;
   const getTotalAmount = (type, amount) => {
     let sum;
     if (!type) {

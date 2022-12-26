@@ -7,42 +7,35 @@ import {
 } from "../helpers/nameHelper";
 
 const OrderList = ({ users, orders, selectedUser, selectedYear }) => {
-  const [filteredOrders, setFilteredOrders] = useState(orders.reverse());
+  // const [filteredOrders, setFilteredOrders] = useState(orders.reverse());
 
-  // When Selected user is changed
-  useEffect(() => {
-    let result = orders;
-    // if (!selectedUser._id) return;
-    // const filtered = orders
-    //   .filter((order) => order.userId === selectedUser._id)
-    //   .reverse();
-    // setFilteredOrders(filtered);
+  // When Selected user or year is changed
+  // useEffect(() => {
+  //   let result = orders;
 
-    if (selectedUser._id) {
-      const filtered = orders
-        .filter((order) => order.userId === selectedUser._id)
-        .reverse();
-      result = filtered;
-    }
+  //   if (selectedUser._id) {
+  //     const filtered = orders
+  //       .filter((order) => order.userId === selectedUser._id)
+  //       .reverse();
+  //     result = filtered;
+  //   }
 
-    if (selectedYear) {
-      const filtered = result.filter(
-        (order) => order.date.split("-")[0] === `${selectedYear}`
-      );
-      result = filtered;
-    }
-    console.log(selectedUser);
-
-    setFilteredOrders(result);
-  }, [selectedUser, selectedYear, orders]);
+  //   if (selectedYear) {
+  //     const filtered = result.filter(
+  //       (order) => order.date.split("-")[0] === `${selectedYear}`
+  //     );
+  //     result = filtered;
+  //   }
+  //   setFilteredOrders(result);
+  // }, [selectedUser, selectedYear, orders]);
 
   const getTotal = () => {
-    const total = filteredOrders.reduce((a, b) => a + b.total, 0);
+    const total = orders.reduce((a, b) => a + b.total, 0);
     return total.toFixed(2);
   };
 
   const renderRows = () => {
-    const rows = filteredOrders.map((order) => {
+    const rows = orders.map((order) => {
       return (
         <div key={order._id} className="order-list__table--row row">
           <span>{order.date}</span>
