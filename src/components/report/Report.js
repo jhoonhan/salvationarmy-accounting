@@ -23,7 +23,6 @@ const Report = ({
   const [selectedUser, setSelectedUser] = useState({});
 
   const [selectedYear, setSelectedYear] = useState(0);
-  const [filteredOrders, setFilteredOrders] = useState([]);
 
   // Init fecthe validate
   useEffect(() => {
@@ -39,28 +38,14 @@ const Report = ({
     setFetched(true);
   }, [user, order, report, fetched]);
 
-  // When year is changed
-  useEffect(() => {
-    if (!order.fetched) return;
-
-    const filtered = order.orders.filter((order) => {
-      return order.date.split("-")[0] === `${selectedYear}`;
-    });
-
-    selectedYear === 0
-      ? setFilteredOrders(order.orders)
-      : setFilteredOrders(filtered);
-  }, [selectedYear, order]);
-
-  useEffect(() => {
-    console.log(filteredOrders);
-  }, [filteredOrders]);
-
   const render = () => {
     if (!fetched) return <Loader show={true} />;
 
     return (
-      <main className="default__container user__container">
+      <main
+        className="default__container user__container"
+        style={{ height: "auto" }}
+      >
         <div className="default__col default__col--1"></div>
         <div className="default__col default__col--2">
           <header className="page-title merged-cell">
@@ -123,12 +108,21 @@ const Report = ({
 
             <OrderList
               users={user.users}
-              orders={filteredOrders}
+              orders={order.orders}
               selectedUser={selectedUser}
               selectedYear={selectedYear}
             />
 
             <button>Generate Report</button>
+          </section>
+          <section
+            className="flex__vertical merged-cell"
+            style={{ minHeight: "500px" }}
+          >
+            <UserForm
+              selectedUser={selectedUser}
+              setSelectedUser={setSelectedUser}
+            />
           </section>
         </div>
       </main>

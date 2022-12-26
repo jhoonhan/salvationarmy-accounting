@@ -9,13 +9,32 @@ import {
 const OrderList = ({ users, orders, selectedUser, selectedYear }) => {
   const [filteredOrders, setFilteredOrders] = useState(orders.reverse());
 
+  // When Selected user is changed
   useEffect(() => {
-    if (!selectedUser._id) return;
-    const filtered = orders
-      .filter((order) => order.userId === selectedUser._id)
-      .reverse();
-    setFilteredOrders(filtered);
-  }, [selectedUser, orders]);
+    let result = orders;
+    // if (!selectedUser._id) return;
+    // const filtered = orders
+    //   .filter((order) => order.userId === selectedUser._id)
+    //   .reverse();
+    // setFilteredOrders(filtered);
+
+    if (selectedUser._id) {
+      const filtered = orders
+        .filter((order) => order.userId === selectedUser._id)
+        .reverse();
+      result = filtered;
+    }
+
+    if (selectedYear) {
+      const filtered = result.filter(
+        (order) => order.date.split("-")[0] === `${selectedYear}`
+      );
+      result = filtered;
+    }
+    console.log(selectedUser);
+
+    setFilteredOrders(result);
+  }, [selectedUser, selectedYear, orders]);
 
   const getTotal = () => {
     const total = filteredOrders.reduce((a, b) => a + b.total, 0);
