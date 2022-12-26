@@ -125,6 +125,7 @@ const Report = ({
               users={user.users}
               orders={filteredOrders}
               selectedUser={selectedUser}
+              selectedYear={selectedYear}
             />
 
             <button>Generate Report</button>

@@ -6,7 +6,7 @@ import {
   getName,
 } from "../helpers/nameHelper";
 
-const OrderList = ({ users, orders, selectedUser }) => {
+const OrderList = ({ users, orders, selectedUser, selectedYear }) => {
   const [filteredOrders, setFilteredOrders] = useState(orders.reverse());
 
   useEffect(() => {
