@@ -7,7 +7,7 @@ const useFilterOrders = ({ orders, selectedUser, selectedYear }) => {
   useEffect(() => {
     let result = orders;
 
-    if (selectedUser._id) {
+    if (selectedUser?._id) {
       const filtered = orders
         .filter((order) => order.userId === selectedUser._id)
         .reverse();

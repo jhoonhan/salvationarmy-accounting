@@ -24,8 +24,8 @@ const Report = ({
 }) => {
   const [fetched, setFetched] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
-
   const [selectedYear, setSelectedYear] = useState(0);
+  const [showReport, setShowReport] = useState(false);
 
   const filteredOrders = useFilterOrders({
     orders: order.orders,
@@ -47,18 +47,31 @@ const Report = ({
     setFetched(true);
   }, [user, order, report, fetched]);
 
+  useEffect(() => {
+    if (selectedUser?.name) {
+      setShowReport(true);
+    }
+  }, [selectedUser]);
+
   const render = () => {
     if (!fetched) return <Loader show={true} />;
 
     return (
-      <main className="order__container" style={{ height: "auto" }}>
+      <main
+        className="order__container"
+        style={{ height: "auto", minHeight: "100vh" }}
+      >
         <div className="order__container__col order__container__col--1 print-area">
           <section
             className="flex__vertical merged-cell"
             style={{ minHeight: "500px", backgroundColor: "white" }}
           >
             <label>Generated Report</label>
-            <GeneratedReport user={selectedUser} orders={filteredOrders} />
+            <GeneratedReport
+              user={selectedUser}
+              orders={filteredOrders}
+              showReport={showReport}
+            />
           </section>
         </div>
         <div className="order__container__col order__container__col--2 print-hide-adea">
@@ -71,6 +84,7 @@ const Report = ({
             <UserForm
               selectedUser={selectedUser}
               setSelectedUser={setSelectedUser}
+              hideCreateForm={true}
             />
 
             {/* <OrderList

@@ -8,7 +8,7 @@ import { editUser } from "../../actions";
 
 const UserInfo = ({ selectedUser, change, handleSubmit, editUser }) => {
   useEffect(() => {
-    if (!selectedUser.name) return;
+    if (!selectedUser?.name) return;
     change("firstname", capitalizeName(selectedUser.firstname));
     change("lastname", capitalizeName(selectedUser.lastname));
     change("nameK", capitalizeName(selectedUser.nameK));

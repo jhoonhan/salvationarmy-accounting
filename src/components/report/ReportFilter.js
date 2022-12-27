@@ -1,7 +1,7 @@
 import React from "react";
 import { capitalizeName } from "../helpers/nameHelper";
 
-const YearSelector = ({ selectedUser, selectedYear, setSelectedYear }) => {
+const ReportFilter = ({ selectedUser, selectedYear, setSelectedYear }) => {
   return (
     <div
       style={{
@@ -38,7 +38,7 @@ const YearSelector = ({ selectedUser, selectedYear, setSelectedYear }) => {
               alignItems: "center",
             }}
           >
-            {selectedUser.name
+            {selectedUser?.name
               ? `${selectedUser.nameK && selectedUser.nameK} / ${capitalizeName(
                   selectedUser.name
                 )}`
@@ -50,4 +50,4 @@ const YearSelector = ({ selectedUser, selectedYear, setSelectedYear }) => {
   );
 };
 
-export default YearSelector;
+export default ReportFilter;

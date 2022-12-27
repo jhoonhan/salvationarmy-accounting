@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 // import { connect } from "react-redux";
 import { capitalizeName, lastFirstExt, getName } from "../helpers/nameHelper";
 
 import useGetTotal from "../hooks/useGetTotal";
 
-const GeneratedReport = ({ user, orders }) => {
+const GeneratedReport = ({ user, orders, showReport }) => {
   const totals = useGetTotal(orders);
 
   const convertOutput = (str) => {
@@ -70,6 +70,12 @@ const GeneratedReport = ({ user, orders }) => {
     });
 
   const render = () => {
+    if (!showReport)
+      return (
+        <>
+          <div className="order__chart">Select user</div>
+        </>
+      );
     return (
       <>
         <div className="order__chart">
