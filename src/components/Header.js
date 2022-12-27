@@ -16,8 +16,10 @@ const Header = ({ user, order, report, location, signOut }) => {
   const refTimer = useRef(null);
   const refCounter = useRef(null);
 
+  const hideHeaderPageList = ["/order", "/report"];
+
   useEffect(() => {
-    if (location.pathname === "/order") {
+    if (hideHeaderPageList.includes(location.pathname)) {
       setShow(false);
       setShowBtn(true);
     } else {
