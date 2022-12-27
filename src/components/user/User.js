@@ -5,6 +5,7 @@ import Loader from "../Loader";
 import UserForm from "./UserForm";
 import UserInfo from "./UserInfo";
 import OrderList from "../order/OrderList";
+import useFilterOrders from "../hooks/useFilterOrders";
 import uiIcons from "../../assets/images/ui-icons.svg";
 
 import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
@@ -19,6 +20,10 @@ const User = ({
 }) => {
   const [fetched, setFetched] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
+  const filteredOrders = useFilterOrders({
+    orders: order.orders,
+    selectedUser,
+  });
 
   useEffect(() => {
     fetchUsers();
@@ -55,11 +60,7 @@ const User = ({
           <section className="flex__vertical" style={{ paddingRight: "2rem" }}>
             <UserInfo selectedUser={selectedUser} />
 
-            <OrderList
-              users={user.users}
-              orders={order.orders}
-              selectedUser={selectedUser}
-            />
+            <OrderList users={user.users} orders={filteredOrders} />
           </section>
         </div>
       </main>

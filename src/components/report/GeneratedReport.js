@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-// import { connect } from "react-redux";
-import { capitalizeName, lastFirstExt, getName } from "../helpers/nameHelper";
 
 import useGetTotal from "../hooks/useGetTotal";
 
-const GeneratedReport = ({ user, orders, showReport }) => {
+const GeneratedReport = ({ orders, showReport }) => {
   const totals = useGetTotal(orders);
 
   const convertOutput = (str) => {

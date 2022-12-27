@@ -23,7 +23,7 @@ const Report = ({
   fetchUsers,
 }) => {
   const [fetched, setFetched] = useState(false);
-  const [selectedUser, setSelectedUser] = useState({});
+  const [selectedUser, setSelectedUser] = useState(null);
   const [selectedYear, setSelectedYear] = useState(0);
   const [showReport, setShowReport] = useState(false);
 
@@ -48,8 +48,13 @@ const Report = ({
   }, [user, order, report, fetched]);
 
   useEffect(() => {
+    console.log(selectedUser);
+
     if (selectedUser?.name) {
       setShowReport(true);
+    }
+    if (!selectedUser) {
+      setShowReport(false);
     }
   }, [selectedUser]);
 
