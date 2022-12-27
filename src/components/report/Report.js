@@ -98,7 +98,14 @@ const Report = ({
               selectedUser={selectedUser}
               selectedYear={selectedYear}
             /> */}
-            <button>Generate Report</button>
+            <div className="ui__container">
+              <label>Print Report</label>
+              {selectedUser?.name ? (
+                <button>Print Report for the selected user</button>
+              ) : (
+                <button>Print Report for every user</button>
+              )}
+            </div>
           </section>
         </div>
       </main>

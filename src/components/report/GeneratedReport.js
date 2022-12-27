@@ -39,41 +39,24 @@ const GeneratedReport = ({ orders, showReport }) => {
       );
     });
   };
-  const renderOrderRow = orders
-    // .sort((a, b) => {
-    //   return lastFirst(a.name).localeCompare(lastFirst(b.name));
-    // })
-    .map((order, i) => {
-      return (
-        <React.Fragment key={i}>
-          <div>{i + 1}</div>
-          <div>{order.date}</div>
-          <div>{order.checkNumber}</div>
-          <div>{convertOutput(order.amountCartridge)}</div>
-          <div>{convertOutput(order.amountOffering)}</div>
-          <div>{convertOutput(order.amountThanksgiving)}</div>
-          <div>{convertOutput(order.amountSelfDenial)}</div>
-          <div>{convertOutput(order.amountBuildingFund)}</div>
-          <div>$ {order.total.toFixed(2)}</div>
-          <div></div>
-          {/* <div className="row__delete">
-            {showForm ? (
-              <OrderDeleteButton order={order} orders={orders} />
-            ) : (
-              ""
-            )}
-          </div> */}
-        </React.Fragment>
-      );
-    });
+  const renderOrderRow = orders.map((order, i) => {
+    return (
+      <React.Fragment key={i}>
+        <div>{i + 1}</div>
+        <div>{order.date}</div>
+        <div>{order.checkNumber}</div>
+        <div>{convertOutput(order.amountCartridge)}</div>
+        <div>{convertOutput(order.amountOffering)}</div>
+        <div>{convertOutput(order.amountThanksgiving)}</div>
+        <div>{convertOutput(order.amountSelfDenial)}</div>
+        <div>{convertOutput(order.amountBuildingFund)}</div>
+        <div>$ {order.total.toFixed(2)}</div>
+        <div></div>
+      </React.Fragment>
+    );
+  });
 
   const render = () => {
-    if (!showReport)
-      return (
-        <>
-          <div className="order__chart">Select user</div>
-        </>
-      );
     return (
       <>
         <div className="order__chart">
@@ -90,40 +73,40 @@ const GeneratedReport = ({ orders, showReport }) => {
 
           <div>Total</div>
           <div></div>
-          {renderOrderRow}
+          {showReport && renderOrderRow}
           {renderEmptyRow()}
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
           <div style={{ justifyContent: "end" }}>Subtotal Check:</div>
-          <div>$ {totals.cartridge.check.toFixed(2)}</div>
-          <div>$ {totals.offering.check.toFixed(2)}</div>
-          <div>$ {totals.thanksGiving.check.toFixed(2)}</div>
-          <div>$ {totals.selfDenial.check.toFixed(2)}</div>
-          <div>$ {totals.buildingFund.check.toFixed(2)}</div>
-          <div>$ {totals.subTotalCheck.toFixed(2)}</div>
+          <div>$ {showReport ? totals.cartridge.check.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.offering.check.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.thanksGiving.check.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.selfDenial.check.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.buildingFund.check.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.subTotalCheck.toFixed(2) : 0}</div>
           <div></div>
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
           <div style={{ justifyContent: "end" }}>Subtotal Cash:</div>
-          <div>$ {totals.cartridge.cash.toFixed(2)}</div>
-          <div>$ {totals.offering.cash.toFixed(2)}</div>
-          <div>$ {totals.thanksGiving.cash.toFixed(2)}</div>
-          <div>$ {totals.selfDenial.cash.toFixed(2)}</div>
-          <div>$ {totals.buildingFund.cash.toFixed(2)}</div>
-          <div>$ {totals.subTotalCash.toFixed(2)}</div>
+          <div>$ {showReport ? totals.cartridge.cash.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.offering.cash.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.thanksGiving.cash.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.selfDenial.cash.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.buildingFund.cash.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.subTotalCash.toFixed(2) : 0}</div>
           <div></div>
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
           <div style={{ justifyContent: "end" }}>Total:</div>
-          <div>$ {totals.cartridge.total.toFixed(2)}</div>
-          <div>$ {totals.offering.total.toFixed(2)}</div>
-          <div>$ {totals.thanksGiving.total.toFixed(2)}</div>
-          <div>$ {totals.selfDenial.total.toFixed(2)}</div>
-          <div>$ {totals.buildingFund.total.toFixed(2)}</div>
-          <div>$ {totals.total.toFixed(2)}</div>
+          <div>$ {showReport ? totals.cartridge.total.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.offering.total.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.thanksGiving.total.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.selfDenial.total.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.buildingFund.total.toFixed(2) : 0}</div>
+          <div>$ {showReport ? totals.total.toFixed(2) : 0}</div>
           <div></div>
         </div>
       </>
