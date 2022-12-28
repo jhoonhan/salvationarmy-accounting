@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 
 import useGetTotal from "../hooks/useGetTotal";
+import useFilterOrders from "../hooks/useFilterOrders";
 
-const GeneratedReport = ({ orders, showReport }) => {
-  const totals = useGetTotal(orders);
+const GeneratedReport = ({
+  orders,
+  users,
+  selectedUser,
+  selectedYear,
+  showReport,
+}) => {
+  const filteredOrders = useFilterOrders({
+    orders,
+    selectedUser,
+    selectedYear,
+  });
+  const totals = useGetTotal(filteredOrders);
 
   const convertOutput = (str) => {
     let output;
@@ -12,14 +24,13 @@ const GeneratedReport = ({ orders, showReport }) => {
     } else {
       output = `$ ${str.toFixed(2)}`;
     }
-
     return output;
   };
 
   const renderEmptyRow = () => {
-    if (orders.length > 25) return null;
+    if (filteredOrders.length > 25) return null;
     let arr = [];
-    for (let i = orders.length + 1; i <= 25; i++) {
+    for (let i = filteredOrders.length + 1; i <= 25; i++) {
       arr.push(i);
     }
     return arr.map((el) => {
@@ -39,7 +50,7 @@ const GeneratedReport = ({ orders, showReport }) => {
       );
     });
   };
-  const renderOrderRow = orders.map((order, i) => {
+  const renderOrderRow = filteredOrders.map((order, i) => {
     return (
       <React.Fragment key={i}>
         <div>{i + 1}</div>
@@ -56,9 +67,18 @@ const GeneratedReport = ({ orders, showReport }) => {
     );
   });
 
+  const renderTable = () => {};
+
   const render = () => {
     return (
-      <>
+      <div
+        className="flex__vertical"
+        style={{
+          minHeight: "500px",
+          backgroundColor: "white",
+        }}
+      >
+        <label>Generated Report</label>
         <div className="order__chart">
           <div>
             <div></div>
@@ -109,7 +129,7 @@ const GeneratedReport = ({ orders, showReport }) => {
           <div>$ {showReport ? totals.total.toFixed(2) : 0}</div>
           <div></div>
         </div>
-      </>
+      </div>
     );
   };
 

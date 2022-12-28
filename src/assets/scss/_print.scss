@@ -23,6 +23,9 @@
     color: black !important;
   }
   .print-area {
+    display: block;
+    float: none;
+
     padding: 0;
     margin: 0;
   }
@@ -58,5 +61,19 @@
   }
   .header__container {
     display: none;
+  }
+  .signout-timer {
+    display: none;
+  }
+  .page-break {
+    display: block;
+    float: none;
+
+    page-break-after: always;
+    page-break-before: always;
+  }
+  .print-blockify {
+    display: block;
+    float: none;
   }
 }

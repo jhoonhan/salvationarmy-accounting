@@ -3,14 +3,9 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import UserForm from "../user/UserForm";
-import uiIcons from "../../assets/images/ui-icons.svg";
-import OrderList from "../order/OrderList";
 import Loader from "../Loader";
 import GeneratedReport from "./GeneratedReport";
 import ReportFilter from "./ReportFilter";
-
-import { capitalizeName } from "../helpers/nameHelper";
-import useFilterOrders from "../hooks/useFilterOrders";
 
 import { fetchReports, fetchOrders, fetchUsers } from "../../actions";
 
@@ -26,12 +21,6 @@ const Report = ({
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedYear, setSelectedYear] = useState(0);
   const [showReport, setShowReport] = useState(false);
-
-  const filteredOrders = useFilterOrders({
-    orders: order.orders,
-    selectedUser,
-    selectedYear,
-  });
 
   // Init fecthe validate
   useEffect(() => {
@@ -63,22 +52,19 @@ const Report = ({
 
     return (
       <main
-        className="order__container"
+        className="order__container print-blockify"
         style={{ height: "auto", minHeight: "100vh" }}
       >
-        <div className="order__container__col order__container__col--1 print-area">
-          <section
-            className="flex__vertical merged-cell"
-            style={{ minHeight: "500px", backgroundColor: "white" }}
-          >
-            <label>Generated Report</label>
-            <GeneratedReport
-              user={selectedUser}
-              orders={filteredOrders}
-              showReport={showReport}
-            />
-          </section>
+        <div className="order__container__col order__container__col--1 print-area print-blockify">
+          <GeneratedReport
+            users={user.users}
+            orders={order.orders}
+            selectedUser={selectedUser}
+            selectedYear={selectedYear}
+            showReport={showReport}
+          />
         </div>
+
         <div className="order__container__col order__container__col--2 print-hide-adea">
           <section className="flex__vertical">
             <ReportFilter
@@ -92,12 +78,6 @@ const Report = ({
               hideCreateForm={true}
             />
 
-            {/* <OrderList
-              users={user.users}
-              orders={order.orders}
-              selectedUser={selectedUser}
-              selectedYear={selectedYear}
-            /> */}
             <div className="ui__container">
               <label>Print Report</label>
               {selectedUser?.name ? (
