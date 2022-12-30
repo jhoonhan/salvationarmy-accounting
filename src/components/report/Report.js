@@ -51,44 +51,47 @@ const Report = ({
     if (!fetched) return <Loader show={true} />;
 
     return (
-      <main
-        className="order__container print-blockify"
-        style={{ height: "auto", minHeight: "100vh" }}
-      >
-        <div className="order__container__col order__container__col--1 print-area print-blockify">
-          <GeneratedReport
-            users={user.users}
-            orders={order.orders}
-            selectedUser={selectedUser}
-            selectedYear={selectedYear}
-            showReport={showReport}
-          />
-        </div>
-
-        <div className="order__container__col order__container__col--2 print-hide-adea">
-          <section className="flex__vertical">
-            <ReportFilter
+      <>
+        <main
+          className="order__container print-blockify"
+          style={{ height: "auto", minHeight: "100vh" }}
+        >
+          <div className="order__container__col order__container__col--1 print-area print-blockify">
+            <GeneratedReport
+              users={user.users}
+              orders={order.orders}
               selectedUser={selectedUser}
               selectedYear={selectedYear}
-              setSelectedYear={setSelectedYear}
+              showReport={showReport}
             />
-            <UserForm
-              selectedUser={selectedUser}
-              setSelectedUser={setSelectedUser}
-              hideCreateForm={true}
-            />
+          </div>
 
-            <div className="ui__container">
-              <label>Print Report</label>
-              {selectedUser?.name ? (
-                <button>Print Report for the selected user</button>
-              ) : (
-                <button>Print Report for every user</button>
-              )}
-            </div>
-          </section>
-        </div>
-      </main>
+          <div className="order__container__col order__container__col--2 print-hide-adea">
+            <section className="flex__vertical">
+              <ReportFilter
+                selectedUser={selectedUser}
+                selectedYear={selectedYear}
+                setSelectedYear={setSelectedYear}
+              />
+              <UserForm
+                selectedUser={selectedUser}
+                setSelectedUser={setSelectedUser}
+                hideCreateForm={true}
+              />
+
+              <div className="ui__container">
+                <label>Print Report</label>
+                {selectedUser?.name ? (
+                  <button>Print Report for the selected user</button>
+                ) : (
+                  <button>Print Report for every user</button>
+                )}
+              </div>
+            </section>
+          </div>
+        </main>
+        <p className="page-blockify">aang</p>
+      </>
     );
   };
   return render();
