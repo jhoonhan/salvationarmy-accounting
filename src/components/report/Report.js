@@ -20,7 +20,6 @@ const Report = ({
   const [fetched, setFetched] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedYear, setSelectedYear] = useState(0);
-  const [showReport, setShowReport] = useState(false);
 
   // Init fecthe validate
   useEffect(() => {
@@ -36,33 +35,21 @@ const Report = ({
     setFetched(true);
   }, [user, order, report, fetched]);
 
-  useEffect(() => {
-    console.log(selectedUser);
-
-    if (selectedUser?.name) {
-      setShowReport(true);
-    }
-    if (!selectedUser) {
-      setShowReport(false);
-    }
-  }, [selectedUser]);
-
   const render = () => {
     if (!fetched) return <Loader show={true} />;
 
     return (
       <>
         <main
-          className="order__container print-blockify"
+          className="order__container"
           style={{ height: "auto", minHeight: "100vh" }}
         >
-          <div className="order__container__col order__container__col--1 print-area print-blockify">
+          <div className="order__container__col order__container__col--1 print-area">
             <GeneratedReport
               users={user.users}
               orders={order.orders}
               selectedUser={selectedUser}
               selectedYear={selectedYear}
-              showReport={showReport}
             />
           </div>
 

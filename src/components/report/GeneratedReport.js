@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import useGetTotal from "../hooks/useGetTotal";
 import useFilterOrders from "../hooks/useFilterOrders";
 
-const GeneratedReport = ({
-  orders,
-  users,
-  selectedUser,
-  selectedYear,
-  showReport,
-}) => {
+const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
   const filteredOrders = useFilterOrders({
     orders,
     selectedUser,
     selectedYear,
   });
   const totals = useGetTotal(filteredOrders);
+  const [showReport, setShowReport] = useState(false);
+  const [sortedOrder, setSortedOrder] = useState([]);
+
+  // Toogle report showing based on if there is selected user
+  useEffect(() => {
+    selectedUser?.name ? setShowReport(true) : setShowReport(true);
+
+    if (!selectedUser) {
+      setSortedOrder(sortOrderByKey(filteredOrders, "userId"));
+    } else {
+      setSortedOrder(filteredOrders);
+    }
+  }, [selectedUser, filteredOrders]);
+
+  useEffect(() => {
+    console.log(sortedOrder);
+  }, [sortedOrder]);
 
   const convertOutput = (str) => {
     let output;
@@ -25,6 +36,19 @@ const GeneratedReport = ({
       output = `$ ${str.toFixed(2)}`;
     }
     return output;
+  };
+
+  const sortOrderByKey = (orders, prop) => {
+    return orders.reduce((acc, obj) => {
+      // console.log(acc);
+      const key = obj[prop];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      // Add object to list for given key's value
+      acc[key].push(obj);
+      return acc;
+    }, {});
   };
 
   const renderEmptyRow = () => {
