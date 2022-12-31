@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import { connect } from "react-redux";
 
@@ -21,6 +21,8 @@ const Report = ({
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
+  const refPrint = useRef(null);
+
   // Init fecthe validate
   useEffect(() => {
     fetchUsers();
@@ -35,6 +37,11 @@ const Report = ({
     setFetched(true);
   }, [user, order, report, fetched]);
 
+  const onClickPrint = () => {
+    refPrint.current.scrollTo(0, 0);
+    window.print();
+  };
+
   const render = () => {
     if (!fetched) return <Loader show={true} />;
 
@@ -43,7 +50,10 @@ const Report = ({
         className="order__container"
         style={{ height: "auto", minHeight: "100vh" }}
       >
-        <div className="order__container__col order__container__col--1 print-area">
+        <div
+          className="order__container__col order__container__col--1 print-area"
+          ref={refPrint}
+        >
           <GeneratedReport
             users={user.users}
             orders={order.orders}
@@ -68,9 +78,13 @@ const Report = ({
             <div className="ui__container">
               <label>Print Report</label>
               {selectedUser?.name ? (
-                <button>Print Report for the selected user</button>
+                <button onClick={onClickPrint}>
+                  Print Report for the selected user
+                </button>
               ) : (
-                <button>Print Report for every user</button>
+                <button onClick={onClickPrint}>
+                  Print Report for every user
+                </button>
               )}
             </div>
           </section>

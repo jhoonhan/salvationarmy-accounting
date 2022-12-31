@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import useGetTotal from "../hooks/useGetTotal";
 import useFilterOrders from "../hooks/useFilterOrders";
 import sortOrderByKey from "../helpers/sortOrderByKey";
 import getTotal from "../helpers/getTotal";
