@@ -1,10 +1,16 @@
 .letter-container {
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   gap: 40px;
   padding: 60px 60px;
+  box-sizing: border-box;
 
+  img {
+    margin: 0 auto;
+    padding-bottom: 40px;
+  }
   table {
     border: 1px solid black;
     padding: 0;
@@ -12,8 +18,10 @@
 
     td,
     th {
+      text-align: center;
       padding: 15px;
       border: 1px solid black;
+      box-sizing: border-box;
     }
   }
 }

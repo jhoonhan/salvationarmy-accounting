@@ -5,6 +5,7 @@ import useFilterOrders from "../hooks/useFilterOrders";
 import sortOrderByKey from "../helpers/sortOrderByKey";
 import getTotal from "../helpers/getTotal";
 import { capitalizeName } from "../helpers/nameHelper";
+import letterLogo from "../../assets/images/logo_letter.png";
 
 const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
   const filteredOrders = useFilterOrders({
@@ -139,16 +140,17 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
   const renderLetter = (name, totals) => {
     return (
       <div className="letter-container">
-        <span>LOGO</span>
+        <img src={letterLogo} width="180" alt="logo" />
         <p>
           Dear {name},
           <br />
           <br />
           <br />
-          We thank God for you! Your gifts of $0,000 to The Salvation Army of
-          Kernersville, NC during the year of 2022 are gratefully acknowledged.
-          Because of your contributions, our congregation has been able to
-          support the work of Jesus Christ locally and around the world.
+          We thank God for you! Your gifts of ${totals.total.toFixed(2)} to The
+          Salvation Army of Kernersville, NC during the year of{" "}
+          {new Date().getFullYear()} are gratefully acknowledged. Because of
+          your contributions, our congregation has been able to support the work
+          of Jesus Christ locally and around the world.
           <br />
           <br />
           For income tax purposes, it is important for us to state here that you
@@ -158,7 +160,7 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
           <br />
           <br />
           Once again, thank you for your generous commitment to the work of
-          Jesus Christ through The Salvation Army of Gwinnett County.
+          Jesus Christ through The Salvation Army of Forsyth County.
           <br />
         </p>
         <table>
