@@ -72,4 +72,8 @@
     page-break-after: always;
     // page-break-before: always;
   }
+
+  .report__container {
+    max-height: none;
+  }
 }

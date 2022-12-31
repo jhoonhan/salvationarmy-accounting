@@ -6,6 +6,7 @@ import logo from "../../assets/images/logo.svg";
 import logoFooter from "../../assets/images/logo_footer.png";
 import renderField from "../helpers/renderField";
 import { signIn, signOut, createError } from "../../actions";
+import { version } from "../../config";
 
 const SignIn = ({ signIn, createError, handleSubmit, submitting }) => {
   const password = "leelee";
@@ -48,7 +49,7 @@ const SignIn = ({ signIn, createError, handleSubmit, submitting }) => {
             Log In
           </button>
         </form>
-        <p className="version">v.2.2.1</p>
+        <p className="version">{version}</p>
       </div>
     </div>
   );
