@@ -136,11 +136,67 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
       </div>
     );
   };
-  const renderLetter = (userIds, orders) => {
+  const renderLetter = (name, totals) => {
     return (
-      <div>
+      <div className="letter-container">
         <span>LOGO</span>
-        <p>Dear {"name"}</p>
+        <p>
+          Dear {name},
+          <br />
+          <br />
+          <br />
+          We thank God for you! Your gifts of $0,000 to The Salvation Army of
+          Kernersville, NC during the year of 2022 are gratefully acknowledged.
+          Because of your contributions, our congregation has been able to
+          support the work of Jesus Christ locally and around the world.
+          <br />
+          <br />
+          For income tax purposes, it is important for us to state here that you
+          did not receive any goods or services in return for any of these
+          contributions other than intangible religious benefits. You made
+          theses gifts out of you own generosity and commitment to Jesus Christ.
+          <br />
+          <br />
+          Once again, thank you for your generous commitment to the work of
+          Jesus Christ through The Salvation Army of Gwinnett County.
+          <br />
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Tithes (Cartridge)</th>
+              <th>Sunday Offering</th>
+              <th>Thanks Offering</th>
+              <th>Building Offering</th>
+              <th>Missionary Offering</th>
+              <th>Total Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Amount</td>
+              <td>$ {showReport ? totals.cartridge.total.toFixed(2) : 0}</td>
+              <td>$ {showReport ? totals.offering.total.toFixed(2) : 0}</td>
+              <td>$ {showReport ? totals.thanksGiving.total.toFixed(2) : 0}</td>
+              <td>$ {showReport ? totals.selfDenial.total.toFixed(2) : 0}</td>
+              <td>$ {showReport ? totals.buildingFund.total.toFixed(2) : 0}</td>
+              <td>$ {showReport ? totals.total.toFixed(2) : 0}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Sincerely,
+          <br />
+          <br />
+          <br />
+          Minkee Kim, Captain
+          <br />
+          The Salvation Army of Kernersville, NC
+          <br />
+          132 E. Mountain St. Kernersville, NC 27284
+          <br />
+        </p>
       </div>
     );
   };
@@ -148,10 +204,12 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
   const renderTableByUser = (userIds, orders) => {
     if (!userIds || !orders) return;
     return userIds.map((id) => {
-      const totals = getTotal(orders[id]);
+      const userOrders = orders[id];
+      const totals = getTotal(userOrders);
+      const name = capitalizeName(userOrders[0].name);
       return (
         <React.Fragment key={id}>
-          <div
+          {/* <div
             className="flex__vertical"
             style={{
               minHeight: "500px",
@@ -225,9 +283,10 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
               <div>$ {showReport ? totals.total.toFixed(2) : 0}</div>
               <div></div>
             </div>
-          </div>
+          </div> */}
+          {renderTable(orders[id], totals)}
           <div className="page-break"></div>
-          {renderLetter()}
+          {renderLetter(name, totals)}
           <div className="page-break"></div>
         </React.Fragment>
       );
