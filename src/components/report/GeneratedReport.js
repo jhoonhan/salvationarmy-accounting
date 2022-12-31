@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import useGetTotal from "../hooks/useGetTotal";
 import useFilterOrders from "../hooks/useFilterOrders";
+import sortOrderByKey from "../helpers/sortOrderByKey";
+import getTotal from "../helpers/getTotal";
+import { capitalizeName } from "../helpers/nameHelper";
 
 const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
   const filteredOrders = useFilterOrders({
@@ -9,34 +12,11 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
     selectedUser,
     selectedYear,
   });
-  const totals = useGetTotal(filteredOrders);
-  const [showReport, setShowReport] = useState(false);
-  const [sortedOrder, setSortedOrder] = useState([]);
-  const [userList, setUserList] = useState([]);
+  // const totals = useGetTotal(filteredOrders);
+  const [showReport, setShowReport] = useState(true);
 
-  // Toogle report showing based on if there is selected user
-  useEffect(() => {
-    selectedUser?.name ? setShowReport(true) : setShowReport(false);
-
-    if (!selectedUser) {
-      setSortedOrder(sortOrderByKey(filteredOrders, "userId"));
-    } else {
-      setSortedOrder(sortOrderByKey(filteredOrders, "userId"));
-    }
-  }, [selectedUser, filteredOrders]);
-
-  // Change user list based on sorted orders
-  useEffect(() => {
-    setUserList(Object.keys(sortedOrder));
-  }, [sortedOrder]);
-
-  useEffect(() => {
-    console.log(sortedOrder);
-  }, [sortedOrder]);
-
-  useEffect(() => {
-    console.log(userList);
-  }, [userList]);
+  const sortedOrders = sortOrderByKey(filteredOrders, "userId");
+  const userList = Object.keys(sortedOrders);
 
   const convertOutput = (str) => {
     let output;
@@ -46,19 +26,6 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
       output = `$ ${str.toFixed(2)}`;
     }
     return output;
-  };
-
-  const sortOrderByKey = (orders, prop) => {
-    return orders.reduce((acc, obj) => {
-      // console.log(acc);
-      const key = obj[prop];
-      if (!acc[key]) {
-        acc[key] = [];
-      }
-      // Add object to list for given key's value
-      acc[key].push(obj);
-      return acc;
-    }, {});
   };
 
   const renderEmptyRow = () => {
@@ -104,9 +71,11 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
   };
 
   const renderTableByUser = (userIds, orders) => {
+    if (!userIds || !orders) return;
     return userIds.map((id) => {
+      const totals = getTotal(orders[id]);
       return (
-        <>
+        <React.Fragment key={id}>
           <div
             className="flex__vertical"
             style={{
@@ -114,7 +83,11 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
               backgroundColor: "white",
             }}
           >
-            <label>Generated Report</label>
+            <div>
+              <label>Generated Report</label>
+              <p style={{ paddingTop: "20px" }}>Year: {selectedYear}</p>
+              <p>Name: {capitalizeName(orders[id][0].name)}</p>
+            </div>
             <div className="order__chart">
               <div>
                 <div></div>
@@ -179,81 +152,82 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
             </div>
           </div>
           <div className="page-break">break</div>
-        </>
+          <p>aaang</p>
+        </React.Fragment>
       );
     });
   };
 
-  const renderTable = () => {
-    return (
-      <>
-        <div
-          className="flex__vertical"
-          style={{
-            minHeight: "500px",
-            backgroundColor: "white",
-          }}
-        >
-          <label>Generated Report</label>
-          <div className="order__chart">
-            <div>
-              <div></div>
-            </div>
-            <div>Date</div>
-            <div>Check #</div>
-            <div>Cartridge</div>
-            <div>Offering</div>
-            <div>Thanksgiving</div>
-            <div>Self & World</div>
-            <div>Building</div>
+  // const renderTable = () => {
+  //   return (
+  //     <>
+  //       <div
+  //         className="flex__vertical"
+  //         style={{
+  //           minHeight: "500px",
+  //           backgroundColor: "white",
+  //         }}
+  //       >
+  //         <label>Generated Report</label>
+  //         <div className="order__chart">
+  //           <div>
+  //             <div></div>
+  //           </div>
+  //           <div>Date</div>
+  //           <div>Check #</div>
+  //           <div>Cartridge</div>
+  //           <div>Offering</div>
+  //           <div>Thanksgiving</div>
+  //           <div>Self & World</div>
+  //           <div>Building</div>
 
-            <div>Total</div>
-            <div></div>
-            {showReport && renderOrderRow(filteredOrders)}
-            {renderEmptyRow()}
+  //           <div>Total</div>
+  //           <div></div>
+  //           {showReport && renderOrderRow(filteredOrders)}
+  //           {renderEmptyRow()}
 
-            <div></div>
-            <div style={{ borderRight: "none" }}></div>
-            <div style={{ justifyContent: "end" }}>Subtotal Check:</div>
-            <div>$ {showReport ? totals.cartridge.check.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.offering.check.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.thanksGiving.check.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.selfDenial.check.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.buildingFund.check.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.subTotalCheck.toFixed(2) : 0}</div>
-            <div></div>
+  //           <div></div>
+  //           <div style={{ borderRight: "none" }}></div>
+  //           <div style={{ justifyContent: "end" }}>Subtotal Check:</div>
+  //           <div>$ {showReport ? totals.cartridge.check.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.offering.check.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.thanksGiving.check.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.selfDenial.check.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.buildingFund.check.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.subTotalCheck.toFixed(2) : 0}</div>
+  //           <div></div>
 
-            <div></div>
-            <div style={{ borderRight: "none" }}></div>
-            <div style={{ justifyContent: "end" }}>Subtotal Cash:</div>
-            <div>$ {showReport ? totals.cartridge.cash.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.offering.cash.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.thanksGiving.cash.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.selfDenial.cash.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.buildingFund.cash.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.subTotalCash.toFixed(2) : 0}</div>
-            <div></div>
+  //           <div></div>
+  //           <div style={{ borderRight: "none" }}></div>
+  //           <div style={{ justifyContent: "end" }}>Subtotal Cash:</div>
+  //           <div>$ {showReport ? totals.cartridge.cash.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.offering.cash.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.thanksGiving.cash.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.selfDenial.cash.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.buildingFund.cash.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.subTotalCash.toFixed(2) : 0}</div>
+  //           <div></div>
 
-            <div></div>
-            <div style={{ borderRight: "none" }}></div>
-            <div style={{ justifyContent: "end" }}>Total:</div>
-            <div>$ {showReport ? totals.cartridge.total.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.offering.total.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.thanksGiving.total.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.selfDenial.total.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.buildingFund.total.toFixed(2) : 0}</div>
-            <div>$ {showReport ? totals.total.toFixed(2) : 0}</div>
-            <div></div>
-          </div>
-        </div>
-        <div className="page-break">break</div>
-      </>
-    );
-  };
+  //           <div></div>
+  //           <div style={{ borderRight: "none" }}></div>
+  //           <div style={{ justifyContent: "end" }}>Total:</div>
+  //           <div>$ {showReport ? totals.cartridge.total.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.offering.total.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.thanksGiving.total.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.selfDenial.total.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.buildingFund.total.toFixed(2) : 0}</div>
+  //           <div>$ {showReport ? totals.total.toFixed(2) : 0}</div>
+  //           <div></div>
+  //         </div>
+  //       </div>
+  //       <div className="page-break">break</div>
+  //     </>
+  //   );
+  // };
 
   const render = () => {
-    return <>{renderTable()}</>;
-    // return <>{renderTableByUser(userList, sortedOrder)}</>;
+    // return <>{renderTable()}</>;
+    return <>{renderTableByUser(userList, sortedOrders)}</>;
   };
 
   return render();

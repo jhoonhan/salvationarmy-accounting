@@ -19,7 +19,7 @@ const Report = ({
 }) => {
   const [fetched, setFetched] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(0);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   // Init fecthe validate
   useEffect(() => {
@@ -39,46 +39,43 @@ const Report = ({
     if (!fetched) return <Loader show={true} />;
 
     return (
-      <>
-        <main
-          className="order__container"
-          style={{ height: "auto", minHeight: "100vh" }}
-        >
-          <div className="order__container__col order__container__col--1 print-area">
-            <GeneratedReport
-              users={user.users}
-              orders={order.orders}
+      <main
+        className="order__container"
+        style={{ height: "auto", minHeight: "100vh" }}
+      >
+        <div className="order__container__col order__container__col--1 print-area">
+          <GeneratedReport
+            users={user.users}
+            orders={order.orders}
+            selectedUser={selectedUser}
+            selectedYear={selectedYear}
+          />
+        </div>
+
+        <div className="order__container__col order__container__col--2 print-hide-adea">
+          <section className="flex__vertical">
+            <ReportFilter
               selectedUser={selectedUser}
               selectedYear={selectedYear}
+              setSelectedYear={setSelectedYear}
             />
-          </div>
+            <UserForm
+              selectedUser={selectedUser}
+              setSelectedUser={setSelectedUser}
+              hideCreateForm={true}
+            />
 
-          <div className="order__container__col order__container__col--2 print-hide-adea">
-            <section className="flex__vertical">
-              <ReportFilter
-                selectedUser={selectedUser}
-                selectedYear={selectedYear}
-                setSelectedYear={setSelectedYear}
-              />
-              <UserForm
-                selectedUser={selectedUser}
-                setSelectedUser={setSelectedUser}
-                hideCreateForm={true}
-              />
-
-              <div className="ui__container">
-                <label>Print Report</label>
-                {selectedUser?.name ? (
-                  <button>Print Report for the selected user</button>
-                ) : (
-                  <button>Print Report for every user</button>
-                )}
-              </div>
-            </section>
-          </div>
-        </main>
-        <p className="page-blockify">aang</p>
-      </>
+            <div className="ui__container">
+              <label>Print Report</label>
+              {selectedUser?.name ? (
+                <button>Print Report for the selected user</button>
+              ) : (
+                <button>Print Report for every user</button>
+              )}
+            </div>
+          </section>
+        </div>
+      </main>
     );
   };
   return render();
