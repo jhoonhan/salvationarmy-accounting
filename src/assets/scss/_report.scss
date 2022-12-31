@@ -3,7 +3,6 @@
   height: 100vh;
   @media print {
   }
-  border: 1px dashed red;
 
   display: flex;
   justify-content: flex-start;
@@ -14,6 +13,12 @@
 
   overflow: visible;
 
+  p {
+    @media print {
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+  }
   img {
     margin: 0 auto;
     padding-bottom: 40px;
@@ -25,8 +30,11 @@
 
     td,
     th {
+      font-size: 1.2rem;
+
       text-align: center;
-      padding: 15px;
+      padding: 10px;
+
       border: 1px solid black;
       box-sizing: border-box;
     }
@@ -35,7 +43,7 @@
 .report__container {
   height: 100% !important;
   @media print {
-    height: auto;
+    height: auto !important;
   }
   overflow: visible !important;
 }
@@ -46,7 +54,6 @@
   @media print {
     max-height: none;
   }
-  border: 1px solid red;
 
   overflow-y: scroll;
   @media print {

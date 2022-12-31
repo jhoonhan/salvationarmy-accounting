@@ -71,7 +71,7 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
     });
   };
 
-  const renderTable = (orders, totals) => {
+  const renderTable = (orders, totals, index) => {
     return (
       <div
         className="flex__vertical"
@@ -79,9 +79,11 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
           backgroundColor: "white",
         }}
       >
-        <div>
-          <label>Generated Report</label>
-          <p style={{ paddingTop: "20px" }}>Year: {selectedYear}</p>
+        <div style={{ width: "100%" }}>
+          <h4 style={{ width: "100%", textAlign: "center" }}>
+            Generated Report
+          </h4>
+          <p>Year: {selectedYear}</p>
           <p>Name: {capitalizeName(orders[0].name)}</p>
         </div>
         <div className="order__chart">
@@ -139,7 +141,7 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
   };
   const renderLetter = (name, totals) => {
     return (
-      <div className="letter-container print__blockify">
+      <div className="letter-container">
         <img src={letterLogo} width="180" alt="logo" />
         <p>
           Dear {name},
@@ -147,10 +149,10 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
           <br />
           <br />
           We thank God for you! Your gifts of ${totals.total.toFixed(2)} to The
-          Salvation Army of Kernersville, NC during the year of{" "}
-          {new Date().getFullYear()} are gratefully acknowledged. Because of
-          your contributions, our congregation has been able to support the work
-          of Jesus Christ locally and around the world.
+          Salvation Army of Kernersville, NC during the year of {selectedYear}{" "}
+          are gratefully acknowledged. Because of your contributions, our
+          congregation has been able to support the work of Jesus Christ locally
+          and around the world.
           <br />
           <br />
           For income tax purposes, it is important for us to state here that you
@@ -205,16 +207,17 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
 
   const renderTableByUser = (userIds, orders) => {
     if (!userIds || !orders) return;
-    return userIds.map((id) => {
+    return userIds.map((id, i, arr) => {
       const userOrders = orders[id];
       const totals = getTotal(userOrders);
       const name = capitalizeName(userOrders[0].name);
+      const index = `${i + 1}/${arr.length}`;
       return (
         <React.Fragment key={id}>
-          {renderTable(orders[id], totals)}
+          {renderTable(orders[id], totals, index)}
           <div className="page-break"></div>
           {renderLetter(name, totals)}
-          <div className="page-break"></div>
+          {i + 1 < arr.length && <div className="page-break"></div>}
         </React.Fragment>
       );
     });
