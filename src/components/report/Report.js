@@ -46,12 +46,9 @@ const Report = ({
     if (!fetched) return <Loader show={true} />;
 
     return (
-      <main
-        className="order__container"
-        style={{ height: "auto", minHeight: "100vh" }}
-      >
+      <main className="report__container order__container print__blockify">
         <div
-          className="report__container order__container__col order__container__col--1 print-area"
+          className="report__container__report order__container__col order__container__col--1 print-area"
           ref={refPrint}
         >
           <GeneratedReport

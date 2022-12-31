@@ -139,7 +139,7 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
   };
   const renderLetter = (name, totals) => {
     return (
-      <div className="letter-container">
+      <div className="letter-container print__blockify">
         <img src={letterLogo} width="180" alt="logo" />
         <p>
           Dear {name},
