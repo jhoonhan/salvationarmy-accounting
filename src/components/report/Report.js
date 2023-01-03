@@ -88,13 +88,19 @@ const Report = ({
                 <button
                   className={customReport ? "" : "active"}
                   onClick={() => {
-                    setCustomReport(true);
+                    setCustomReport(false);
                     setSelectedUser("custom");
                   }}
                 >
                   Generated Report
                 </button>
-                <button className={customReport ? "active" : ""}>
+                <button
+                  className={customReport ? "active" : ""}
+                  onClick={() => {
+                    setCustomReport(true);
+                    setSelectedUser(null);
+                  }}
+                >
                   Custom Report
                 </button>
               </div>

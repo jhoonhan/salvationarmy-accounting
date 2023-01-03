@@ -219,7 +219,7 @@ const GeneratedReport = ({
       const index = `${i + 1}/${arr.length}`;
       return (
         <React.Fragment key={id}>
-          {!customReport && renderTable(orders[id], totals, index)}
+          {renderTable(orders[id], totals, index)}
           <div className="page-break"></div>
           {renderLetter(name, totals)}
           {i + 1 < arr.length && <div className="page-break"></div>}
@@ -228,9 +228,23 @@ const GeneratedReport = ({
     });
   };
 
+  const renderCustomReport = () => {
+    if (!selectedUser || !customReport) return null;
+    return renderLetter(
+      selectedUser?.name,
+      getTotal(sortedOrders[selectedUser?._id])
+    );
+  };
+
   const render = () => {
     // return <>{renderTable()}</>;
-    return <>{renderTableByUser(userList, sortedOrders)}</>;
+    console.log(sortedOrders[selectedUser?._id]);
+    return (
+      <>
+        {!customReport && renderTableByUser(userList, sortedOrders)}
+        {renderCustomReport()}
+      </>
+    );
   };
 
   return render();
