@@ -1,7 +1,19 @@
+.print-show {
+  display: none;
+  @media print {
+    display: inline;
+  }
+}
+.print-hide {
+  @media print {
+    display: none !important;
+  }
+}
 @media print {
   .print-hide-adea {
     display: none !important;
   }
+
   body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em !important;

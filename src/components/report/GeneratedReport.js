@@ -23,6 +23,11 @@ const GeneratedReport = ({
   const sortedOrders = sortOrderByKey(filteredOrders, "userId");
   const userList = Object.keys(sortedOrders);
 
+  const [letterData, setLetterData] = useState({
+    name: "",
+    total: 0,
+  });
+
   const convertOutput = (str) => {
     let output;
     if (str === 0 || str === "0") {
@@ -144,21 +149,49 @@ const GeneratedReport = ({
       </div>
     );
   };
+
+  const letterOnChange = (e, type) => {
+    if (type === "name") setLetterData({ ...letterData, name: e.target.value });
+  };
+  const letterOnTotalChange = (e) => {
+    setLetterData({ ...letterData, total: e.target.value });
+  };
+
   const renderLetter = (name, totals) => {
     return (
       <div className="letter-container">
         <img src={letterLogo} width="180" alt="logo" />
         <p>
-          Dear {name ? name : <input type="text" />},
+          Dear{" "}
+          {name ? (
+            name
+          ) : (
+            <input
+              onChange={(e) => letterOnChange(e, "name")}
+              className="print-hide"
+              type="text"
+            />
+          )}
+          <span className="print-show">{letterData.name}</span>
+          ,
           <br />
           <br />
           <br />
           We thank God for you! Your gifts of $
-          {totals ? totals.total.toFixed(2) : <input type="text" />} to The
-          Salvation Army of Kernersville, NC during the year of{" "}
-          {selectedYear ? selectedYear : <input type="text" />} are gratefully
-          acknowledged. Because of your contributions, our congregation has been
-          able to support the work of Jesus Christ locally and around the world.
+          {totals ? (
+            totals.total.toFixed(2)
+          ) : (
+            <input
+              onChange={letterOnTotalChange}
+              className="print-hide"
+              type="text"
+            />
+          )}
+          <span className="print-show">{letterData.total}</span> to The
+          Salvation Army of Kernersville, NC during the year of {selectedYear}{" "}
+          are gratefully acknowledged. Because of your contributions, our
+          congregation has been able to support the work of Jesus Christ locally
+          and around the world.
           <br />
           <br />
           For income tax purposes, it is important for us to state here that you
@@ -187,52 +220,64 @@ const GeneratedReport = ({
             <tr>
               <td>Amount</td>
               <td>
-                ${" "}
-                {!customReport ? (
-                  totals.cartridge.total.toFixed(2)
-                ) : (
-                  <input type="text" />
-                )}
+                <div className="total-value">
+                  $
+                  {!customReport ? (
+                    totals.cartridge.total.toFixed(2)
+                  ) : (
+                    <input className="print-hide" type="text" />
+                  )}
+                </div>
               </td>
               <td>
-                ${" "}
-                {!customReport ? (
-                  totals.offering.total.toFixed(2)
-                ) : (
-                  <input type="text" />
-                )}
+                <div className="total-value">
+                  $
+                  {!customReport ? (
+                    totals.offering.total.toFixed(2)
+                  ) : (
+                    <input className="print-hide" type="text" />
+                  )}
+                </div>
               </td>
               <td>
-                ${" "}
-                {!customReport ? (
-                  totals.thanksGiving.total.toFixed(2)
-                ) : (
-                  <input type="text" />
-                )}
+                <div className="total-value">
+                  $
+                  {!customReport ? (
+                    totals.thanksGiving.total.toFixed(2)
+                  ) : (
+                    <input className="print-hide" type="text" />
+                  )}
+                </div>
               </td>
               <td>
-                ${" "}
-                {!customReport ? (
-                  totals.selfDenial.total.toFixed(2)
-                ) : (
-                  <input type="text" />
-                )}
+                <div className="total-value">
+                  $
+                  {!customReport ? (
+                    totals.selfDenial.total.toFixed(2)
+                  ) : (
+                    <input className="print-hide" type="text" />
+                  )}
+                </div>
               </td>
               <td>
-                ${" "}
-                {!customReport ? (
-                  totals.buildingFund.total.toFixed(2)
-                ) : (
-                  <input type="text" />
-                )}
+                <div className="total-value">
+                  $
+                  {!customReport ? (
+                    totals.buildingFund.total.toFixed(2)
+                  ) : (
+                    <input className="print-hide" type="text" />
+                  )}
+                </div>
               </td>
               <td>
-                ${" "}
-                {!customReport ? (
-                  totals.total.toFixed(2)
-                ) : (
-                  <input type="text" />
-                )}
+                <div className="total-value">
+                  $
+                  {!customReport ? (
+                    totals.total.toFixed(2)
+                  ) : (
+                    <input className="print-hide" type="text" />
+                  )}
+                </div>
               </td>
             </tr>
           </tbody>

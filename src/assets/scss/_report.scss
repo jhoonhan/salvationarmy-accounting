@@ -12,13 +12,24 @@
   box-sizing: border-box;
 
   overflow: visible;
+  & input {
+    display: inline;
 
-  p {
+    padding: 0;
+  }
+  & p {
+    & input {
+      width: auto;
+      @media print {
+        width: min-content;
+      }
+    }
     @media print {
       font-size: 1.2rem;
       line-height: 1.5;
     }
   }
+
   img {
     margin: 0 auto;
     padding-bottom: 40px;
@@ -30,6 +41,10 @@
 
     td,
     th {
+      & .total-value {
+        display: grid;
+        grid-template-columns: auto 1fr;
+      }
       font-size: 1.2rem;
 
       text-align: center;
@@ -37,6 +52,12 @@
 
       border: 1px solid black;
       box-sizing: border-box;
+      & input {
+        width: 100%;
+        @media print {
+          width: min-content;
+        }
+      }
     }
   }
 }
