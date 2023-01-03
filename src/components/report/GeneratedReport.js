@@ -149,15 +149,16 @@ const GeneratedReport = ({
       <div className="letter-container">
         <img src={letterLogo} width="180" alt="logo" />
         <p>
-          Dear {name},
+          Dear {name ? name : <input type="text" />},
           <br />
           <br />
           <br />
-          We thank God for you! Your gifts of ${totals.total.toFixed(2)} to The
-          Salvation Army of Kernersville, NC during the year of {selectedYear}{" "}
-          are gratefully acknowledged. Because of your contributions, our
-          congregation has been able to support the work of Jesus Christ locally
-          and around the world.
+          We thank God for you! Your gifts of $
+          {totals ? totals.total.toFixed(2) : <input type="text" />} to The
+          Salvation Army of Kernersville, NC during the year of{" "}
+          {selectedYear ? selectedYear : <input type="text" />} are gratefully
+          acknowledged. Because of your contributions, our congregation has been
+          able to support the work of Jesus Christ locally and around the world.
           <br />
           <br />
           For income tax purposes, it is important for us to state here that you
@@ -185,12 +186,54 @@ const GeneratedReport = ({
           <tbody>
             <tr>
               <td>Amount</td>
-              <td>$ {showReport ? totals.cartridge.total.toFixed(2) : 0}</td>
-              <td>$ {showReport ? totals.offering.total.toFixed(2) : 0}</td>
-              <td>$ {showReport ? totals.thanksGiving.total.toFixed(2) : 0}</td>
-              <td>$ {showReport ? totals.selfDenial.total.toFixed(2) : 0}</td>
-              <td>$ {showReport ? totals.buildingFund.total.toFixed(2) : 0}</td>
-              <td>$ {showReport ? totals.total.toFixed(2) : 0}</td>
+              <td>
+                ${" "}
+                {!customReport ? (
+                  totals.cartridge.total.toFixed(2)
+                ) : (
+                  <input type="text" />
+                )}
+              </td>
+              <td>
+                ${" "}
+                {!customReport ? (
+                  totals.offering.total.toFixed(2)
+                ) : (
+                  <input type="text" />
+                )}
+              </td>
+              <td>
+                ${" "}
+                {!customReport ? (
+                  totals.thanksGiving.total.toFixed(2)
+                ) : (
+                  <input type="text" />
+                )}
+              </td>
+              <td>
+                ${" "}
+                {!customReport ? (
+                  totals.selfDenial.total.toFixed(2)
+                ) : (
+                  <input type="text" />
+                )}
+              </td>
+              <td>
+                ${" "}
+                {!customReport ? (
+                  totals.buildingFund.total.toFixed(2)
+                ) : (
+                  <input type="text" />
+                )}
+              </td>
+              <td>
+                ${" "}
+                {!customReport ? (
+                  totals.total.toFixed(2)
+                ) : (
+                  <input type="text" />
+                )}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -229,16 +272,11 @@ const GeneratedReport = ({
   };
 
   const renderCustomReport = () => {
-    if (!selectedUser || !customReport) return null;
-    return renderLetter(
-      selectedUser?.name,
-      getTotal(sortedOrders[selectedUser?._id])
-    );
+    if (!customReport) return null;
+    return renderLetter(null, null);
   };
 
   const render = () => {
-    // return <>{renderTable()}</>;
-    console.log(sortedOrders[selectedUser?._id]);
     return (
       <>
         {!customReport && renderTableByUser(userList, sortedOrders)}
