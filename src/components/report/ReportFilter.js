@@ -2,7 +2,21 @@ import React from "react";
 import { capitalizeName } from "../helpers/nameHelper";
 
 const ReportFilter = ({ selectedUser, selectedYear, setSelectedYear }) => {
-  const deafultYear = new Date().getFullYear();
+  const yearOptions = () => {
+    const currentYear = new Date().getFullYear();
+    const displayYears = [];
+
+    for (let i = 2021; i <= currentYear; i++) {
+      displayYears.unshift(i);
+    }
+    return displayYears.map((year) => {
+      return (
+        <option key={year} value={year}>
+          {year}
+        </option>
+      );
+    });
+  };
 
   return (
     <div
@@ -22,8 +36,7 @@ const ReportFilter = ({ selectedUser, selectedYear, setSelectedYear }) => {
             name="year"
             style={{ height: "4rem" }}
           >
-            <option value={2022}>2022</option>
-            <option value={2021}>2021</option>
+            {yearOptions()}
           </select>
         </div>
       </div>

@@ -6,7 +6,12 @@ import getTotal from "../helpers/getTotal";
 import { capitalizeName } from "../helpers/nameHelper";
 import letterLogo from "../../assets/images/logo_letter.png";
 
-const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
+const GeneratedReport = ({
+  orders,
+  selectedUser,
+  selectedYear,
+  customReport,
+}) => {
   const filteredOrders = useFilterOrders({
     orders,
     selectedUser,
@@ -214,7 +219,7 @@ const GeneratedReport = ({ orders, users, selectedUser, selectedYear }) => {
       const index = `${i + 1}/${arr.length}`;
       return (
         <React.Fragment key={id}>
-          {renderTable(orders[id], totals, index)}
+          {!customReport && renderTable(orders[id], totals, index)}
           <div className="page-break"></div>
           {renderLetter(name, totals)}
           {i + 1 < arr.length && <div className="page-break"></div>}

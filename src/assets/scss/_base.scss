@@ -25,6 +25,14 @@ button,
   &:hover {
     background-color: $color--primary--hover;
   }
+
+  &.inactive {
+    background-color: #ccc;
+  }
+
+  &.active {
+    background-color: $color--primary--hover;
+  }
 }
 .button-container--horizontal {
   display: grid;

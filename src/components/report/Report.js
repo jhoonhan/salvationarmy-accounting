@@ -21,6 +21,8 @@ const Report = ({
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
+  const [customReport, setCustomReport] = useState(false);
+
   const refPrint = useRef(null);
 
   // Init fecthe validate
@@ -36,6 +38,10 @@ const Report = ({
     if (!report.fetched) return;
     setFetched(true);
   }, [user, order, report, fetched]);
+
+  useEffect(() => {
+    console.log(selectedUser);
+  }, [selectedUser]);
 
   const onClickPrint = () => {
     refPrint.current.scrollTo(0, 0);
@@ -56,6 +62,7 @@ const Report = ({
             orders={order.orders}
             selectedUser={selectedUser}
             selectedYear={selectedYear}
+            customReport={customReport}
           />
         </div>
 
@@ -73,16 +80,25 @@ const Report = ({
             />
 
             <div className="ui__container">
-              <label>Print Report</label>
-              {selectedUser?.name ? (
-                <button onClick={onClickPrint}>
-                  Print Report for the selected user
+              <div>
+                <label>Generate Report</label>
+                <p>Use this option to create a custom report letter</p>
+              </div>
+              <div className="button-container--horizontal">
+                <button
+                  className={customReport ? "" : "active"}
+                  onClick={() => {
+                    setCustomReport(true);
+                    setSelectedUser("custom");
+                  }}
+                >
+                  Generated Report
                 </button>
-              ) : (
-                <button onClick={onClickPrint}>
-                  Print Report for every user
+                <button className={customReport ? "active" : ""}>
+                  Custom Report
                 </button>
-              )}
+              </div>
+              <button onClick={onClickPrint}>Print Report</button>
             </div>
           </section>
         </div>
