@@ -151,7 +151,22 @@ const GeneratedReport = ({
   };
 
   const letterOnChange = (e, type) => {
-    if (type === "name") setLetterData({ ...letterData, name: e.target.value });
+    const obj = { ...letterData };
+    obj[type] = e.target.value;
+    setLetterData(obj);
+    // if (type === "name") setLetterData({ ...letterData, name: e.target.value });
+    // if (type === "total")
+    //   setLetterData({ ...letterData, total: e.target.value });
+    // if (type === "cartridge")
+    //   setLetterData({ ...letterData, cartridge: e.target.value });
+    // if (type === "offering")
+    //   setLetterData({ ...letterData, offering: e.target.value });
+    // if (type === "thanksGiving")
+    //   setLetterData({ ...letterData, thanksGiving: e.target.value });
+    // if (type === "selfDenial")
+    //   setLetterData({ ...letterData, selfDenial: e.target.value });
+    // if (type === "buildingFund")
+    //   setLetterData({ ...letterData, buildingFund: e.target.value });
   };
   const letterOnTotalChange = (e) => {
     setLetterData({ ...letterData, total: e.target.value });
@@ -168,6 +183,7 @@ const GeneratedReport = ({
           ) : (
             <input
               onChange={(e) => letterOnChange(e, "name")}
+              value={selectedUser && selectedUser.name}
               className="print-hide"
               type="text"
             />
@@ -181,17 +197,19 @@ const GeneratedReport = ({
           {totals ? (
             totals.total.toFixed(2)
           ) : (
-            <input
-              onChange={letterOnTotalChange}
-              className="print-hide"
-              type="text"
-            />
-          )}
-          <span className="print-show">{letterData.total}</span> to The
-          Salvation Army of Kernersville, NC during the year of {selectedYear}{" "}
-          are gratefully acknowledged. Because of your contributions, our
-          congregation has been able to support the work of Jesus Christ locally
-          and around the world.
+            <>
+              <input
+                onChange={(e) => letterOnChange(e, "total")}
+                className="print-hide"
+                type="number"
+              />
+              <span className="print-show">{letterData.total}</span>
+            </>
+          )}{" "}
+          to The Salvation Army of Kernersville, NC during the year of{" "}
+          {selectedYear} are gratefully acknowledged. Because of your
+          contributions, our congregation has been able to support the work of
+          Jesus Christ locally and around the world.
           <br />
           <br />
           For income tax purposes, it is important for us to state here that you
@@ -225,7 +243,14 @@ const GeneratedReport = ({
                   {!customReport ? (
                     totals.cartridge.total.toFixed(2)
                   ) : (
-                    <input className="print-hide" type="text" />
+                    <>
+                      <input
+                        onChange={(e) => letterOnChange(e, "cartridge")}
+                        className="print-hide"
+                        type="text"
+                      />
+                      <span className="print-show">{letterData.cartridge}</span>
+                    </>
                   )}
                 </div>
               </td>
@@ -235,7 +260,14 @@ const GeneratedReport = ({
                   {!customReport ? (
                     totals.offering.total.toFixed(2)
                   ) : (
-                    <input className="print-hide" type="text" />
+                    <>
+                      <input
+                        onChange={(e) => letterOnChange(e, "offering")}
+                        className="print-hide"
+                        type="text"
+                      />
+                      <span className="print-show">{letterData.offering}</span>
+                    </>
                   )}
                 </div>
               </td>
@@ -245,7 +277,17 @@ const GeneratedReport = ({
                   {!customReport ? (
                     totals.thanksGiving.total.toFixed(2)
                   ) : (
-                    <input className="print-hide" type="text" />
+                    <>
+                      <input
+                        onChange={(e) => letterOnChange(e, "thanksGiving")}
+                        className="print-hide"
+                        type="text"
+                      />
+
+                      <span className="print-show">
+                        {letterData.thanksGiving}
+                      </span>
+                    </>
                   )}
                 </div>
               </td>
@@ -255,7 +297,16 @@ const GeneratedReport = ({
                   {!customReport ? (
                     totals.selfDenial.total.toFixed(2)
                   ) : (
-                    <input className="print-hide" type="text" />
+                    <>
+                      <input
+                        onChange={(e) => letterOnChange(e, "selfDenial")}
+                        className="print-hide"
+                        type="text"
+                      />
+                      <span className="print-show">
+                        {letterData.selfDenial}
+                      </span>
+                    </>
                   )}
                 </div>
               </td>
@@ -265,18 +316,22 @@ const GeneratedReport = ({
                   {!customReport ? (
                     totals.buildingFund.total.toFixed(2)
                   ) : (
-                    <input className="print-hide" type="text" />
+                    <>
+                      <input
+                        onChange={(e) => letterOnChange(e, "buildingFund")}
+                        className="print-hide"
+                        type="text"
+                      />
+                      <span className="print-show">
+                        {letterData.buildingFund}
+                      </span>
+                    </>
                   )}
                 </div>
               </td>
               <td>
                 <div className="total-value">
-                  $
-                  {!customReport ? (
-                    totals.total.toFixed(2)
-                  ) : (
-                    <input className="print-hide" type="text" />
-                  )}
+                  ${!customReport ? totals.total.toFixed(2) : letterData.total}
                 </div>
               </td>
             </tr>

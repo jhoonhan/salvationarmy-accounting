@@ -17,6 +17,7 @@ const UserForm = ({
   handleSubmit,
   refUserSearch,
   hideCreateForm,
+  hide,
 }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -198,6 +199,7 @@ const UserForm = ({
 
   return (
     <div className="ui__container">
+      {hide && <div className="overlay--block"></div>}
       {hideCreateForm ? null : (
         <div className="name-create__container">{renderCreateUser()}</div>
       )}
