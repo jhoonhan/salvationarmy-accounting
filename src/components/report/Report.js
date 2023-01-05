@@ -77,7 +77,6 @@ const Report = ({
               selectedUser={selectedUser}
               setSelectedUser={setSelectedUser}
               hideCreateForm={true}
-              hide={customReport}
             />
 
             <div className="ui__container">

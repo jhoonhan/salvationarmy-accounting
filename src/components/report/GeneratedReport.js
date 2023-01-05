@@ -23,10 +23,19 @@ const GeneratedReport = ({
   const sortedOrders = sortOrderByKey(filteredOrders, "userId");
   const userList = Object.keys(sortedOrders);
 
-  const [letterData, setLetterData] = useState({
+  const letterDataInitValue = {
     name: "",
     total: 0,
+  };
+  const [letterData, setLetterData] = useState({
+    ...letterDataInitValue,
   });
+
+  useEffect(() => {
+    if (!selectedUser) {
+      setLetterData(letterDataInitValue);
+    }
+  }, [selectedUser]);
 
   const convertOutput = (str) => {
     let output;
@@ -154,22 +163,6 @@ const GeneratedReport = ({
     const obj = { ...letterData };
     obj[type] = e.target.value;
     setLetterData(obj);
-    // if (type === "name") setLetterData({ ...letterData, name: e.target.value });
-    // if (type === "total")
-    //   setLetterData({ ...letterData, total: e.target.value });
-    // if (type === "cartridge")
-    //   setLetterData({ ...letterData, cartridge: e.target.value });
-    // if (type === "offering")
-    //   setLetterData({ ...letterData, offering: e.target.value });
-    // if (type === "thanksGiving")
-    //   setLetterData({ ...letterData, thanksGiving: e.target.value });
-    // if (type === "selfDenial")
-    //   setLetterData({ ...letterData, selfDenial: e.target.value });
-    // if (type === "buildingFund")
-    //   setLetterData({ ...letterData, buildingFund: e.target.value });
-  };
-  const letterOnTotalChange = (e) => {
-    setLetterData({ ...letterData, total: e.target.value });
   };
 
   const renderLetter = (name, totals) => {
@@ -178,32 +171,41 @@ const GeneratedReport = ({
         <img src={letterLogo} width="180" alt="logo" />
         <p>
           Dear{" "}
-          {name ? (
+          {!customReport ? (
             name
           ) : (
             <input
               onChange={(e) => letterOnChange(e, "name")}
-              value={selectedUser && selectedUser.name}
+              defaultValue={
+                selectedUser ? capitalizeName(selectedUser.name) : ""
+              }
               className="print-hide"
               type="text"
             />
           )}
-          <span className="print-show">{letterData.name}</span>
+          <span className="print-show">
+            {letterData.name
+              ? letterData.name
+              : capitalizeName(selectedUser?.name)}
+          </span>
           ,
           <br />
           <br />
           <br />
           We thank God for you! Your gifts of $
-          {totals ? (
+          {!customReport ? (
             totals.total.toFixed(2)
           ) : (
             <>
               <input
                 onChange={(e) => letterOnChange(e, "total")}
+                defaultValue={totals?.total.toFixed(2)}
                 className="print-hide"
                 type="number"
               />
-              <span className="print-show">{letterData.total}</span>
+              <span className="print-show">
+                {letterData.total ? letterData.total : totals?.total.toFixed(2)}
+              </span>
             </>
           )}{" "}
           to The Salvation Army of Kernersville, NC during the year of{" "}
@@ -373,7 +375,9 @@ const GeneratedReport = ({
 
   const renderCustomReport = () => {
     if (!customReport) return null;
-    return renderLetter(null, null);
+    const userOrders = sortedOrders[selectedUser?._id];
+    const totals = getTotal(userOrders);
+    return renderLetter(selectedUser?.name, totals);
   };
 
   const render = () => {
