@@ -25,17 +25,50 @@ const GeneratedReport = ({
 
   const letterDataInitValue = {
     name: "",
+    buildingFund: {
+      cash: 0,
+      check: 0,
+      total: 0,
+    },
+    cartridge: {
+      cash: 0,
+      check: 0,
+      total: 0,
+    },
+    offering: {
+      cash: 0,
+      check: 0,
+      total: 0,
+    },
+    selfDenial: {
+      cash: 0,
+      check: 0,
+      total: 0,
+    },
+    subTotalCash: 0,
+    subTotalCheck: 0,
+    thanksGiving: {
+      cash: 0,
+      check: 0,
+      total: 0,
+    },
     total: 0,
   };
-  const [letterData, setLetterData] = useState({
-    ...letterDataInitValue,
-  });
+  const [letterData, setLetterData] = useState(letterDataInitValue);
 
   useEffect(() => {
     if (!selectedUser) {
       setLetterData(letterDataInitValue);
     }
-    if (selectedUser) setLetterData({ name: selectedUser.name, total: 0 });
+    if (selectedUser) {
+      const userOrders = sortedOrders[selectedUser._id];
+      const totals = getTotal(userOrders);
+      setLetterData({
+        ...letterData,
+        name: selectedUser.name,
+        total: totals.total,
+      });
+    }
   }, [selectedUser]);
 
   const convertOutput = (str) => {
@@ -195,14 +228,13 @@ const GeneratedReport = ({
           <br />
           We thank God for you! Your gifts of $
           {!customReport ? (
-            totals.total.toFixed(2)
+            letterData.total.toFixed(2)
           ) : (
             <>
               <input
                 onChange={(e) =>
                   setLetterData({ ...letterData, total: e.target.value })
                 }
-                // defaultValue={totals?.total.toFixed(2)}
                 value={letterData.total}
                 className="print-hide"
                 type="number"
@@ -255,7 +287,9 @@ const GeneratedReport = ({
                         className="print-hide"
                         type="text"
                       />
-                      <span className="print-show">{letterData.cartridge}</span>
+                      <span className="print-show">
+                        {letterData.cartridge.total}
+                      </span>
                     </>
                   )}
                 </div>
@@ -272,7 +306,9 @@ const GeneratedReport = ({
                         className="print-hide"
                         type="text"
                       />
-                      <span className="print-show">{letterData.offering}</span>
+                      <span className="print-show">
+                        {letterData.offering.total}
+                      </span>
                     </>
                   )}
                 </div>
@@ -291,7 +327,7 @@ const GeneratedReport = ({
                       />
 
                       <span className="print-show">
-                        {letterData.thanksGiving}
+                        {letterData.thanksGiving.total}
                       </span>
                     </>
                   )}
@@ -310,7 +346,7 @@ const GeneratedReport = ({
                         type="text"
                       />
                       <span className="print-show">
-                        {letterData.selfDenial}
+                        {letterData.selfDenial.total}
                       </span>
                     </>
                   )}
@@ -329,7 +365,7 @@ const GeneratedReport = ({
                         type="text"
                       />
                       <span className="print-show">
-                        {letterData.buildingFund}
+                        {letterData.buildingFund.total}
                       </span>
                     </>
                   )}
@@ -385,6 +421,7 @@ const GeneratedReport = ({
   };
 
   const render = () => {
+    console.log(letterData);
     return (
       <>
         {!customReport && renderTableByUser(userList, sortedOrders)}

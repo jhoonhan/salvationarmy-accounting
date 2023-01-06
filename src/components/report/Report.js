@@ -39,9 +39,9 @@ const Report = ({
     setFetched(true);
   }, [user, order, report, fetched]);
 
-  useEffect(() => {
-    console.log(selectedUser);
-  }, [selectedUser]);
+  // useEffect(() => {
+  //   console.log(selectedUser);
+  // }, [selectedUser]);
 
   const onClickPrint = () => {
     refPrint.current.scrollTo(0, 0);
