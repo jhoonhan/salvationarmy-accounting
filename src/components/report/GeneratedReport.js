@@ -267,8 +267,11 @@ const GeneratedReport = ({
           <br />
           <br />
           <br />
-          We thank God for you! Your gifts of ${letterData.total.toFixed(2)} to
-          The Salvation Army of Kernersville, NC during the year of{" "}
+          We thank God for you! Your gifts of $
+          {!customReport
+            ? totals.total.toFixed(2)
+            : letterData.total.toFixed(2)}{" "}
+          to The Salvation Army of Kernersville, NC during the year of{" "}
           {selectedYear} are gratefully acknowledged. Because of your
           contributions, our congregation has been able to support the work of
           Jesus Christ locally and around the world.
