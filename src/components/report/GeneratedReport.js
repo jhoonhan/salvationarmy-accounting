@@ -17,9 +17,6 @@ const GeneratedReport = ({
     selectedUser,
     selectedYear,
   });
-  // const totals = useGetTotal(filteredOrders);
-  const [showReport, setShowReport] = useState(true);
-
   const sortedOrders = sortOrderByKey(filteredOrders, "userId");
   const userList = Object.keys(sortedOrders);
 
@@ -56,6 +53,7 @@ const GeneratedReport = ({
   };
   const [letterData, setLetterData] = useState(letterDataInitValue);
 
+  // State change based on the selected user
   useEffect(() => {
     if (!selectedUser) {
       setLetterData(letterDataInitValue);
@@ -71,6 +69,7 @@ const GeneratedReport = ({
     }
   }, [selectedUser]);
 
+  // Calculates custom report total value
   useEffect(() => {
     setLetterData({
       ...letterData,
@@ -99,50 +98,49 @@ const GeneratedReport = ({
     return output;
   };
 
-  const renderEmptyRow = (orders) => {
-    if (orders.length > 25) return null;
-    let arr = [];
-    for (let i = orders.length + 1; i <= 25; i++) {
-      arr.push(i);
-    }
-    return arr.map((el) => {
-      return (
-        <React.Fragment key={el}>
-          <div className="chart__empty-row">{el}</div>
-          <div className="chart__empty-row"></div>
-          <div className="chart__empty-row"></div>
-          <div className="chart__empty-row"></div>
-          <div className="chart__empty-row"></div>
-          <div className="chart__empty-row"></div>
-          <div className="chart__empty-row"></div>
-          <div className="chart__empty-row"></div>
-          <div className="chart__empty-row"></div>
-          <div className="chart__empty-row"></div>
-        </React.Fragment>
-      );
-    });
-  };
+  const renderTable = (orders, totals) => {
+    const renderEmptyRow = (orders) => {
+      if (orders.length > 25) return null;
+      let arr = [];
+      for (let i = orders.length + 1; i <= 25; i++) {
+        arr.push(i);
+      }
+      return arr.map((el) => {
+        return (
+          <React.Fragment key={el}>
+            <div className="chart__empty-row">{el}</div>
+            <div className="chart__empty-row"></div>
+            <div className="chart__empty-row"></div>
+            <div className="chart__empty-row"></div>
+            <div className="chart__empty-row"></div>
+            <div className="chart__empty-row"></div>
+            <div className="chart__empty-row"></div>
+            <div className="chart__empty-row"></div>
+            <div className="chart__empty-row"></div>
+            <div className="chart__empty-row"></div>
+          </React.Fragment>
+        );
+      });
+    };
 
-  const renderOrderRow = (orders) => {
-    return orders.map((order, i) => {
-      return (
-        <React.Fragment key={i}>
-          <div>{i + 1}</div>
-          <div>{order.date}</div>
-          <div>{order.checkNumber}</div>
-          <div>{convertOutput(order.amountCartridge)}</div>
-          <div>{convertOutput(order.amountOffering)}</div>
-          <div>{convertOutput(order.amountThanksgiving)}</div>
-          <div>{convertOutput(order.amountSelfDenial)}</div>
-          <div>{convertOutput(order.amountBuildingFund)}</div>
-          <div>$ {order.total.toFixed(2)}</div>
-          <div></div>
-        </React.Fragment>
-      );
-    });
-  };
-
-  const renderTable = (orders, totals, index) => {
+    const renderOrderRow = (orders) => {
+      return orders.map((order, i) => {
+        return (
+          <React.Fragment key={i}>
+            <div>{i + 1}</div>
+            <div>{order.date}</div>
+            <div>{order.checkNumber}</div>
+            <div>{convertOutput(order.amountCartridge)}</div>
+            <div>{convertOutput(order.amountOffering)}</div>
+            <div>{convertOutput(order.amountThanksgiving)}</div>
+            <div>{convertOutput(order.amountSelfDenial)}</div>
+            <div>{convertOutput(order.amountBuildingFund)}</div>
+            <div>$ {order.total.toFixed(2)}</div>
+            <div></div>
+          </React.Fragment>
+        );
+      });
+    };
     return (
       <div
         className="flex__vertical"
@@ -171,40 +169,40 @@ const GeneratedReport = ({
 
           <div>Total</div>
           <div></div>
-          {showReport && renderOrderRow(orders)}
+          {renderOrderRow(orders)}
           {renderEmptyRow(orders)}
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
           <div style={{ justifyContent: "end" }}>Subtotal Check:</div>
-          <div>$ {showReport ? totals.cartridge.check.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.offering.check.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.thanksGiving.check.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.selfDenial.check.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.buildingFund.check.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.subTotalCheck.toFixed(2) : 0}</div>
+          <div>$ {totals.cartridge.check.toFixed(2)}</div>
+          <div>$ {totals.offering.check.toFixed(2)}</div>
+          <div>$ {totals.thanksGiving.check.toFixed(2)}</div>
+          <div>$ {totals.selfDenial.check.toFixed(2)}</div>
+          <div>$ {totals.buildingFund.check.toFixed(2)}</div>
+          <div>$ {totals.subTotalCheck.toFixed(2)}</div>
           <div></div>
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
           <div style={{ justifyContent: "end" }}>Subtotal Cash:</div>
-          <div>$ {showReport ? totals.cartridge.cash.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.offering.cash.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.thanksGiving.cash.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.selfDenial.cash.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.buildingFund.cash.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.subTotalCash.toFixed(2) : 0}</div>
+          <div>$ {totals.cartridge.cash.toFixed(2)}</div>
+          <div>$ {totals.offering.cash.toFixed(2)}</div>
+          <div>$ {totals.thanksGiving.cash.toFixed(2)}</div>
+          <div>$ {totals.selfDenial.cash.toFixed(2)}</div>
+          <div>$ {totals.buildingFund.cash.toFixed(2)}</div>
+          <div>$ {totals.subTotalCash.toFixed(2)}</div>
           <div></div>
 
           <div></div>
           <div style={{ borderRight: "none" }}></div>
           <div style={{ justifyContent: "end" }}>Total:</div>
-          <div>$ {showReport ? totals.cartridge.total.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.offering.total.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.thanksGiving.total.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.selfDenial.total.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.buildingFund.total.toFixed(2) : 0}</div>
-          <div>$ {showReport ? totals.total.toFixed(2) : 0}</div>
+          <div>$ {totals.cartridge.total.toFixed(2)}</div>
+          <div>$ {totals.offering.total.toFixed(2)}</div>
+          <div>$ {totals.thanksGiving.total.toFixed(2)}</div>
+          <div>$ {totals.selfDenial.total.toFixed(2)}</div>
+          <div>$ {totals.buildingFund.total.toFixed(2)}</div>
+          <div>$ {totals.total.toFixed(2)}</div>
           <div></div>
         </div>
       </div>
@@ -331,16 +329,15 @@ const GeneratedReport = ({
     );
   };
 
-  const renderTableByUser = (userIds, orders) => {
+  const renderGeneratedReport = (userIds, orders) => {
     if (!userIds || !orders) return;
     return userIds.map((id, i, arr) => {
       const userOrders = orders[id];
       const totals = getTotal(userOrders);
       const name = capitalizeName(userOrders[0].name);
-      const index = `${i + 1}/${arr.length}`;
       return (
         <React.Fragment key={id}>
-          {renderTable(orders[id], totals, index)}
+          {renderTable(orders[id], totals)}
           <div className="page-break"></div>
           {renderLetter(name, totals)}
           {i + 1 < arr.length && <div className="page-break"></div>}
@@ -350,17 +347,15 @@ const GeneratedReport = ({
   };
 
   const renderCustomReport = () => {
-    if (!customReport) return null;
-    const userOrders = sortedOrders[selectedUser?._id];
-    const totals = getTotal(userOrders);
-    return renderLetter(selectedUser?.name, totals);
+    return renderLetter(selectedUser?.name);
   };
 
   const render = () => {
     return (
       <>
-        {!customReport && renderTableByUser(userList, sortedOrders)}
-        {renderCustomReport()}
+        {!customReport
+          ? renderGeneratedReport(userList, sortedOrders)
+          : renderCustomReport()}
       </>
     );
   };
