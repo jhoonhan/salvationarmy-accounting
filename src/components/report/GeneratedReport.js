@@ -35,6 +35,7 @@ const GeneratedReport = ({
     if (!selectedUser) {
       setLetterData(letterDataInitValue);
     }
+    if (selectedUser) setLetterData({ name: selectedUser.name, total: 0 });
   }, [selectedUser]);
 
   const convertOutput = (str) => {
@@ -175,10 +176,10 @@ const GeneratedReport = ({
             name
           ) : (
             <input
-              onChange={(e) => letterOnChange(e, "name")}
-              defaultValue={
-                selectedUser ? capitalizeName(selectedUser.name) : ""
+              onChange={(e) =>
+                setLetterData({ ...letterData, name: e.target.value })
               }
+              value={letterData.name}
               className="print-hide"
               type="text"
             />
@@ -198,8 +199,11 @@ const GeneratedReport = ({
           ) : (
             <>
               <input
-                onChange={(e) => letterOnChange(e, "total")}
-                defaultValue={totals?.total.toFixed(2)}
+                onChange={(e) =>
+                  setLetterData({ ...letterData, total: e.target.value })
+                }
+                // defaultValue={totals?.total.toFixed(2)}
+                value={letterData.total}
                 className="print-hide"
                 type="number"
               />
