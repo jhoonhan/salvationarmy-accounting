@@ -65,11 +65,29 @@ const GeneratedReport = ({
       const totals = getTotal(userOrders);
       setLetterData({
         ...letterData,
-        name: selectedUser.name,
-        total: totals.total,
+        ...totals,
+        name: capitalizeName(selectedUser.name),
       });
     }
   }, [selectedUser]);
+
+  useEffect(() => {
+    setLetterData({
+      ...letterData,
+      total:
+        +letterData.cartridge.total +
+        +letterData.buildingFund.total +
+        +letterData.offering.total +
+        +letterData.selfDenial.total +
+        +letterData.thanksGiving.total,
+    });
+  }, [
+    letterData.cartridge.total,
+    letterData.buildingFund.total,
+    letterData.offering.total,
+    letterData.selfDenial.total,
+    letterData.thanksGiving.total,
+  ]);
 
   const convertOutput = (str) => {
     let output;
@@ -193,13 +211,35 @@ const GeneratedReport = ({
     );
   };
 
-  const letterOnChange = (e, type) => {
-    const obj = { ...letterData };
-    obj[type] = e.target.value;
-    setLetterData(obj);
-  };
-
   const renderLetter = (name, totals) => {
+    const renderTableInput = (prop) => {
+      return (
+        <div className="total-value">
+          $
+          {!customReport ? (
+            totals[prop].total.toFixed(2)
+          ) : (
+            <>
+              <input
+                onChange={(e) => {
+                  setLetterData({
+                    ...letterData,
+                    [prop]: {
+                      ...letterData[prop],
+                      total: e.target.value,
+                    },
+                  });
+                }}
+                value={letterData[prop].total}
+                className="print-hide"
+                type="text"
+              />
+              <span className="print-show">{letterData[prop].total}</span>
+            </>
+          )}
+        </div>
+      );
+    };
     return (
       <div className="letter-container">
         <img src={letterLogo} width="180" alt="logo" />
@@ -208,43 +248,27 @@ const GeneratedReport = ({
           {!customReport ? (
             name
           ) : (
-            <input
-              onChange={(e) =>
-                setLetterData({ ...letterData, name: e.target.value })
-              }
-              value={letterData.name}
-              className="print-hide"
-              type="text"
-            />
+            <>
+              <input
+                onChange={(e) =>
+                  setLetterData({
+                    ...letterData,
+                    name: capitalizeName(e.target.value),
+                  })
+                }
+                value={letterData.name}
+                className="print-hide"
+                type="text"
+              />
+              <span className="print-show">{letterData.name}</span>
+            </>
           )}
-          <span className="print-show">
-            {letterData.name
-              ? letterData.name
-              : capitalizeName(selectedUser?.name)}
-          </span>
           ,
           <br />
           <br />
           <br />
-          We thank God for you! Your gifts of $
-          {!customReport ? (
-            letterData.total.toFixed(2)
-          ) : (
-            <>
-              <input
-                onChange={(e) =>
-                  setLetterData({ ...letterData, total: e.target.value })
-                }
-                value={letterData.total}
-                className="print-hide"
-                type="number"
-              />
-              <span className="print-show">
-                {letterData.total ? letterData.total : totals?.total.toFixed(2)}
-              </span>
-            </>
-          )}{" "}
-          to The Salvation Army of Kernersville, NC during the year of{" "}
+          We thank God for you! Your gifts of ${letterData.total.toFixed(2)} to
+          The Salvation Army of Kernersville, NC during the year of{" "}
           {selectedYear} are gratefully acknowledged. Because of your
           contributions, our congregation has been able to support the work of
           Jesus Christ locally and around the world.
@@ -275,102 +299,11 @@ const GeneratedReport = ({
           <tbody>
             <tr>
               <td>Amount</td>
-              <td>
-                <div className="total-value">
-                  $
-                  {!customReport ? (
-                    totals.cartridge.total.toFixed(2)
-                  ) : (
-                    <>
-                      <input
-                        onChange={(e) => letterOnChange(e, "cartridge")}
-                        className="print-hide"
-                        type="text"
-                      />
-                      <span className="print-show">
-                        {letterData.cartridge.total}
-                      </span>
-                    </>
-                  )}
-                </div>
-              </td>
-              <td>
-                <div className="total-value">
-                  $
-                  {!customReport ? (
-                    totals.offering.total.toFixed(2)
-                  ) : (
-                    <>
-                      <input
-                        onChange={(e) => letterOnChange(e, "offering")}
-                        className="print-hide"
-                        type="text"
-                      />
-                      <span className="print-show">
-                        {letterData.offering.total}
-                      </span>
-                    </>
-                  )}
-                </div>
-              </td>
-              <td>
-                <div className="total-value">
-                  $
-                  {!customReport ? (
-                    totals.thanksGiving.total.toFixed(2)
-                  ) : (
-                    <>
-                      <input
-                        onChange={(e) => letterOnChange(e, "thanksGiving")}
-                        className="print-hide"
-                        type="text"
-                      />
-
-                      <span className="print-show">
-                        {letterData.thanksGiving.total}
-                      </span>
-                    </>
-                  )}
-                </div>
-              </td>
-              <td>
-                <div className="total-value">
-                  $
-                  {!customReport ? (
-                    totals.selfDenial.total.toFixed(2)
-                  ) : (
-                    <>
-                      <input
-                        onChange={(e) => letterOnChange(e, "selfDenial")}
-                        className="print-hide"
-                        type="text"
-                      />
-                      <span className="print-show">
-                        {letterData.selfDenial.total}
-                      </span>
-                    </>
-                  )}
-                </div>
-              </td>
-              <td>
-                <div className="total-value">
-                  $
-                  {!customReport ? (
-                    totals.buildingFund.total.toFixed(2)
-                  ) : (
-                    <>
-                      <input
-                        onChange={(e) => letterOnChange(e, "buildingFund")}
-                        className="print-hide"
-                        type="text"
-                      />
-                      <span className="print-show">
-                        {letterData.buildingFund.total}
-                      </span>
-                    </>
-                  )}
-                </div>
-              </td>
+              <td>{renderTableInput("cartridge")}</td>
+              <td>{renderTableInput("offering")}</td>
+              <td>{renderTableInput("thanksGiving")}</td>
+              <td>{renderTableInput("selfDenial")}</td>
+              <td>{renderTableInput("buildingFund")}</td>
               <td>
                 <div className="total-value">
                   ${!customReport ? totals.total.toFixed(2) : letterData.total}
@@ -421,7 +354,6 @@ const GeneratedReport = ({
   };
 
   const render = () => {
-    console.log(letterData);
     return (
       <>
         {!customReport && renderTableByUser(userList, sortedOrders)}
