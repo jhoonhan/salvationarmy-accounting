@@ -251,7 +251,7 @@ const GeneratedReport = ({
                 onChange={(e) =>
                   setLetterData({
                     ...letterData,
-                    name: capitalizeName(e.target.value),
+                    name: e.target.value,
                   })
                 }
                 value={letterData.name}
@@ -318,6 +318,9 @@ const GeneratedReport = ({
           <br />
           <br />
           <br />
+          <br />
+          <br />
+          <br />
           Minkee Kim, Captain
           <br />
           The Salvation Army of Kernersville, NC
@@ -336,12 +339,12 @@ const GeneratedReport = ({
       const totals = getTotal(userOrders);
       const name = capitalizeName(userOrders[0].name);
       return (
-        <React.Fragment key={id}>
+        <div key={id}>
           {renderTable(orders[id], totals)}
           <div className="page-break"></div>
           {renderLetter(name, totals)}
           {i + 1 < arr.length && <div className="page-break"></div>}
-        </React.Fragment>
+        </div>
       );
     });
   };
