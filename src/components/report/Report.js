@@ -89,7 +89,7 @@ const Report = ({
                   className={customReport ? "" : "active"}
                   onClick={() => {
                     setCustomReport(false);
-                    setSelectedUser("custom");
+                    // setSelectedUser("custom");
                   }}
                 >
                   Generated Report
@@ -98,7 +98,7 @@ const Report = ({
                   className={customReport ? "active" : ""}
                   onClick={() => {
                     setCustomReport(true);
-                    setSelectedUser(null);
+                    // setSelectedUser(null);
                   }}
                 >
                   Custom Report
